@@ -11,7 +11,7 @@ vardef: 'var' variable ';';
 definition:  IDENT parameters ( ':' type)? '{' vardef* statement* '}'
             | vardef
             | 'struct' IDENT '{'(variable ';')*'}'//struct definition
-            | IDENT':'type('['expression']')+//array definition
+            | IDENT':'('['expression']')+type//array definition
             ;
 
 type: 'int'|'float'|'char';
