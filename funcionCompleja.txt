@@ -1,0 +1,9 @@
+
+
+letraHipoteca(capital:float, meses:int, interes:float):float {
+	var mensual:float;
+
+	mensual = interes / 12.0;
+	return capital * mensual / (100.0 * (1.0 - potencia(1.0 + mensual/100.0, 0 - meses)));
+}
+
