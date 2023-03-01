@@ -8,20 +8,26 @@ start: definition* EOF;
 variable: IDENT ':' type;
 vardef: 'var' variable ';';
 
-definition:  IDENT parameters ( ':' type)? '{' vardef* statement* '}'
+definition:  IDENT parameters ( ':' type)? '{' vardef* statement* '}'//FUNCTION DEFINITION.
             | vardef
-            | 'struct' IDENT '{'(variable ';')*'}'//struct definition
-            | IDENT':'('['expression']')+type//array definition
+            | 'struct' IDENT '{'(variable ';')*'}'';' //Struct definition
             ;
 
-type: 'int'|'float'|'char';
+array: ('['expression']')+ type;
+
+type:'int'
+    |'float'
+    |'char'
+    | array
+    | IDENT //For Structs ->var empleado: Persona;
+    ;
+
 
 
 parameters:'('(variable (','variable)*)?')' ;// Parenthesis must appear but params are optional
 
 
-statement:invocation ';'
-        | IDENT '=' expression ';' //Assigment
+statement:IDENT '=' expression ';' //Assigment
         | 'if' '('expression')' '{' statement* '}' ( 'else'  '{' statement* '}' )?
         | 'while' '('expression')' '{' statement* '}'
         | 'read' expression ';'
