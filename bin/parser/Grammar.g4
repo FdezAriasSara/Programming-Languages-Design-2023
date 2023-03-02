@@ -18,7 +18,7 @@ definition:  IDENT parameters ( ':' type)? '{' vardef* statement* '}'//FUNCTION 
 type:'int'
     |'float'
     |'char'
-    | ('['LITENT']')+ type // var a:[i+1] int; would not be allowed.
+    | ('['INT_CONSTANT']')+ type // var a:[i+1] int; would not be allowed.
     | IDENT //For Structs ->var empleado: Persona;
     ;
 

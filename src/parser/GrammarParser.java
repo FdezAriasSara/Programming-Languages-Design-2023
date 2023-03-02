@@ -23,7 +23,7 @@ public class GrammarParser extends Parser {
 		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, T__29=30, T__30=31, 
 		T__31=32, T__32=33, T__33=34, T__34=35, T__35=36, T__36=37, INT_CONSTANT=38, 
 		REAL_CONSTANT=39, CHAR_CONSTANT=40, IDENT=41, LINE_COMMENT=42, MULTILINE_COMMENT=43, 
-		WHITESPACE=44, LITENT=45;
+		WHITESPACE=44;
 	public static final int
 		RULE_start = 0, RULE_variable = 1, RULE_vardef = 2, RULE_definition = 3, 
 		RULE_type = 4, RULE_parameters = 5, RULE_statement = 6, RULE_invocation = 7, 
@@ -52,7 +52,7 @@ public class GrammarParser extends Parser {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, "INT_CONSTANT", "REAL_CONSTANT", "CHAR_CONSTANT", "IDENT", 
-			"LINE_COMMENT", "MULTILINE_COMMENT", "WHITESPACE", "LITENT"
+			"LINE_COMMENT", "MULTILINE_COMMENT", "WHITESPACE"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -377,9 +377,9 @@ public class GrammarParser extends Parser {
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
-		public List<TerminalNode> LITENT() { return getTokens(GrammarParser.LITENT); }
-		public TerminalNode LITENT(int i) {
-			return getToken(GrammarParser.LITENT, i);
+		public List<TerminalNode> INT_CONSTANT() { return getTokens(GrammarParser.INT_CONSTANT); }
+		public TerminalNode INT_CONSTANT(int i) {
+			return getToken(GrammarParser.INT_CONSTANT, i);
 		}
 		public TerminalNode IDENT() { return getToken(GrammarParser.IDENT, 0); }
 		public TypeContext(ParserRuleContext parent, int invokingState) {
@@ -431,7 +431,7 @@ public class GrammarParser extends Parser {
 						setState(74);
 						match(T__9);
 						setState(75);
-						match(LITENT);
+						match(INT_CONSTANT);
 						setState(76);
 						match(T__10);
 						}
@@ -1088,7 +1088,7 @@ public class GrammarParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3/\u00e3\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3.\u00e3\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\3\2\7\2"+
 		"\26\n\2\f\2\16\2\31\13\2\3\2\3\2\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\5\3"+
 		"\5\3\5\3\5\5\5)\n\5\3\5\3\5\7\5-\n\5\f\5\16\5\60\13\5\3\5\7\5\63\n\5\f"+
@@ -1117,7 +1117,7 @@ public class GrammarParser extends Parser {
 		"\7+\2\2<B\7\6\2\2=>\5\4\3\2>?\7\5\2\2?A\3\2\2\2@=\3\2\2\2AD\3\2\2\2B@"+
 		"\3\2\2\2BC\3\2\2\2CE\3\2\2\2DB\3\2\2\2EF\7\7\2\2FH\7\5\2\2G$\3\2\2\2G"+
 		"9\3\2\2\2G:\3\2\2\2H\t\3\2\2\2IV\7\t\2\2JV\7\n\2\2KV\7\13\2\2LM\7\f\2"+
-		"\2MN\7/\2\2NP\7\r\2\2OL\3\2\2\2PQ\3\2\2\2QO\3\2\2\2QR\3\2\2\2RS\3\2\2"+
+		"\2MN\7(\2\2NP\7\r\2\2OL\3\2\2\2PQ\3\2\2\2QO\3\2\2\2QR\3\2\2\2RS\3\2\2"+
 		"\2SV\5\n\6\2TV\7+\2\2UI\3\2\2\2UJ\3\2\2\2UK\3\2\2\2UO\3\2\2\2UT\3\2\2"+
 		"\2V\13\3\2\2\2W`\7\16\2\2X]\5\4\3\2YZ\7\17\2\2Z\\\5\4\3\2[Y\3\2\2\2\\"+
 		"_\3\2\2\2][\3\2\2\2]^\3\2\2\2^a\3\2\2\2_]\3\2\2\2`X\3\2\2\2`a\3\2\2\2"+

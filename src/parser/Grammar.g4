@@ -13,15 +13,12 @@ definition:  IDENT parameters ( ':' type)? '{' vardef* statement* '}'//FUNCTION 
             | 'struct' IDENT '{'(variable ';')*'}'';' //Struct definition
             ;
 
-
-
 type:'int'
     |'float'
     |'char'
-    | ('['LITENT']')+ type // var a:[i+1] int; would not be allowed.
+    | ('['INT_CONSTANT']')+ type // var a:[i+1] int; would not be allowed.
     | IDENT //For Structs ->var empleado: Persona;
     ;
-
 
 
 parameters:'('(variable (','variable)*)?')' ;// Parenthesis must appear but params are optional
