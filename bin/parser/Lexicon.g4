@@ -9,7 +9,8 @@ REAL_CONSTANT
     //It's mandatory that there are digits on the decimal part.
     ;
     CHAR_CONSTANT
-        :'\''[a-zA-Z|'\n']'\''
+        :'\'\\n\''
+        |'\''~[ \t\r\n]'\''
         ;
 
 IDENT
