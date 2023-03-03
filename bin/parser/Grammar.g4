@@ -12,7 +12,6 @@ definition:  IDENT parameters ( ':' type)? '{' vardef* statement* '}'//FUNCTION 
             | vardef
             | 'struct' IDENT '{'(variable ';')*'}'';' //Struct definition
             ;
-
 type:'int'
     |'float'
     |'char'
@@ -20,9 +19,7 @@ type:'int'
     | IDENT //For Structs ->var empleado: Persona;
     ;
 
-
 parameters:'('(variable (','variable)*)?')' ;// Parenthesis must appear but params are optional
-
 
 statement:IDENT '=' expression ';' //Assigment
         | 'if' '('expression')' '{' statement* '}' ( 'else'  '{' statement* '}' )?
@@ -45,8 +42,18 @@ expression:  IDENT // variable ref
             | expression '||' expression
             | '!' expression
             | '<'type'>' '('expression')' //cast
-            | expression ('['expression']')+//Array access
-            | expression'.' IDENT //accessing struct field.
+            | expression ('['expression']')+ //array access.
+            | expression'.' IDENT //struct field access.
             | invocation //Invocations can appear as sentences or expressions.
             | '('expression')'
             ;
+
+/*
+Decisions taken:
+
+It's important to use expression in array access instead of IDENT because, we want to do things like:
+functionName()[2][1];
+or structname.structfield[0][9]
+and so on..
+
+*/
