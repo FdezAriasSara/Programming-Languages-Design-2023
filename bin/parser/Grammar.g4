@@ -13,15 +13,12 @@ definition:  IDENT parameters ( ':' type)? '{' vardef* statement* '}'//FUNCTION 
             | 'struct' IDENT '{'(variable ';')*'}'';' //Struct definition
             ;
 
-
-
 type:'int'
     |'float'
     |'char'
     | ('['INT_CONSTANT']')+ type // var a:[i+1] int; would not be allowed.
     | IDENT //For Structs ->var empleado: Persona;
     ;
-
 
 
 parameters:'('(variable (','variable)*)?')' ;// Parenthesis must appear but params are optional
@@ -37,10 +34,10 @@ statement:IDENT '=' expression ';' //Assigment
         ;
 invocation :IDENT '('(expression (','expression)*)?')' ; //Arguments are passed BY VALUE.
 
-expression:  INT_CONSTANT
+expression:  IDENT // variable ref
+            |INT_CONSTANT
             | REAL_CONSTANT
             | CHAR_CONSTANT
-            | IDENT // variable ref
             | expression ('*'|'/') expression
             | expression ('+'|'-') expression
             | expression ('>'|'<'|'>='|'<='|'=='|'!=') expression
@@ -48,8 +45,8 @@ expression:  INT_CONSTANT
             | expression '||' expression
             | '!' expression
             | '<'type'>' '('expression')' //cast
-            | IDENT ('['expression']')+//Array access
-            | IDENT'.' expression //accessing struct field.
+            | expression ('['expression']')+//Array access
+            | expression'.' IDENT //accessing struct field.
             | invocation //Invocations can appear as sentences or expressions.
             | '('expression')'
             ;

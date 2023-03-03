@@ -5,7 +5,7 @@ NODES
 program -> definitions:definition*;
 
 varDefinition -> type name:string;
-funcitonDefinition-> name:string parameters:variable* returnType:type localDefs:->varDefinition*  statements:statement*
+functionDefinition-> name:string parameters:variable* returnType:type localDefs:->varDefinition*  statements:statement*
 structDefinition->name:string fields:variable*;
 variable: name:string type;
 
@@ -24,12 +24,12 @@ invocation:statement-> name:string parameters:variable*;
 return:statement-> expression;
 
 arithmeticExpression:expression -> left:expression operator:string right:expression;
-comparisson:expression-> left:expression operator:string right:expression;
+comparison:expression-> left:expression operator:string right:expression;
 and:expression-> left:expression  right:expression;
 or:expression-> left:expression  right:expression;
 not:expression-> left:expression  right:expression;
 cast:expression-> type expression;
-arrayAccess:expression-> name:string  postion:expression*;
+arrayAccess:expression-> name:string  position:expression*;
 structFieldAccess:expression-> field:expression 
 invocation:expression-> name:string parameters:variable*;
 variable:expression -> name:string;
