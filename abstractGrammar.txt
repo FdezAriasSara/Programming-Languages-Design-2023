@@ -1,39 +1,40 @@
 
 CATEGORIES
-expression, definition,statement, type 
+expression, definition,statement, type
+
 NODES
 Program -> definitions:definition*;
-Variable-> name:string type;
 
-VarDefinition:definition  -> type name:string;
-FunctionDefinition:definition -> name:string parameters:variable* returnType:type localDefs:->varDefinition*  statements:statement*
+
+VarDefinition:definition -> type name:string;
+FunctionDefinition:definition -> name:string parameters:variable* returnType:type localDefs:varDefinition*  statements:statement*;
 StructDefinition:definition ->name:string fields:variable*;
 
 
 IntType:type -> ;
-RealType:type -> ;
+FloatType:type -> ;
 CharType:type -> ;
-ArrayType:type-> dimensions:int* type;
-StructType:type-> name:string;
+ArrayType:type -> dimensions:IntValue* type;
+StructType:type -> name:string;
 
 Print:statement -> expression variant:string;
-Read:statement-> expression;
-If:statement-> condition:expression body:statement*  else:statement*
-While:statement->condition:expression body:statement*
+Read:statement -> expression;
+IfStatement:statement -> condition:expression body:statement*  elseBody:statement*;
+While:statement ->condition:expression body:statement*;
 Assignment:statement -> left:expression right:expression;
-Invocation:statement-> name:string parameters:variable*;
-Return:statement-> expression;
+Invocation:statement -> name:string parameters:variable*;
+Return:statement -> expression;
 
 ArithmeticExpression:expression -> left:expression operator:string right:expression;
-Comparison:expression-> left:expression operator:string right:expression;
-And:expression-> left:expression  right:expression;
-Or:expression-> left:expression  right:expression;
-Not:expression-> left:expression  right:expression;
-Cast:expression-> type expression;
-ArrayAccess:expression-> name:string  position:expression*;
-StructFieldAccess:expression-> field:expression
-Invocation:expression-> name:string parameters:variable*;
+Comparison:expression -> left:expression operator:string right:expression;
+And:expression -> left:expression  right:expression;
+Or:expression -> left:expression  right:expression;
+Not:expression -> expression;
+Cast:expression -> type expression;
+ArrayAccess:expression -> name:string  position:expression*;
+StructFieldAccess:expression -> struct:expression field:string;
+
 Variable:expression -> name:string;
 IntValue:expression -> value:string;
-RealValue:expression -> value:string;
-Character:expression -> value:string;
+FloatValue:expression -> value:string;
+CharValue:expression -> value:string;

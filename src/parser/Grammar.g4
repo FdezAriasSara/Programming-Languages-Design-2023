@@ -2,35 +2,50 @@ grammar Grammar
 	;
 import Lexicon
 	;
+@parser :: header{
+    import ast.*;
+    import ast.definition.*;
+    import ast.statement.*;
+    import ast.type.*;
+    import ast.expression.*;
+
+}
 
 start returns[Program ast]
     : definitions+=definition* EOF {$ast=new Program($definitions);}
     ;
+
 variable returns [Variable ast]
-        : IDENT ':' type {$ast=new Variable($IDENT.text,type.ast);}
+        : IDENT ':' type {$ast=new Variable($type.ast,$IDENT.text);}
         ;
-varDefinition returns [Variable ast]
-       : 'var' variable ';' {$ast=variable;};
+
+varDefinition returns [VarDefinition ast]
+       : 'var' variable ';' {$ast=new VarDefinition($variable.ast.getName(),$variable.ast.getType()); }
+       ;
+
 parameters returns [List<Variable> list=new ArrayList<Variable>(); ]
-           :(var+=variable (','var+=variable)*)? {$list=var:}  ;
+           : (var+=variable (','var+=variable)*)? {$list=$var;}
+           ;
+
 definition returns [Definition ast]
-            :  IDENT '(' parameters')' ( ':' type)? '{' localDefs+=varDefinition* sts+=statement* '}'{$ast=new FunctionDefinition( parameters.list, type.ast, $localDefs, $sts);}
-            | varDefinition {$ast=varDefinition.ast;}
-            | 'struct' IDENT '{'(fields+=variable ';')*'}'';' {$ast=new StructDefinition($IDENT.text, $fields);} //Struct definition
-            ;
+          :  IDENT '(' parameters')' ( ':' type)? '{' localDefs+=varDefinition* sts+=statement* '}'{$ast=new FunctionDefinition($IDENT.text, $parameters.list, $type.ast, $localDefs, $sts);}
+          | varDefinition {$ast=$varDefinition.ast;}
+          | 'struct' IDENT '{'(fields+=variable ';')*'}'';' {$ast=new StructDefinition($IDENT.text, $fields);} //Struct definition
+          ;
+
 type  returns [Type ast]
     :'int' {$ast=new IntType();}
     |'float' {$ast=new FloatType();}
     |'char' {$ast=new CharType();}
-    | ('['INT_CONSTANT']')+ type {$ast=new ArrayType(,$type.ast );}
-     // var a:[i+1] int; would not be allowed.
+    | ('['dimensions+=INT_CONSTANT']')+ type {$ast=new ArrayType($dimensions,$type.ast );} // var a:[i+1] int; would not be allowed.
     | IDENT {$ast=new StructType($IDENT.text );}
     ;
+
 statement returns [Statement ast]
-        :IDENT '=' expression ';' {$ast=new Assigment($IDENT.text, $expression.ast);} //Assigment
-        | 'if' '('condition=expression')' '{' ifBody+=statement* '}' ( 'else'  '{' elseBody+=statement* '}' )? {$ast=new If($IDENT.text, $condition.ast, $ifBody.ast, $elseBody.ast);}
+        :IDENT '=' expression ';' {$ast=new Assignment($IDENT.text, $expression.ast);} //Assigment
+        | 'if' '('condition=expression')' '{' ifBody+=statement* '}' ( 'else'  '{' elseBody+=statement* '}' )? {$ast=new IfStatement( $condition.ast, $ifBody, $elseBody);}
         | 'while' '('condition=expression')' '{' body+=statement* '}'{$ast=new While($condition.ast, $body);}
-        | 'read' expression ';' {$ast=new Read($expression.ast;}
+        | 'read' expression ';' {$ast=new Read($expression.ast);}
         | variant=('print' |'printsp'|'println' ) expression? ';'{$ast=new Print($variant,$expression.ast);}
         | invocation ';'{$ast= $invocation.ast;}
         | 'return' expression ';'{$ast=new Return($expression.ast);}
@@ -40,30 +55,46 @@ invocation returns [Invocation ast]
         ; //Arguments are passed BY VALUE.
 
 expression returns [Expression ast]
-            : IDENT // variable ref
+            : IDENT //{$ast=new Variable($IDENT.text);}?????????????????????????????????????? // variable ref
             | INT_CONSTANT {$ast=new IntValue($INT_CONSTANT.text);}
-            | REAL_CONSTANT{$ast=new RealValue($REAL_CONSTANT.text);}
-            | CHAR_CONSTANT{$ast=new Character($CHAR_CONSTANT.text);}
+            | REAL_CONSTANT{$ast=new FloatValue($REAL_CONSTANT.text);}
+            | CHAR_CONSTANT{$ast=new CharValue($CHAR_CONSTANT.text);}
             | left=expression operator=('*'|'/') right=expression {$ast=new ArithmeticExpression($left.ast, $operator, $right.ast);}
             | left=expression operator=('+'|'-') right=expression {$ast=new ArithmeticExpression($left.ast, $operator, $right.ast);}
             | left=expression operator=('>'|'<'|'>='|'<='|'=='|'!=') right=expression {$ast=new Comparison($left.ast, $operator, $right.ast);}
             | expression '&&' expression {$ast=new And($left.ast , $right.ast);}
-            | expression '||' expression {$ast=new Or($left.ast, , $right.ast);}
+            | expression '||' expression {$ast=new Or($left.ast, $right.ast);}
             | '!' expression {$ast=new Not($expression.ast);}
             | '<'type'>' '('expression')' {$ast=new Cast($type.ast,$expression.ast);}
             | array=expression ('['dimensions+=expression']')+ {$ast=new ArrayAccess($array.ast,$dimensions);}
             | struct=expression'.' IDENT {$ast=new StructFieldAccess($struct.ast,$IDENT.text);}//struct field access.
-            | invocation {$ast=invocation.ast;}//Invocations can appear as sentences or expressions.
+            | invocation {$ast=$invocation.ast;}//Invocations can appear as sentences or expressions.
             | '('expression')'
             ;
 
 
 
 
-//PREGUNTAS: ARRAY ACCESS? EXPRESSION O IDENT?
-//AGRUPACIÓN CON PARÉNTESIS?
-//comprobar que el character_constant esta bien
+//PREGUNTAS:
+//______________PREGUNTA 1---------------------
+// Variable, puede ser o no expression... Debería el Objeto variable tener Type?
+// En la gramática abstracta tengo Variable:expression -> name:string;
+//  ->Entonces como haríamos en IDENT (variable como  expression)?
+//      ->podría modificar y añadir un constructor a mano que no requiera el tipo? y que se asigne en asignación de tipos?
+//______________RESPUESTA_PREGUNTA 1---------------------
 
+//______________PREGUNTA 2---------------------
+// Es correcto que las dimensiones de array se especifiquen como IntType y no un integer normal de java?
+//  ->al generar con vgen, cuando intenté utilizar el int de java: "WARNING. Recuerde implementar la clase 'Integer' (se usa en el nodo "ArrayType" pero no ha sido definida como Categor´┐¢a o Nodo)."
+//______________RESPUESTA_PREGUNTA 2---------------------
+//______________PREGUNTA 3---------------------
+//En la regla de  ARRAY ACCESS? EXPRESSION O IDENT? En clase (teoría) usamos una expresión , ya que estas podían ser de tipos compuestos
+//______________RESPUESTA_PREGUNTA 3---------------------
+//______________PREGUNTA 4---------------------
+//AGRUPACIÓN CON PARÉNTESIS SE GENERA NODO "in situ" O SE GENERA EN LA EXPRESION?
+//______________RESPUESTA_PREGUNTA 4---------------------
+//______________PREGUNTA 5---------------------
+//comprobar que el character_constant esta bien en lexicon.g4
 
 /*
 Decisions taken:
