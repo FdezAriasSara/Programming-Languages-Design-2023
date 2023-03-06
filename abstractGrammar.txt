@@ -2,37 +2,38 @@
 CATEGORIES
 expression, definition,statement, type 
 NODES
-program -> definitions:definition*;
+Program -> definitions:definition*;
+Variable-> name:string type;
 
-varDefinition -> type name:string;
-functionDefinition-> name:string parameters:variable* returnType:type localDefs:->varDefinition*  statements:statement*
-structDefinition->name:string fields:variable*;
-variable: name:string type;
+VarDefinition:definition  -> type name:string;
+FunctionDefinition:definition -> name:string parameters:variable* returnType:type localDefs:->varDefinition*  statements:statement*
+StructDefinition:definition ->name:string fields:variable*;
 
-intType:type -> ;
-realType:type -> ;
-charType:type -> ;
-arrayType:type-> dimensions:int* type;
-structType:type-> name:string;
 
-print:statement -> expression variant:string;
-read:statement-> expression;
-if:statement-> condition:expression body:statement*  else:statement*
-while:statement->condition:expression body:statement*
-assignment:statement -> left:expression right:expression;
-invocation:statement-> name:string parameters:variable*;
-return:statement-> expression;
+IntType:type -> ;
+RealType:type -> ;
+CharType:type -> ;
+ArrayType:type-> dimensions:int* type;
+StructType:type-> name:string;
 
-arithmeticExpression:expression -> left:expression operator:string right:expression;
-comparison:expression-> left:expression operator:string right:expression;
-and:expression-> left:expression  right:expression;
-or:expression-> left:expression  right:expression;
-not:expression-> left:expression  right:expression;
-cast:expression-> type expression;
-arrayAccess:expression-> name:string  position:expression*;
-structFieldAccess:expression-> field:expression 
-invocation:expression-> name:string parameters:variable*;
-variable:expression -> name:string;
-intConstant:expression -> value:string;
-realConstant:expression -> value:string;
-charConstant:expression -> value:string;
+Print:statement -> expression variant:string;
+Read:statement-> expression;
+If:statement-> condition:expression body:statement*  else:statement*
+While:statement->condition:expression body:statement*
+Assignment:statement -> left:expression right:expression;
+Invocation:statement-> name:string parameters:variable*;
+Return:statement-> expression;
+
+ArithmeticExpression:expression -> left:expression operator:string right:expression;
+Comparison:expression-> left:expression operator:string right:expression;
+And:expression-> left:expression  right:expression;
+Or:expression-> left:expression  right:expression;
+Not:expression-> left:expression  right:expression;
+Cast:expression-> type expression;
+ArrayAccess:expression-> name:string  position:expression*;
+StructFieldAccess:expression-> field:expression
+Invocation:expression-> name:string parameters:variable*;
+Variable:expression -> name:string;
+IntValue:expression -> value:string;
+RealValue:expression -> value:string;
+Character:expression -> value:string;
