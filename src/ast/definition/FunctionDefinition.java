@@ -5,15 +5,13 @@
 package ast.definition;
 
 import java.util.*;
-
-import ast.statement.Statement;
-import ast.type.Type;
-import ast.expression.Variable;
 import org.antlr.v4.runtime.*;
-
+import ast.*;
+import ast.type.*;
+import ast.statement.*;
 import visitor.*;
 
-//	FunctionDefinition:definition -> name:String  parameters:Variable*  returnType:type  localDefs:VarDefinition*  statements:statement*
+//	FunctionDefinition:definition -> name:String  parameters:variable*  returnType:type  localDefs:VarDefinition*  statements:statement*
 
 public class FunctionDefinition extends AbstractDefinition {
 

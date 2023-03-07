@@ -3,9 +3,7 @@
  */
 
 package ast.expression;
-
-import ast.AbstractAST;
-
+import ast.*;
 public abstract class AbstractExpression extends AbstractAST implements Expression {
 
 }

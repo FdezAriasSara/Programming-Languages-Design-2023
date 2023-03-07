@@ -3,9 +3,7 @@
  */
 
 package ast.expression;
-
-import ast.AST;
-
+import ast.*;
 public interface Expression extends AST {
 
 }

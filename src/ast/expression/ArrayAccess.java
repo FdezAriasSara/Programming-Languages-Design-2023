@@ -9,33 +9,33 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	ArrayAccess:expression -> name:String  position:expression*
+//	ArrayAccess:expression -> array:expression  position:expression*
 
 public class ArrayAccess extends AbstractExpression {
 
-	public ArrayAccess(String name, List<Expression> position) {
-		this.name = name;
+	public ArrayAccess(Expression array, List<Expression> position) {
+		this.array = array;
 		this.position = position;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(position);
+       setPositions(array, position);
 	}
 
-	public ArrayAccess(Object name, Object position) {
-		this.name = (name instanceof Token) ? ((Token)name).getText() : (String) name;
+	public ArrayAccess(Object array, Object position) {
+		this.array = (Expression) getAST(array);
 		this.position = this.<Expression>getAstFromContexts(position);
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(name, position);
+       setPositions(array, position);
 	}
 
-	public String getName() {
-		return name;
+	public Expression getArray() {
+		return array;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setArray(Expression array) {
+		this.array = array;
 	}
 
 	public List<Expression> getPosition() {
@@ -50,10 +50,10 @@ public class ArrayAccess extends AbstractExpression {
 		return v.visit(this, param);
 	}
 
-	private String name;
+	private Expression array;
 	private List<Expression> position;
 
 	public String toString() {
-       return "{name:" + getName() + ", position:" + getPosition() + "}";
+       return "{array:" + getArray() + ", position:" + getPosition() + "}";
    }
 }

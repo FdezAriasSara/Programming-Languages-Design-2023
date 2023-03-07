@@ -3,8 +3,7 @@
  */
 
 package ast.definition;
-
-import ast.AST;
+import ast.*;
 
 public interface Definition extends AST {
 

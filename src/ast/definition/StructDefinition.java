@@ -6,16 +6,16 @@ package ast.definition;
 
 import java.util.*;
 
-import ast.expression.Variable;
-import org.antlr.v4.runtime.*;
 
+import org.antlr.v4.runtime.*;
+import ast.*;
 import visitor.*;
 
-//	StructDefinition:definition -> name:String  fields:Variable*
+//	StructDefinition:definition -> name:String  fields:StructField*
 
 public class StructDefinition extends AbstractDefinition {
 
-	public StructDefinition(String name, List<Variable> fields) {
+	public StructDefinition(String name, List<StructField> fields) {
 		this.name = name;
 		this.fields = fields;
 
@@ -26,7 +26,7 @@ public class StructDefinition extends AbstractDefinition {
 
 	public StructDefinition(Object name, Object fields) {
 		this.name = (name instanceof Token) ? ((Token)name).getText() : (String) name;
-		this.fields = this.<Variable>getAstFromContexts(fields);
+		this.fields = this.<StructField>getAstFromContexts(fields);
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
@@ -40,10 +40,10 @@ public class StructDefinition extends AbstractDefinition {
 		this.name = name;
 	}
 
-	public List<Variable> getFields() {
+	public List<StructField> getFields() {
 		return fields;
 	}
-	public void setFields(List<Variable> fields) {
+	public void setFields(List<StructField> fields) {
 		this.fields = fields;
 	}
 
@@ -53,7 +53,7 @@ public class StructDefinition extends AbstractDefinition {
 	}
 
 	private String name;
-	private List<Variable> fields;
+	private List<StructField> fields;
 
 	public String toString() {
        return "{name:" + getName() + ", fields:" + getFields() + "}";

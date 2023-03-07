@@ -3,9 +3,7 @@
  */
 
 package ast.statement;
-
-import ast.AbstractAST;
-
+import ast. *;
 public abstract class AbstractStatement extends AbstractAST implements Statement {
 
 }

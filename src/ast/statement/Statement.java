@@ -4,7 +4,7 @@
 
 package ast.statement;
 
-import ast.AST;
+import ast.*;
 
 public interface Statement extends AST {
 

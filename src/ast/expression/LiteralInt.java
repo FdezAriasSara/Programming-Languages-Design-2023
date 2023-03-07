@@ -8,15 +8,15 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	IntValue:expression -> value:String
+//	LiteralInt:expression -> value:String
 
-public class IntValue extends AbstractExpression {
+public class LiteralInt extends AbstractExpression {
 
-	public IntValue(String value) {
+	public LiteralInt(String value) {
 		this.value = value;
 	}
 
-	public IntValue(Object value) {
+	public LiteralInt(Object value) {
 		this.value = (value instanceof Token) ? ((Token)value).getText() : (String) value;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.

@@ -4,17 +4,18 @@ expression, definition,statement, type
 
 NODES
 Program -> definitions:definition*;
-
+variable->name:string type;
 
 VarDefinition:definition -> type name:string;
 FunctionDefinition:definition -> name:string parameters:variable* returnType:type localDefs:varDefinition*  statements:statement*;
-StructDefinition:definition ->name:string fields:variable*;
+StructDefinition:definition ->name:string fields:StructField*;
+StructField->name:string type;
 
-
+VoidType:type->;
 IntType:type -> ;
 FloatType:type -> ;
 CharType:type -> ;
-ArrayType:type -> dimensions:IntValue* type;
+ArrayType:type -> dimensions:LiteralInt* type;
 StructType:type -> name:string;
 
 Print:statement -> expression variant:string;
@@ -31,10 +32,10 @@ And:expression -> left:expression  right:expression;
 Or:expression -> left:expression  right:expression;
 Not:expression -> expression;
 Cast:expression -> type expression;
-ArrayAccess:expression -> name:string  position:expression*;
+ArrayAccess:expression -> array:expression  position:expression*;
 StructFieldAccess:expression -> struct:expression field:string;
 
-Variable:expression -> name:string;
-IntValue:expression -> value:string;
-FloatValue:expression -> value:string;
-CharValue:expression -> value:string;
+VariableReference:expression -> name:string;
+LiteralInt:expression -> value:string;
+LiteralFloat:expression -> value:string;
+LiteralChar:expression -> value:string;

@@ -6,15 +6,16 @@ package ast.type;
 
 import java.util.*;
 
-import ast.expression.IntValue;
+import ast.expression.LiteralInt;
+import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	ArrayType:type -> dimensions:IntValue*  type:type
+//	ArrayType:type -> dimensions:LiteralInt*  type:type
 
 public class ArrayType extends AbstractType {
 
-	public ArrayType(List<IntValue> dimensions, Type type) {
+	public ArrayType(List<LiteralInt> dimensions, Type type) {
 		this.dimensions = dimensions;
 		this.type = type;
 
@@ -24,7 +25,7 @@ public class ArrayType extends AbstractType {
 	}
 
 	public ArrayType(Object dimensions, Object type) {
-		this.dimensions = this.<IntValue>getAstFromContexts(dimensions);
+		this.dimensions = this.<LiteralInt>getAstFromContexts(dimensions);
 		this.type = (Type) getAST(type);
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
@@ -32,10 +33,10 @@ public class ArrayType extends AbstractType {
        setPositions(dimensions, type);
 	}
 
-	public List<IntValue> getDimensions() {
+	public List<LiteralInt> getDimensions() {
 		return dimensions;
 	}
-	public void setDimensions(List<IntValue> dimensions) {
+	public void setDimensions(List<LiteralInt> dimensions) {
 		this.dimensions = dimensions;
 	}
 
@@ -51,7 +52,7 @@ public class ArrayType extends AbstractType {
 		return v.visit(this, param);
 	}
 
-	private List<IntValue> dimensions;
+	private List<LiteralInt> dimensions;
 	private Type type;
 
 	public String toString() {

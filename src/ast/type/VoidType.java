@@ -6,9 +6,9 @@ package ast.type;
 
 import visitor.*;
 
-//	FloatType:type -> 
+//	VoidType:type -> 
 
-public class FloatType extends AbstractType {
+public class VoidType extends AbstractType {
 
 	@Override
 	public Object accept(Visitor v, Object param) { 
@@ -17,6 +17,6 @@ public class FloatType extends AbstractType {
 
 
 	public String toString() {
-       return "{FloatType}";
+       return "{VoidType}";
    }
 }

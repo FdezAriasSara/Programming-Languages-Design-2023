@@ -4,7 +4,6 @@
 
 package ast.type;
 
-import ast.expression.Expression;
 import org.antlr.v4.runtime.*;
 
 import visitor.*;
@@ -14,7 +13,6 @@ import visitor.*;
 public class StructType extends AbstractType {
 
 	public StructType(String name) {
-
 		this.name = name;
 	}
 

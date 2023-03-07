@@ -3,17 +3,16 @@
  */
 
 package ast.expression;
-
+import ast. *;
+import ast.statement.*;
 import java.util.*;
-
-import ast.statement.AbstractStatement;
 import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	Invocation:statement -> name:String  parameters:Variable*
+//	Invocation:statement -> name:String  parameters:variable*
 
-public class Invocation extends AbstractStatement implements Expression {
+public class Invocation extends AbstractStatement implements Expression{
 
 	public Invocation(String name, List<Variable> parameters) {
 		this.name = name;

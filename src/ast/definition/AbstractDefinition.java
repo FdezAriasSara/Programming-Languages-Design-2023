@@ -3,9 +3,7 @@
  */
 
 package ast.definition;
-
-import ast.AbstractAST;
-
+import ast.*;
 public abstract class AbstractDefinition extends AbstractAST implements Definition {
 
 }

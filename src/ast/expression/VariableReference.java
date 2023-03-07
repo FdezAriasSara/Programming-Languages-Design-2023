@@ -8,15 +8,15 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	Variable:expression -> name:String
+//	VariableReference:expression -> name:String
 
-public class Variable extends AbstractExpression {
+public class VariableReference extends AbstractExpression {
 
-	public Variable(String name) {
+	public VariableReference(String name) {
 		this.name = name;
 	}
 
-	public Variable(Object name) {
+	public VariableReference(Object name) {
 		this.name = (name instanceof Token) ? ((Token)name).getText() : (String) name;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.

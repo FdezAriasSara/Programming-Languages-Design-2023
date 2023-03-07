@@ -4,11 +4,11 @@
 
 package ast.statement;
 
-import ast.expression.Expression;
+import ast.expression.*;
 import org.antlr.v4.runtime.*;
 
+import ast.*;
 import visitor.*;
-
 //	Print:statement -> expression:expression  variant:String
 
 public class Print extends AbstractStatement {

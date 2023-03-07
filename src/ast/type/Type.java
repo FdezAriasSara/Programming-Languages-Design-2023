@@ -3,9 +3,7 @@
  */
 
 package ast.type;
-
-import ast.AST;
-
+import ast.*;
 public interface Type extends AST {
 
 }

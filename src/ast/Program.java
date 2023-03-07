@@ -6,7 +6,7 @@ package ast;
 
 import java.util.*;
 
-import ast.definition.Definition;
+import ast.definition.*;
 import visitor.*;
 
 //	Program -> definitions:definition*

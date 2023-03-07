@@ -8,15 +8,15 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	FloatValue:expression -> value:String
+//	LiteralFloat:expression -> value:String
 
-public class FloatValue extends AbstractExpression {
+public class LiteralFloat extends AbstractExpression {
 
-	public FloatValue(String value) {
+	public LiteralFloat(String value) {
 		this.value = value;
 	}
 
-	public FloatValue(Object value) {
+	public LiteralFloat(Object value) {
 		this.value = (value instanceof Token) ? ((Token)value).getText() : (String) value;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
