@@ -51,7 +51,7 @@ dimension returns [LiteralInt ast]
             : INT_CONSTANT{$ast=new LiteralInt($INT_CONSTANT);}
             ;
 statement returns [Statement ast]
-        : expression '=' expression ';' {$ast=new Assignment($expression.ast, $expression.ast);}
+        : left=expression '=' right=expression ';' {$ast=new Assignment($left.ast , $right.ast);}
         | 'if' '('condition=expression')' '{' ifBody+=statement* '}' ( 'else'  '{' elseBody+=statement* '}' )? {$ast=new IfStatement( $condition.ast, $ifBody,$elseBody );}
         | 'while' '('condition=expression')' '{' body+=statement* '}'{$ast=new While($condition.ast, $body);}
         | 'read' expression ';' {$ast=new Read($expression.ast);}
@@ -62,8 +62,8 @@ statement returns [Statement ast]
 
 returnValue returns [Expression ast]
          : expression  ';'  {$ast= $expression.ast ;}
-         | ';'
-         ;
+         | ';' // $ast will automatically be initialized to  `null`, AND context will not raise an exception!
+         ; //I use an auxiliar rule to represent ? , since in THIS paritcular case I want NULL AND NOT Void type to be returned.
 
 invocation returns [Invocation ast]
         :IDENT '('(arguments+=expression (','arguments+=expression)*)?')' {$ast=new Invocation($IDENT, $arguments);}
@@ -74,7 +74,7 @@ expression returns [Expression ast]
             | INT_CONSTANT {$ast=new LiteralInt($INT_CONSTANT);}
             | REAL_CONSTANT{$ast=new LiteralFloat($REAL_CONSTANT);}
             | CHAR_CONSTANT{$ast=new LiteralChar($CHAR_CONSTANT);}
-             | '('expression')' {$ast=$expression.ast;}//It has to have a higher priority
+            | '('expression')' {$ast=$expression.ast;}//It has to have a higher priority
             | left=expression operator=('*'|'/') right=expression {$ast=new ArithmeticExpression($left.ast, $operator, $right.ast);}
             | left=expression operator=('+'|'-') right=expression {$ast=new ArithmeticExpression($left.ast, $operator, $right.ast);}
             | left=expression operator=('>'|'<'|'>='|'<='|'=='|'!=') right=expression {$ast=new Comparison($left.ast, $operator, $right.ast);}
@@ -95,6 +95,9 @@ expression returns [Expression ast]
 
 /*
 Decisions taken:
+
+*expression order*
+array access will go before arith operations or comparissons , because we need to know the value first in order to perform them.
 **VGEN strategy***
 Since I plan on using VGEN tool to generate the ast classes, I will:
 -> Specify optionality on the CHILD rule(detailed explanation below)
