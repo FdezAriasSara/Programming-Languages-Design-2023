@@ -1035,8 +1035,8 @@ public class GrammarParser extends Parser {
 
 	public static class ExpressionContext extends ParserRuleContext {
 		public Expression ast;
-		public ExpressionContext array;
 		public ExpressionContext left;
+		public ExpressionContext array;
 		public ExpressionContext struct;
 		public Token IDENT;
 		public Token INT_CONSTANT;
@@ -1133,7 +1133,7 @@ public class GrammarParser extends Parser {
 				setState(235);
 				match(T__35);
 				setState(236);
-				((ExpressionContext)_localctx).expression = expression(4);
+				((ExpressionContext)_localctx).expression = expression(5);
 				((ExpressionContext)_localctx).ast = new Not(((ExpressionContext)_localctx).expression.ast);
 				}
 				break;
@@ -1181,7 +1181,7 @@ public class GrammarParser extends Parser {
 						_localctx.left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(252);
-						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
+						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
 						setState(253);
 						((ExpressionContext)_localctx).operator = _input.LT(1);
 						_la = _input.LA(1);
@@ -1194,7 +1194,7 @@ public class GrammarParser extends Parser {
 							consume();
 						}
 						setState(254);
-						((ExpressionContext)_localctx).right = ((ExpressionContext)_localctx).expression = expression(10);
+						((ExpressionContext)_localctx).right = ((ExpressionContext)_localctx).expression = expression(11);
 						((ExpressionContext)_localctx).ast = new ArithmeticExpression(((ExpressionContext)_localctx).left.ast, ((ExpressionContext)_localctx).operator, ((ExpressionContext)_localctx).right.ast);
 						}
 						break;
@@ -1205,7 +1205,7 @@ public class GrammarParser extends Parser {
 						_localctx.left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(257);
-						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
+						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
 						setState(258);
 						((ExpressionContext)_localctx).operator = _input.LT(1);
 						_la = _input.LA(1);
@@ -1218,7 +1218,7 @@ public class GrammarParser extends Parser {
 							consume();
 						}
 						setState(259);
-						((ExpressionContext)_localctx).right = ((ExpressionContext)_localctx).expression = expression(9);
+						((ExpressionContext)_localctx).right = ((ExpressionContext)_localctx).expression = expression(10);
 						((ExpressionContext)_localctx).ast = new ArithmeticExpression(((ExpressionContext)_localctx).left.ast, ((ExpressionContext)_localctx).operator, ((ExpressionContext)_localctx).right.ast);
 						}
 						break;
@@ -1229,7 +1229,7 @@ public class GrammarParser extends Parser {
 						_localctx.left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(262);
-						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
+						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
 						setState(263);
 						((ExpressionContext)_localctx).operator = _input.LT(1);
 						_la = _input.LA(1);
@@ -1242,7 +1242,7 @@ public class GrammarParser extends Parser {
 							consume();
 						}
 						setState(264);
-						((ExpressionContext)_localctx).right = ((ExpressionContext)_localctx).expression = expression(8);
+						((ExpressionContext)_localctx).right = ((ExpressionContext)_localctx).expression = expression(9);
 						((ExpressionContext)_localctx).ast = new Comparison(((ExpressionContext)_localctx).left.ast, ((ExpressionContext)_localctx).operator, ((ExpressionContext)_localctx).right.ast);
 						}
 						break;
@@ -1253,11 +1253,11 @@ public class GrammarParser extends Parser {
 						_localctx.left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(267);
-						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
+						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
 						setState(268);
 						match(T__33);
 						setState(269);
-						((ExpressionContext)_localctx).right = ((ExpressionContext)_localctx).expression = expression(7);
+						((ExpressionContext)_localctx).right = ((ExpressionContext)_localctx).expression = expression(8);
 						((ExpressionContext)_localctx).ast = new And(((ExpressionContext)_localctx).left.ast , ((ExpressionContext)_localctx).right.ast);
 						}
 						break;
@@ -1268,11 +1268,11 @@ public class GrammarParser extends Parser {
 						_localctx.left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(272);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
 						setState(273);
 						match(T__34);
 						setState(274);
-						((ExpressionContext)_localctx).right = ((ExpressionContext)_localctx).expression = expression(6);
+						((ExpressionContext)_localctx).right = ((ExpressionContext)_localctx).expression = expression(7);
 						((ExpressionContext)_localctx).ast = new Or(((ExpressionContext)_localctx).left.ast, ((ExpressionContext)_localctx).right.ast);
 						}
 						break;
@@ -1283,7 +1283,7 @@ public class GrammarParser extends Parser {
 						_localctx.array = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(277);
-						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
+						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
 						setState(282); 
 						_errHandler.sync(this);
 						_alt = 1;
@@ -1357,17 +1357,17 @@ public class GrammarParser extends Parser {
 	private boolean expression_sempred(ExpressionContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 9);
-		case 1:
-			return precpred(_ctx, 8);
-		case 2:
-			return precpred(_ctx, 7);
-		case 3:
-			return precpred(_ctx, 6);
-		case 4:
-			return precpred(_ctx, 5);
-		case 5:
 			return precpred(_ctx, 10);
+		case 1:
+			return precpred(_ctx, 9);
+		case 2:
+			return precpred(_ctx, 8);
+		case 3:
+			return precpred(_ctx, 7);
+		case 4:
+			return precpred(_ctx, 6);
+		case 5:
+			return precpred(_ctx, 3);
 		case 6:
 			return precpred(_ctx, 2);
 		}
@@ -1452,21 +1452,21 @@ public class GrammarParser extends Parser {
 		"\u00e1\u00fd\b\r\1\2\u00e2\u00e3\7(\2\2\u00e3\u00fd\b\r\1\2\u00e4\u00e5"+
 		"\7)\2\2\u00e5\u00fd\b\r\1\2\u00e6\u00e7\7*\2\2\u00e7\u00fd\b\r\1\2\u00e8"+
 		"\u00e9\7\3\2\2\u00e9\u00ea\5\30\r\2\u00ea\u00eb\7\4\2\2\u00eb\u00ec\b"+
-		"\r\1\2\u00ec\u00fd\3\2\2\2\u00ed\u00ee\7&\2\2\u00ee\u00ef\5\30\r\6\u00ef"+
+		"\r\1\2\u00ec\u00fd\3\2\2\2\u00ed\u00ee\7&\2\2\u00ee\u00ef\5\30\r\7\u00ef"+
 		"\u00f0\b\r\1\2\u00f0\u00fd\3\2\2\2\u00f1\u00f2\7\37\2\2\u00f2\u00f3\5"+
 		"\16\b\2\u00f3\u00f4\7\36\2\2\u00f4\u00f5\7\3\2\2\u00f5\u00f6\5\30\r\2"+
 		"\u00f6\u00f7\7\4\2\2\u00f7\u00f8\b\r\1\2\u00f8\u00fd\3\2\2\2\u00f9\u00fa"+
 		"\5\26\f\2\u00fa\u00fb\b\r\1\2\u00fb\u00fd\3\2\2\2\u00fc\u00df\3\2\2\2"+
 		"\u00fc\u00e2\3\2\2\2\u00fc\u00e4\3\2\2\2\u00fc\u00e6\3\2\2\2\u00fc\u00e8"+
 		"\3\2\2\2\u00fc\u00ed\3\2\2\2\u00fc\u00f1\3\2\2\2\u00fc\u00f9\3\2\2\2\u00fd"+
-		"\u0128\3\2\2\2\u00fe\u00ff\f\13\2\2\u00ff\u0100\t\3\2\2\u0100\u0101\5"+
-		"\30\r\f\u0101\u0102\b\r\1\2\u0102\u0127\3\2\2\2\u0103\u0104\f\n\2\2\u0104"+
-		"\u0105\t\4\2\2\u0105\u0106\5\30\r\13\u0106\u0107\b\r\1\2\u0107\u0127\3"+
-		"\2\2\2\u0108\u0109\f\t\2\2\u0109\u010a\t\5\2\2\u010a\u010b\5\30\r\n\u010b"+
-		"\u010c\b\r\1\2\u010c\u0127\3\2\2\2\u010d\u010e\f\b\2\2\u010e\u010f\7$"+
-		"\2\2\u010f\u0110\5\30\r\t\u0110\u0111\b\r\1\2\u0111\u0127\3\2\2\2\u0112"+
-		"\u0113\f\7\2\2\u0113\u0114\7%\2\2\u0114\u0115\5\30\r\b\u0115\u0116\b\r"+
-		"\1\2\u0116\u0127\3\2\2\2\u0117\u011c\f\f\2\2\u0118\u0119\7\17\2\2\u0119"+
+		"\u0128\3\2\2\2\u00fe\u00ff\f\f\2\2\u00ff\u0100\t\3\2\2\u0100\u0101\5\30"+
+		"\r\r\u0101\u0102\b\r\1\2\u0102\u0127\3\2\2\2\u0103\u0104\f\13\2\2\u0104"+
+		"\u0105\t\4\2\2\u0105\u0106\5\30\r\f\u0106\u0107\b\r\1\2\u0107\u0127\3"+
+		"\2\2\2\u0108\u0109\f\n\2\2\u0109\u010a\t\5\2\2\u010a\u010b\5\30\r\13\u010b"+
+		"\u010c\b\r\1\2\u010c\u0127\3\2\2\2\u010d\u010e\f\t\2\2\u010e\u010f\7$"+
+		"\2\2\u010f\u0110\5\30\r\n\u0110\u0111\b\r\1\2\u0111\u0127\3\2\2\2\u0112"+
+		"\u0113\f\b\2\2\u0113\u0114\7%\2\2\u0114\u0115\5\30\r\t\u0115\u0116\b\r"+
+		"\1\2\u0116\u0127\3\2\2\2\u0117\u011c\f\5\2\2\u0118\u0119\7\17\2\2\u0119"+
 		"\u011a\5\30\r\2\u011a\u011b\7\20\2\2\u011b\u011d\3\2\2\2\u011c\u0118\3"+
 		"\2\2\2\u011d\u011e\3\2\2\2\u011e\u011c\3\2\2\2\u011e\u011f\3\2\2\2\u011f"+
 		"\u0120\3\2\2\2\u0120\u0121\b\r\1\2\u0121\u0127\3\2\2\2\u0122\u0123\f\4"+
