@@ -25,79 +25,79 @@ import java.util.*;
  */
 public class ASTPrinter extends DefaultVisitor {
 
-    /**
-     * toHtml. Muestra la estructura del AST indicando qué hay en las posiciones
-     * (línea y columna) de cada nodo.
-     *
-     * @param sourceFile El fichero del cual se ha obtenido el AST
-     * @param raiz       El AST creado a partir de sourceFile
-     * @param filename   Nombre del fichero HMTL a crear con la traza del AST
-     */
+	/**
+	 * toHtml. Muestra la estructura del AST indicando qué hay en las posiciones
+	 * (línea y columna) de cada nodo.
+	 *
+	 * @param sourceFile El fichero del cual se ha obtenido el AST
+	 * @param raiz       El AST creado a partir de sourceFile
+	 * @param filename   Nombre del fichero HMTL a crear con la traza del AST
+	 */
 
-    public static void toHtml(String sourceFile, AST raiz, String filename) {
-        toHtml(sourceFile, raiz, filename, 4);
-    }
+	public static void toHtml(String sourceFile, AST raiz, String filename) {
+		toHtml(sourceFile, raiz, filename, 4);
+	}
 
-    public static void toHtml(AST raiz, String filename) {
-        toHtml(null, raiz, filename);
-    }
+	public static void toHtml(AST raiz, String filename) {
+		toHtml(null, raiz, filename);
+	}
 
-    // tabWidth deberían ser los espacios correspondientes a un tabulador en eclipse.
-    // Normalmente no sería necesario especificarlo. Usar mejor los dos métodos anteriores.
+	// tabWidth deberían ser los espacios correspondientes a un tabulador en eclipse.
+	// Normalmente no sería necesario especificarlo. Usar mejor los dos métodos anteriores.
 
-    public static void toHtml(String sourceFile, AST raiz, String filename, int tabWidth) {
-        try {
-            PrintWriter writer = new PrintWriter(
-                    new FileWriter(filename.endsWith(".html") ? filename : filename + ".html"));
-            generateHeader(writer);
-            writer.println("[ASTPrinter] -------------------------------- line:col  line:col");
-            if (raiz != null) {
-                ASTPrinter tracer = new ASTPrinter(writer, loadLines(sourceFile, tabWidth));
-                raiz.accept(tracer, Integer.valueOf(0));
-            } else
-                writer.println("raiz == null");
-            writer.println(ls + ls + "[ASTPrinter] --------------------------------");
-            generateFooter(writer);
-            writer.close();
-            System.out.println(ls + "ASTPrinter: Fichero '" + filename
-                    + ".html' generado. Abra dicho fichero para validar el AST generado.");
-        } catch (IOException e) {
-            System.out.println(ls + "ASTPrinter: No se ha podido crear el fichero " + filename);
-            e.printStackTrace();
-        }
-    }
+	public static void toHtml(String sourceFile, AST raiz, String filename, int tabWidth) {
+		try {
+			PrintWriter writer = new PrintWriter(
+					new FileWriter(filename.endsWith(".html") ? filename : filename + ".html"));
+			generateHeader(writer);
+			writer.println("[ASTPrinter] -------------------------------- line:col  line:col");
+			if (raiz != null) {
+				ASTPrinter tracer = new ASTPrinter(writer, loadLines(sourceFile, tabWidth));
+				raiz.accept(tracer, Integer.valueOf(0));
+			} else
+				writer.println("raiz == null");
+			writer.println(ls + ls + "[ASTPrinter] --------------------------------");
+			generateFooter(writer);
+			writer.close();
+			System.out.println(ls + "ASTPrinter: Fichero '" + filename
+					+ ".html' generado. Abra dicho fichero para validar el AST generado.");
+		} catch (IOException e) {
+			System.out.println(ls + "ASTPrinter: No se ha podido crear el fichero " + filename);
+			e.printStackTrace();
+		}
+	}
 
-    private static void generateHeader(PrintWriter writer) {
-        writer.println("<html>\r\n"
-            + "<head>\r\n"
-            + "<meta charset=\"utf-8\" />\r\n"
-            + "<style type=\"text/css\">\r\n"
-            + ".value { font-weight: bold; }\r\n"
-            + ".dots { color: #bebdbd; }\r\n"
-            + ".type { color: #BBBBBB; }\r\n"
-            + ".pos { color: #CCCCCC; }\r\n"
-            + ".sourceText { color: #BBBBBB; }\r\n"
-            + ".posText {\r\n" + "	color: #BBBBBB;\r\n"
-            + "	text-decoration: underline; font-weight: bold;\r\n"
-            + "}\r\n"
-            + ".null {\r\n"
-            + "	color: #FF0000;\r\n"
-            + "	font-weight: bold;\r\n"
-            + "	font-style: italic;\r\n" + "}\r\n"
-            + "</style>\r\n" + "</head>\r\n" + "\r\n"
-            + "<body><pre>");
-    }
+	private static void generateHeader(PrintWriter writer) {
+		writer.println("<html>\r\n"
+				+ "<head>\r\n"
+				+ "<meta charset=\"utf-8\" />\r\n"
+				+ "<style type=\"text/css\">\r\n"
+				+ ".value { font-weight: bold; }\r\n"
+				+ ".dots { color: #bebdbd; }\r\n"
+				+ ".type { color: #BBBBBB; }\r\n"
+				+ ".pos { color: #CCCCCC; }\r\n"
+				+ ".sourceText { color: #BBBBBB; }\r\n"
+				+ ".posText {\r\n" + "	color: #BBBBBB;\r\n"
+				+ "	text-decoration: underline; font-weight: bold;\r\n"
+				+ "}\r\n"
+				+ ".null {\r\n"
+				+ "	color: #FF0000;\r\n"
+				+ "	font-weight: bold;\r\n"
+				+ "	font-style: italic;\r\n" + "}\r\n"
+				+ "</style>\r\n" + "</head>\r\n" + "\r\n"
+				+ "<body><pre>");
+	}
 
-    private static void generateFooter(PrintWriter writer) {
-        writer.println("</pre>\r\n" + "</body>\r\n" + "</html>");
-    }
+	private static void generateFooter(PrintWriter writer) {
+		writer.println("</pre>\r\n" + "</body>\r\n" + "</html>");
+	}
 
-    private ASTPrinter(PrintWriter writer, List<String> sourceLines) {
-        this.writer = writer;
-        this.sourceLines = sourceLines;
-    }
+	private ASTPrinter(PrintWriter writer, List<String> sourceLines) {
+		this.writer = writer;
+		this.sourceLines = sourceLines;
+	}
 
-    // ----------------------------------------------
+	// ----------------------------------------------
 	//	class Program { List<Definition> definitions; }
 	public Object visit(Program node, Object param) {
 		int indent = ((Integer)param).intValue();
@@ -202,13 +202,13 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class ArrayType { List<LiteralInt> dimensions;  Type type; }
+	//	class ArrayType { String dimension;  Type type; }
 	public Object visit(ArrayType node, Object param) {
 		int indent = ((Integer)param).intValue();
 
 		printName(indent, "ArrayType", node, false);
 
-		visit(indent + 1, "dimensions", "List<LiteralInt>",node.getDimensions());
+		print(indent + 1, "dimension", "String", node.getDimension());
 		visit(indent + 1, "type", "Type",node.getType());
 		return null;
 	}
@@ -364,14 +364,14 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class ArrayAccess { Expression array;  List<Expression> position; }
+	//	class ArrayAccess { Expression array;  Expression position; }
 	public Object visit(ArrayAccess node, Object param) {
 		int indent = ((Integer)param).intValue();
 
 		printName(indent, "ArrayAccess", node, false);
 
 		visit(indent + 1, "array", "Expression",node.getArray());
-		visit(indent + 1, "position", "List<Expression>",node.getPosition());
+		visit(indent + 1, "position", "Expression",node.getPosition());
 		return null;
 	}
 
@@ -558,9 +558,9 @@ public class ASTPrinter extends DefaultVisitor {
 			BufferedReader br = new BufferedReader(new FileReader(sourceFile));
 			String line;
 			while ((line = br.readLine()) != null) {
-			//	lines.add(line.replace("\t", spaces)); // Si tab = 4 espaces (Eclipse)
+				//	lines.add(line.replace("\t", spaces)); // Si tab = 4 espaces (Eclipse)
 				lines.add(line);
-            }
+			}
 			br.close();
 			return lines;
 		} catch (FileNotFoundException e) {

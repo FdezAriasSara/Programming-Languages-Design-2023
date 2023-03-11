@@ -15,7 +15,7 @@ VoidType:type->;
 IntType:type -> ;
 FloatType:type -> ;
 CharType:type -> ;
-ArrayType:type -> dimensions:LiteralInt* type;
+ArrayType:type -> dimension:string type;
 StructType:type -> name:string;
 
 Print:statement -> expression variant:string;

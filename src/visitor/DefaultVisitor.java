@@ -80,9 +80,8 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class ArrayType { List<LiteralInt> dimensions;  Type type; }
+	//	class ArrayType { String dimension;  Type type; }
 	public Object visit(ArrayType node, Object param) {
-		visitChildren(node.getDimensions(), param);
 		if (node.getType() != null)
 			node.getType().accept(this, param);
 		return null;
@@ -198,11 +197,12 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class ArrayAccess { Expression array;  List<Expression> position; }
+	//	class ArrayAccess { Expression array;  Expression position; }
 	public Object visit(ArrayAccess node, Object param) {
 		if (node.getArray() != null)
 			node.getArray().accept(this, param);
-		visitChildren(node.getPosition(), param);
+		if (node.getPosition() != null)
+			node.getPosition().accept(this, param);
 		return null;
 	}
 
@@ -233,10 +233,10 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-    // Método auxiliar -----------------------------
-    protected void visitChildren(List<? extends AST> children, Object param) {
-        if (children != null)
-            for (AST child : children)
-                child.accept(this, param);
-    }
+	// Método auxiliar -----------------------------
+	protected void visitChildren(List<? extends AST> children, Object param) {
+		if (children != null)
+			for (AST child : children)
+				child.accept(this, param);
+	}
 }

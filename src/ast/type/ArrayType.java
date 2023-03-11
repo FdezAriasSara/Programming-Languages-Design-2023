@@ -11,33 +11,38 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	ArrayType:type -> dimensions:LiteralInt*  type:type
+
+/**
+ * @generated VGen (for ANTLR) 1.7.2
+ */
+
+//	ArrayType:type -> dimension:String  type:type
 
 public class ArrayType extends AbstractType {
 
-	public ArrayType(List<LiteralInt> dimensions, Type type) {
-		this.dimensions = dimensions;
+	public ArrayType(String dimension, Type type) {
+		this.dimension = dimension;
 		this.type = type;
 
-       // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
-       // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(dimensions, type);
+		// Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
+		// Obtiene la linea/columna a partir de las de los hijos.
+		setPositions(type);
 	}
 
-	public ArrayType(Object dimensions, Object type) {
-		this.dimensions = this.<LiteralInt>getAstFromContexts(dimensions);
+	public ArrayType(Object dimension, Object type) {
+		this.dimension = (dimension instanceof Token) ? ((Token)dimension).getText() : (String) dimension;
 		this.type = (Type) getAST(type);
 
-       // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
-       // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(dimensions, type);
+		// Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
+		// Obtiene la linea/columna a partir de las de los hijos.
+		setPositions(dimension, type);
 	}
 
-	public List<LiteralInt> getDimensions() {
-		return dimensions;
+	public String getDimension() {
+		return dimension;
 	}
-	public void setDimensions(List<LiteralInt> dimensions) {
-		this.dimensions = dimensions;
+	public void setDimension(String dimension) {
+		this.dimension = dimension;
 	}
 
 	public Type getType() {
@@ -48,14 +53,14 @@ public class ArrayType extends AbstractType {
 	}
 
 	@Override
-	public Object accept(Visitor v, Object param) { 
+	public Object accept(Visitor v, Object param) {
 		return v.visit(this, param);
 	}
 
-	private List<LiteralInt> dimensions;
+	private String dimension;
 	private Type type;
 
 	public String toString() {
-       return "{dimensions:" + getDimensions() + ", type:" + getType() + "}";
-   }
+		return "{dimension:" + getDimension() + ", type:" + getType() + "}";
+	}
 }

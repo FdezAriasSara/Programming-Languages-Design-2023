@@ -43,13 +43,12 @@ type  returns [Type ast]
     :'int' {$ast=new IntType();}
     |'float' {$ast=new FloatType();}
     |'char' {$ast=new CharType();}
-    | ('['dimensions+=dimension']')+ type {$ast=new ArrayType($dimensions,$type.ast );} // var a:[i+1] int; would not be allowed.
+    | '[' INT_CONSTANT']' type {$ast=new ArrayType($INT_CONSTANT,$type.ast );} // var a:[i+1] int; would not be allowed.
     | IDENT {$ast=new StructType($IDENT);}
     ;
 
-dimension returns [LiteralInt ast]
-            : INT_CONSTANT{$ast=new LiteralInt($INT_CONSTANT);}
-            ;
+
+
 statement returns [Statement ast]
         : left=expression '=' right=expression ';' {$ast=new Assignment($left.ast , $right.ast);}
         | 'if' '('condition=expression')' '{' ifBody+=statement* '}' ( 'else'  '{' elseBody+=statement* '}' )? {$ast=new IfStatement( $condition.ast, $ifBody,$elseBody );}
@@ -82,7 +81,7 @@ expression returns [Expression ast]
             | left=expression '||' right=expression {$ast=new Or($left.ast, $right.ast);}
             | '!' expression {$ast=new Not($expression.ast);}
             | '<'type'>' '('expression')' {$ast=new Cast($type.ast,$expression.ast);}
-            | array=expression ('['positionCoord+=expression']')+ {$ast=new ArrayAccess($array.ast,$positionCoord);}
+            | array=expression '['expression']' {$ast=new ArrayAccess($array.ast,$expression.ast);}
             | struct=expression'.' IDENT {$ast=new StructFieldAccess($struct.ast,$IDENT);}//struct field access.
             | invocation {$ast=$invocation.ast;}//Invocations can appear as sentences or expressions.
 

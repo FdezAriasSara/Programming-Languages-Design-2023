@@ -32,16 +32,15 @@
 <span class="dots">.  .  |  </span>"<span class="value">b</span>"  
 <span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">23:5  23:8   </span><span class="sourceText">var </span><span class="posText">c:[5</span><span class="sourceText">] float;</span>
 <span class="dots">.  .  |  </span>ArrayType &rarr;                                        <span class="pos">23:8  23:8   </span><span class="sourceText">var c:[</span><span class="posText">5</span><span class="sourceText">] float;</span>
-<span class="dots">.  .  |  .  </span>dimensions  <span class="type">List&lt;LiteralInt&gt;</span> = 
-<span class="dots">.  .  |  .  |  </span>"5"  <span class="type">LiteralInt.value</span>                        <span class="pos">23:8  23:8   </span><span class="sourceText">var c:[</span><span class="posText">5</span><span class="sourceText">] float;</span>
+<span class="dots">.  .  |  .  </span>"<span class="value">5</span>"  
 <span class="dots">.  .  |  .  </span><span class="value">FloatType</span> &rarr;                                     <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
 <span class="dots">.  .  |  </span>"<span class="value">c</span>"  
 <span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">24:5  24:11  </span><span class="sourceText">var </span><span class="posText">h:[3][2</span><span class="sourceText">] float;  // Pueden ser más de 2 dimensiones</span>
 <span class="dots">.  .  |  </span>ArrayType &rarr;                                        <span class="pos">24:8  24:11  </span><span class="sourceText">var h:[</span><span class="posText">3][2</span><span class="sourceText">] float;  // Pueden ser más de 2 dimensiones</span>
-<span class="dots">.  .  |  .  </span>dimensions  <span class="type">List&lt;LiteralInt&gt;</span> = 
-<span class="dots">.  .  |  .  |  </span>"3"  <span class="type">LiteralInt.value</span>                        <span class="pos">24:8  24:8   </span><span class="sourceText">var h:[</span><span class="posText">3</span><span class="sourceText">][2] float;  // Pueden ser más de 2 dimensiones</span>
-<span class="dots">.  .  |  .  |  </span>"2"  <span class="type">LiteralInt.value</span>                        <span class="pos">24:11  24:11 </span><span class="sourceText">var h:[3][</span><span class="posText">2</span><span class="sourceText">] float;  // Pueden ser más de 2 dimensiones</span>
-<span class="dots">.  .  |  .  </span><span class="value">FloatType</span> &rarr;                                     <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  </span>"<span class="value">3</span>"  
+<span class="dots">.  .  |  .  </span>ArrayType &rarr;                                     <span class="pos">24:11  24:11 </span><span class="sourceText">var h:[3][</span><span class="posText">2</span><span class="sourceText">] float;  // Pueden ser más de 2 dimensiones</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">2</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">FloatType</span> &rarr;                                  <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
 <span class="dots">.  .  |  </span>"<span class="value">h</span>"  
 <span class="dots">.  .  </span>StructDefinition &rarr;                                    <span class="pos">27:8  29:13  </span><span class="sourceText">struct </span><span class="posText">Direccion {</span><span class="sourceText"> ... </span><span class="posText">codigoPostal</span><span class="sourceText">:int;</span>
 <span class="dots">.  .  |  </span>"<span class="value">Direccion</span>"  
@@ -69,8 +68,7 @@
 <span class="dots">.  .  |  .  |  </span>"Direccion"  <span class="type">StructType.name</span>                 <span class="pos">37:12  37:20 </span><span class="sourceText">direccion:</span><span class="posText">Direccion</span><span class="sourceText">;</span>
 <span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">41:5  41:17  </span><span class="sourceText">var </span><span class="posText">f:[6] Persona</span><span class="sourceText">;</span>
 <span class="dots">.  .  |  </span>ArrayType &rarr;                                        <span class="pos">41:8  41:17  </span><span class="sourceText">var f:[</span><span class="posText">6] Persona</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  .  </span>dimensions  <span class="type">List&lt;LiteralInt&gt;</span> = 
-<span class="dots">.  .  |  .  |  </span>"6"  <span class="type">LiteralInt.value</span>                        <span class="pos">41:8  41:8   </span><span class="sourceText">var f:[</span><span class="posText">6</span><span class="sourceText">] Persona;</span>
+<span class="dots">.  .  |  .  </span>"<span class="value">6</span>"  
 <span class="dots">.  .  |  .  </span>"Persona"  <span class="type">StructType.name</span>                      <span class="pos">41:11  41:17 </span><span class="sourceText">var f:[6] </span><span class="posText">Persona</span><span class="sourceText">;</span>
 <span class="dots">.  .  |  </span>"<span class="value">f</span>"  
 <span class="dots">.  .  </span>StructDefinition &rarr;                                    <span class="pos">43:8  45:23  </span><span class="sourceText">struct </span><span class="posText">Empresa {</span><span class="sourceText"> ... </span><span class="posText">empleados:[10] Persona</span><span class="sourceText">;</span>
@@ -79,14 +77,12 @@
 <span class="dots">.  .  |  .  </span>StructField &rarr;                                   <span class="pos">44:2  44:7   </span><span class="sourceText"></span><span class="posText">cif:[9</span><span class="sourceText">] char;</span>
 <span class="dots">.  .  |  .  |  </span>"<span class="value">cif</span>"  
 <span class="dots">.  .  |  .  |  </span>ArrayType &rarr;                                  <span class="pos">44:7  44:7   </span><span class="sourceText">cif:[</span><span class="posText">9</span><span class="sourceText">] char;</span>
-<span class="dots">.  .  |  .  |  .  </span>dimensions  <span class="type">List&lt;LiteralInt&gt;</span> = 
-<span class="dots">.  .  |  .  |  .  |  </span>"9"  <span class="type">LiteralInt.value</span>                  <span class="pos">44:7  44:7   </span><span class="sourceText">cif:[</span><span class="posText">9</span><span class="sourceText">] char;</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">9</span>"  
 <span class="dots">.  .  |  .  |  .  </span><span class="value">CharType</span> &rarr;                                <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
 <span class="dots">.  .  |  .  </span>StructField &rarr;                                   <span class="pos">45:2  45:23  </span><span class="sourceText"></span><span class="posText">empleados:[10] Persona</span><span class="sourceText">;</span>
 <span class="dots">.  .  |  .  |  </span>"<span class="value">empleados</span>"  
 <span class="dots">.  .  |  .  |  </span>ArrayType &rarr;                                  <span class="pos">45:13  45:23 </span><span class="sourceText">empleados:[</span><span class="posText">10] Persona</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  .  |  .  </span>dimensions  <span class="type">List&lt;LiteralInt&gt;</span> = 
-<span class="dots">.  .  |  .  |  .  |  </span>"10"  <span class="type">LiteralInt.value</span>                 <span class="pos">45:13  45:14 </span><span class="sourceText">empleados:[</span><span class="posText">10</span><span class="sourceText">] Persona;</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">10</span>"  
 <span class="dots">.  .  |  .  |  .  </span>"Persona"  <span class="type">StructType.name</span>                <span class="pos">45:17  45:23 </span><span class="sourceText">empleados:[10] </span><span class="posText">Persona</span><span class="sourceText">;</span>
 <span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">48:5  48:22  </span><span class="sourceText">var </span><span class="posText">microsoft: Empresa</span><span class="sourceText">;</span>
 <span class="dots">.  .  |  </span>"Empresa"  <span class="type">StructType.name</span>                         <span class="pos">48:16  48:22 </span><span class="sourceText">var microsoft: </span><span class="posText">Empresa</span><span class="sourceText">;</span>
@@ -135,8 +131,7 @@
 <span class="dots">.  .  |  .  |  .  |  </span>StructFieldAccess &rarr;                    <span class="pos">61:10  61:28 </span><span class="sourceText">printsp </span><span class="posText">microsoft.empleados</span><span class="sourceText">[num].edad;</span>
 <span class="dots">.  .  |  .  |  .  |  .  </span>"microsoft"  <span class="type">VariableReference.name</span> <span class="pos">61:10  61:18 </span><span class="sourceText">printsp </span><span class="posText">microsoft</span><span class="sourceText">.empleados[num].edad;</span>
 <span class="dots">.  .  |  .  |  .  |  .  </span>"<span class="value">empleados</span>"  
-<span class="dots">.  .  |  .  |  .  |  </span>position  <span class="type">List&lt;Expression&gt;</span> = 
-<span class="dots">.  .  |  .  |  .  |  .  </span>"num"  <span class="type">VariableReference.name</span>       <span class="pos">61:30  61:32 </span><span class="sourceText">printsp microsoft.empleados[</span><span class="posText">num</span><span class="sourceText">].edad;</span>
+<span class="dots">.  .  |  .  |  .  |  </span>"num"  <span class="type">VariableReference.name</span>          <span class="pos">61:30  61:32 </span><span class="sourceText">printsp microsoft.empleados[</span><span class="posText">num</span><span class="sourceText">].edad;</span>
 <span class="dots">.  .  |  .  |  .  </span>"<span class="value">edad</span>"  
 <span class="dots">.  .  |  .  |  </span>"<span class="value">printsp</span>"  
 <span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">64:5  64:5   </span><span class="sourceText">var </span><span class="posText">z</span><span class="sourceText">:int;	// Se puede definir entre funciones</span>
@@ -155,8 +150,7 @@
 <span class="dots">.  .  |  .  |  </span>"<span class="value">pepe</span>"  
 <span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">69:7  69:11  </span><span class="sourceText">var </span><span class="posText">v:[10</span><span class="sourceText">] int;</span>
 <span class="dots">.  .  |  .  |  </span>ArrayType &rarr;                                  <span class="pos">69:10  69:11 </span><span class="sourceText">var v:[</span><span class="posText">10</span><span class="sourceText">] int;</span>
-<span class="dots">.  .  |  .  |  .  </span>dimensions  <span class="type">List&lt;LiteralInt&gt;</span> = 
-<span class="dots">.  .  |  .  |  .  |  </span>"10"  <span class="type">LiteralInt.value</span>                 <span class="pos">69:10  69:11 </span><span class="sourceText">var v:[</span><span class="posText">10</span><span class="sourceText">] int;</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">10</span>"  
 <span class="dots">.  .  |  .  |  .  </span><span class="value">IntType</span> &rarr;                                 <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
 <span class="dots">.  .  |  .  |  </span>"<span class="value">v</span>"  
 <span class="dots">.  .  |  </span>statements  <span class="type">List&lt;Statement&gt;</span> = 
@@ -183,21 +177,20 @@
 <span class="dots">.  .  |  .  |  .  </span>Assignment &rarr;                              <span class="pos">76:5  76:52  </span><span class="sourceText"></span><span class="posText">v[local] = dobleSuma(<int>(2.0 + h[0][3]), local</span><span class="sourceText">);</span>
 <span class="dots">.  .  |  .  |  .  |  </span>ArrayAccess &rarr;                          <span class="pos">76:5  76:11  </span><span class="sourceText"></span><span class="posText">v[local</span><span class="sourceText">] = dobleSuma(<int>(2.0 + h[0][3]), local);</span>
 <span class="dots">.  .  |  .  |  .  |  .  </span>"v"  <span class="type">VariableReference.name</span>         <span class="pos">76:5  76:5   </span><span class="sourceText"></span><span class="posText">v</span><span class="sourceText">[local] = dobleSuma(<int>(2.0 + h[0][3]), local);</span>
-<span class="dots">.  .  |  .  |  .  |  .  </span>position  <span class="type">List&lt;Expression&gt;</span> = 
-<span class="dots">.  .  |  .  |  .  |  .  |  </span>"local"  <span class="type">VariableReference.name</span>  <span class="pos">76:7  76:11  </span><span class="sourceText">v[</span><span class="posText">local</span><span class="sourceText">] = dobleSuma(<int>(2.0 + h[0][3]), local);</span>
+<span class="dots">.  .  |  .  |  .  |  .  </span>"local"  <span class="type">VariableReference.name</span>     <span class="pos">76:7  76:11  </span><span class="sourceText">v[</span><span class="posText">local</span><span class="sourceText">] = dobleSuma(<int>(2.0 + h[0][3]), local);</span>
 <span class="dots">.  .  |  .  |  .  |  </span>Invocation &rarr;                           <span class="pos">76:16  76:52 </span><span class="sourceText">v[local] = </span><span class="posText">dobleSuma(<int>(2.0 + h[0][3]), local</span><span class="sourceText">);</span>
 <span class="dots">.  .  |  .  |  .  |  .  </span>"<span class="value">dobleSuma</span>"  
 <span class="dots">.  .  |  .  |  .  |  .  </span>parameters  <span class="type">List&lt;Variable&gt;</span> = 
 <span class="dots">.  .  |  .  |  .  |  .  |  </span>Cast &rarr;                           <span class="pos">76:32  76:43 </span><span class="sourceText">v[local] = dobleSuma(<int>(</span><span class="posText">2.0 + h[0][3</span><span class="sourceText">]), local);</span>
 <span class="dots">.  .  |  .  |  .  |  .  |  .  </span><span class="value">IntType</span> &rarr;                     <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
 <span class="dots">.  .  |  .  |  .  |  .  |  .  </span>ArrayAccess &rarr;                 <span class="pos">76:32  76:43 </span><span class="sourceText">v[local] = dobleSuma(<int>(</span><span class="posText">2.0 + h[0][3</span><span class="sourceText">]), local);</span>
-<span class="dots">.  .  |  .  |  .  |  .  |  .  |  </span>ArithmeticExpression &rarr;     <span class="pos">76:32  76:38 </span><span class="sourceText">v[local] = dobleSuma(<int>(</span><span class="posText">2.0 + h</span><span class="sourceText">[0][3]), local);</span>
-<span class="dots">.  .  |  .  |  .  |  .  |  .  |  .  </span>"2.0"  <span class="type">LiteralFloat.value</span><span class="pos">76:32  76:34 </span><span class="sourceText">v[local] = dobleSuma(<int>(</span><span class="posText">2.0</span><span class="sourceText"> + h[0][3]), local);</span>
-<span class="dots">.  .  |  .  |  .  |  .  |  .  |  .  </span>"<span class="value">+</span>"  
-<span class="dots">.  .  |  .  |  .  |  .  |  .  |  .  </span>"h"  <span class="type">VariableReference.name</span><span class="pos">76:38  76:38 </span><span class="sourceText">v[local] = dobleSuma(<int>(2.0 + </span><span class="posText">h</span><span class="sourceText">[0][3]), local);</span>
-<span class="dots">.  .  |  .  |  .  |  .  |  .  |  </span>position  <span class="type">List&lt;Expression&gt;</span> = 
+<span class="dots">.  .  |  .  |  .  |  .  |  .  |  </span>ArrayAccess &rarr;              <span class="pos">76:32  76:40 </span><span class="sourceText">v[local] = dobleSuma(<int>(</span><span class="posText">2.0 + h[0</span><span class="sourceText">][3]), local);</span>
+<span class="dots">.  .  |  .  |  .  |  .  |  .  |  .  </span>ArithmeticExpression &rarr;  <span class="pos">76:32  76:38 </span><span class="sourceText">v[local] = dobleSuma(<int>(</span><span class="posText">2.0 + h</span><span class="sourceText">[0][3]), local);</span>
+<span class="dots">.  .  |  .  |  .  |  .  |  .  |  .  |  </span>"2.0"  <span class="type">LiteralFloat.value</span><span class="pos">76:32  76:34 </span><span class="sourceText">v[local] = dobleSuma(<int>(</span><span class="posText">2.0</span><span class="sourceText"> + h[0][3]), local);</span>
+<span class="dots">.  .  |  .  |  .  |  .  |  .  |  .  |  </span>"<span class="value">+</span>"  
+<span class="dots">.  .  |  .  |  .  |  .  |  .  |  .  |  </span>"h"  <span class="type">VariableReference.name</span><span class="pos">76:38  76:38 </span><span class="sourceText">v[local] = dobleSuma(<int>(2.0 + </span><span class="posText">h</span><span class="sourceText">[0][3]), local);</span>
 <span class="dots">.  .  |  .  |  .  |  .  |  .  |  .  </span>"0"  <span class="type">LiteralInt.value</span>   <span class="pos">76:40  76:40 </span><span class="sourceText">v[local] = dobleSuma(<int>(2.0 + h[</span><span class="posText">0</span><span class="sourceText">][3]), local);</span>
-<span class="dots">.  .  |  .  |  .  |  .  |  .  |  .  </span>"3"  <span class="type">LiteralInt.value</span>   <span class="pos">76:43  76:43 </span><span class="sourceText">v[local] = dobleSuma(<int>(2.0 + h[0][</span><span class="posText">3</span><span class="sourceText">]), local);</span>
+<span class="dots">.  .  |  .  |  .  |  .  |  .  |  </span>"3"  <span class="type">LiteralInt.value</span>      <span class="pos">76:43  76:43 </span><span class="sourceText">v[local] = dobleSuma(<int>(2.0 + h[0][</span><span class="posText">3</span><span class="sourceText">]), local);</span>
 <span class="dots">.  .  |  .  |  .  |  .  |  </span>"local"  <span class="type">VariableReference.name</span>  <span class="pos">76:48  76:52 </span><span class="sourceText">v[local] = dobleSuma(<int>(2.0 + h[0][3]), </span><span class="posText">local</span><span class="sourceText">);</span>
 <span class="dots">.  .  |  .  |  .  </span>Assignment &rarr;                              <span class="pos">77:5  77:21  </span><span class="sourceText"></span><span class="posText">local = local + 1</span><span class="sourceText">;</span>
 <span class="dots">.  .  |  .  |  .  |  </span>"local"  <span class="type">VariableReference.name</span>        <span class="pos">77:5  77:9   </span><span class="sourceText"></span><span class="posText">local</span><span class="sourceText"> = local + 1;</span>
@@ -240,8 +233,7 @@
 <span class="dots">.  .  |  .  |  .  |  </span>parameters  <span class="type">List&lt;Variable&gt;</span> = 
 <span class="dots">.  .  |  .  |  .  |  .  </span>ArrayAccess &rarr;                       <span class="pos">88:17  88:23 </span><span class="sourceText">escribeEdad(</span><span class="posText">v[local</span><span class="sourceText">]);</span>
 <span class="dots">.  .  |  .  |  .  |  .  |  </span>"v"  <span class="type">VariableReference.name</span>      <span class="pos">88:17  88:17 </span><span class="sourceText">escribeEdad(</span><span class="posText">v</span><span class="sourceText">[local]);</span>
-<span class="dots">.  .  |  .  |  .  |  .  |  </span>position  <span class="type">List&lt;Expression&gt;</span> = 
-<span class="dots">.  .  |  .  |  .  |  .  |  .  </span>"local"  <span class="type">VariableReference.name</span><span class="pos">88:19  88:23 </span><span class="sourceText">escribeEdad(v[</span><span class="posText">local</span><span class="sourceText">]);</span>
+<span class="dots">.  .  |  .  |  .  |  .  |  </span>"local"  <span class="type">VariableReference.name</span>  <span class="pos">88:19  88:23 </span><span class="sourceText">escribeEdad(v[</span><span class="posText">local</span><span class="sourceText">]);</span>
 <span class="dots">.  .  |  .  |  </span>elseBody  <span class="type">List&lt;Statement&gt;</span> = 
 
 [ASTPrinter] --------------------------------
