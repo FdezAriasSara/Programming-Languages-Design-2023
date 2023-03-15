@@ -1,0 +1,55 @@
+var int;
+var char;
+var [5] float;
+var [3] [2] float;
+struct Direccion{
+portal int;
+codigoPostal int;
+}
+varDireccion;
+varDireccion;
+struct Persona{
+edad int;
+direccionDireccion;
+}
+var [6]Persona;
+struct Empresa{
+cif [9] char;
+empleados [10]Persona;
+}
+varEmpresa;
+//Function definition 
+dobleSuma(a:{IntType} int,b:{IntType} int,): int{
+var int;
+local=a+b*2;
+return local*2 ;
+;
+}
+//Function definition 
+escribeEdad(num:{IntType} int,):{
+ print microsoft.empleadosnum.edad;
+;
+}
+var int;
+//Function definition 
+main():{
+var int;
+varPersona;
+var [10] int;
+pepe.edad=20;
+ read pepe.direccion.codigoPostal;
+;
+local=0;
+while(local<10){
+vlocal=dobleSuma(< int>{2.0+h03)local)local=local+1}
+;
+if(a>=2 && local<5){
+escribeEdad(a+local)return  ;
+}else{
+b='R'}
+;
+if(z!=2){
+escribeEdad(vlocal)}else{
+}
+;
+}

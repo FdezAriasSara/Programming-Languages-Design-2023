@@ -20,16 +20,25 @@ public class CodeGenerator extends DefaultVisitor{
     File sourceFile;
 
 
-    public CodeGenerator(String filename ,OutputStreamWriter writer)  {
+    public CodeGenerator(File file )  {
 
-        sourceFile=new File(filename);
+        sourceFile=file;
         try {
             this.writer=new OutputStreamWriter(new FileOutputStream(sourceFile));
-        } catch (FileNotFoundException e) {
+            this.writer.flush();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
 
+    }
+    public void dumpSource(AST ast){
+        ast.accept(this,null);
+        try {
+            this.writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void write(String text){
@@ -38,6 +47,7 @@ public class CodeGenerator extends DefaultVisitor{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 
@@ -89,8 +99,10 @@ public class CodeGenerator extends DefaultVisitor{
                 child.accept(this, param);
 
         if (node.getStatements() != null)
-            for (Statement child : node.getStatements())
+            for (Statement child : node.getStatements()) {
                 child.accept(this, param);
+                write(";\n");
+            }
         write("}\n");
 
         return null;
