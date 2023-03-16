@@ -4,6 +4,7 @@
 
 package ast.expression;
 import ast. *;
+import ast.definition.FunctionDefinition;
 import ast.statement.*;
 import java.util.*;
 import org.antlr.v4.runtime.*;
@@ -57,4 +58,20 @@ public class Invocation extends AbstractStatement implements Expression{
 	public String toString() {
        return "{name:" + getName() + ", parameters:" + getParameters() + "}";
    }
+
+	//Fase de identificación
+	private FunctionDefinition definition;
+
+
+	public void setDefinition(FunctionDefinition definition) {
+		this.definition = definition;
+
+	}
+	public FunctionDefinition getDefinition() {
+
+		return this.definition;
+	}
+
+
+
 }

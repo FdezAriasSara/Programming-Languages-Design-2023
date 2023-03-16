@@ -4,6 +4,7 @@
 
 package ast;
 
+import ast.definition.VarDefinition;
 import org.antlr.v4.runtime.*;
 
 import ast.type.*;
@@ -14,7 +15,7 @@ import visitor.*;
 //	variable -> name:String  type:type
 
 public class Variable extends AbstractAST  {
-
+private VarDefinition definition;
 	public Variable(String name, Type type) {
 		this.name = name;
 		this.type = type;
@@ -33,6 +34,8 @@ public class Variable extends AbstractAST  {
        setPositions(name, type);
 	}
 
+
+
 	public String getName() {
 		return name;
 	}
@@ -47,6 +50,7 @@ public class Variable extends AbstractAST  {
 		this.type = type;
 	}
 
+
 	@Override
 	public Object accept(Visitor v, Object param) { 
 		return v.visit(this, param);
@@ -58,4 +62,12 @@ public class Variable extends AbstractAST  {
 	public String toString() {
        return "{name:" + getName() + ", type:" + getType() + "}";
    }
+
+	//Fase de identificación
+	public void setDefinition(VarDefinition definition){
+		this.definition=definition;
+	}
+	public VarDefinition getDefinition(){
+		return this.definition;
+	}
 }
