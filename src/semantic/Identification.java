@@ -29,29 +29,37 @@ public class Identification extends DefaultVisitor {
          variables.set();//Initialize global scope.
          super.visit(node, param);
         variables.reset();//Teminate scope (is it necessary?
-
+        structs.clear(); //Since structs are defined on a global scope
 
         return null;
     }
 
     //	class Variable { String name;  Type type; }
     public Object visit(Variable node, Object param) {
-
-        // super.visit(node, param);
-
-        if (node.getType() != null)
-            node.getType().accept(this, param);
-
+        VarDefinition definition=variables.getFromTop(node.getName());//Search in LOCAL context.
+        if(definition==null){
+           definition=variables.getFromAny(node.getName());//GLOBAL context
+            if (definition != null) {
+                node.setDefinition(definition);
+            } else {
+                error("La variable " + node.getName() + " ya ha sido definida.", node.getStart());
+            }
+        }else{//VARIABLEDEF found in local context
+            node.setDefinition(definition);
+        }
+        super.visit(node, param);
         return null;
     }
 
     //	class VarDefinition { Type type;  String name; }
     public Object visit(VarDefinition node, Object param) {
 
-        // super.visit(node, param);
-
-        if (node.getType() != null)
-            node.getType().accept(this, param);
+        if(variables.getFromTop(node.getName())!=null){
+            error("La variable "+node.getName()+" ya ha sido definida en este contexto.", node.getStart());
+        } else{
+            variables.put(node.getName(),node);
+        }
+         super.visit(node,param);
 
         return null;
     }
@@ -64,30 +72,11 @@ public class Identification extends DefaultVisitor {
             //predicate not fulfilled.
             error("La función ' "+node.getName()+" 'ya ha sido declarada." ,node.getStart());
         }
-
-
-        if (node.getParameters() != null)
-            for (Variable child : node.getParameters())
-                child.accept(this, param);
-
-        if (node.getReturnType() != null)
-            node.getReturnType().accept(this, param);
-
-        if (node.getLocalDefs() != null){
-            variables.set();  //When the curly braces opens, a new scope is created.
-            for (VarDefinition child : node.getLocalDefs())
-                child.accept(this, param);
-
-        }
-
-
-        if (node.getStatements() != null)
-            for (Statement child : node.getStatements())
-                child.accept(this, param);
-
+        variables.set();  //parameters will belong to local context of the function
+        super.visit(node,param);
        variables.reset();
         return null;
-        //Scopes are terminated the moment the curly braces are closed.
+        //local scopes are terminated the moment the curly braces are closed.
 
 
 
@@ -95,13 +84,12 @@ public class Identification extends DefaultVisitor {
 
     //	class StructDefinition { String name;  List<StructField> fields; }
     public Object visit(StructDefinition node, Object param) {
-        if(structs.get(node.getName())==null) {
-            structs.put(node.getName(),node);
-        }else{
+        if(structs.get(node.getName())!=null){
             error("La estructura '"+node.getName()+"' ya ha sido definida. ",node.getStart());
+        }else {
+            structs.put(node.getName(),node);
         }
         super.visit(node, param);
-        structs.clear();
 
         return null;
     }
@@ -116,7 +104,14 @@ public class Identification extends DefaultVisitor {
         super.visit(node, param);
         return null;
     }
+    //	class StructType { String name; }
+    public Object visit(StructType node, Object param) {
 
+        if(structs.get(node.getName())==null){
+            error("La estructura '"+node.getName()+"' no  ha sido definida. ",node.getStart());
+        }
+        return null;
+    }
     //	class Invocation { String name;  List<Variable> parameters; }
     public Object visit(Invocation node, Object param) {
 

@@ -4,6 +4,8 @@
 
 package ast.type;
 
+import ast.definition.Definition;
+import ast.definition.StructDefinition;
 import org.antlr.v4.runtime.*;
 
 import visitor.*;
@@ -41,4 +43,6 @@ public class StructType extends AbstractType {
 	public String toString() {
        return "{name:" + getName() + "}";
    }
+
+
 }
