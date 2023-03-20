@@ -4,6 +4,7 @@
 
 package ast.expression;
 
+import ast.definition.VarDefinition;
 import org.antlr.v4.runtime.*;
 
 import visitor.*;
@@ -41,4 +42,15 @@ public class VariableReference extends AbstractExpression {
 	public String toString() {
        return "{name:" + getName() + "}";
    }
+
+	public VarDefinition getDefinition() {
+		return definition;
+	}
+
+	public void setDefinition(VarDefinition definition) {
+		this.definition = definition;
+
+	}
+
+	private VarDefinition definition;
 }

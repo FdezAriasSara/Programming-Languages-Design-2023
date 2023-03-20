@@ -26,6 +26,7 @@ public class Identification extends DefaultVisitor {
     Map<String,StructField> fields=new HashMap<>();
     //	class Program { List<Definition> definitions; }
     public Object visit(Program node, Object param) {
+
          variables.set();//Initialize global scope.
          super.visit(node, param);
         variables.reset();//Teminate scope (is it necessary?
@@ -36,20 +37,22 @@ public class Identification extends DefaultVisitor {
 
     //	class Variable { String name;  Type type; }
     public Object visit(Variable node, Object param) {
-        VarDefinition definition=variables.getFromTop(node.getName());//Search in LOCAL context.
-        if(definition==null){
-           definition=variables.getFromAny(node.getName());//GLOBAL context
-            if (definition != null) {
-                node.setDefinition(definition);
-            } else {
-                error("La variable " + node.getName() + " ya ha sido definida.", node.getStart());
-            }
-        }else{//VARIABLEDEF found in local context
+        super.visit(node, param);
+        VarDefinition definition=searchVarDefinition(node.getName(),node.getStart());
+        if(definition!=null) {
             node.setDefinition(definition);
         }
-        super.visit(node, param);
         return null;
     }
+    //	class VariableReference { String name; }
+    public Object visit(VariableReference node, Object param) {
+        VarDefinition definition=searchVarDefinition(node.getName(),node.getStart());
+        if(definition!=null) {
+            node.setDefinition(definition);
+        }
+        return null;
+    }
+
 
     //	class VarDefinition { Type type;  String name; }
     public Object visit(VarDefinition node, Object param) {
@@ -73,7 +76,23 @@ public class Identification extends DefaultVisitor {
             error("La función ' "+node.getName()+" 'ya ha sido declarada." ,node.getStart());
         }
         variables.set();  //parameters will belong to local context of the function
-        super.visit(node,param);
+        if (node.getParameters() != null)
+            for (Variable child : node.getParameters()){
+                variables.put(child.getName(),new VarDefinition(child.getName(),child.getType()));
+                child.accept(this,param );
+            }
+
+
+        if (node.getReturnType() != null)
+            node.getReturnType().accept(this, param);
+
+        if (node.getLocalDefs() != null)
+            for (VarDefinition child : node.getLocalDefs())
+                child.accept(this, param);
+
+        if (node.getStatements() != null)
+            for (Statement child : node.getStatements())
+                child.accept(this, param);
        variables.reset();
         return null;
         //local scopes are terminated the moment the curly braces are closed.
@@ -147,9 +166,24 @@ public class Identification extends DefaultVisitor {
         return null;
     }
 
-    //	class VariableReference { String name; }
-    public Object visit(VariableReference node, Object param) {
-        return null;
+    /**
+     * Auxiliar method to look for variable definitions to link to variable references and to variables.
+     * @param name
+     * @param start
+     * @return
+     */
+    private VarDefinition searchVarDefinition(String name,Position start){
+        VarDefinition definition=variables.getFromTop(name);//search in local context
+        if(definition==null){
+            definition=variables.getFromAny(name);//search in global
+            if(definition==null){
+                //arriving here means not finding a definition in any scope.
+                error("La variable "+name+" no ha sido definida.", start);
+                return null;
+            }
+
+        }
+        return definition;
     }
 
 
