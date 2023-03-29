@@ -81,7 +81,7 @@ public class Identification extends DefaultVisitor {
                 variables.put(child.getName(),new VarDefinition(child.getName(),child.getType()));
                 child.accept(this,param );
             }
-
+//todo comprobar que el parámetro no se asigna cuando no toca?
 
         if (node.getReturnType() != null)
             node.getReturnType().accept(this, param);
