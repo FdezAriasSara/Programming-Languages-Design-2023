@@ -5,7 +5,10 @@
 package ast.statement;
 
 import ast.*;
+import ast.type.Type;
 
 public interface Statement extends AST {
+    public void setReturnType(Type type);
+    public Type getReturnType();
 
 }

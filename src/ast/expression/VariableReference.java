@@ -19,7 +19,7 @@ public class VariableReference extends AbstractExpression {
 
 	public VariableReference(Object name) {
 		this.name = (name instanceof Token) ? ((Token)name).getText() : (String) name;
-
+		setLvalue(true);
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
        setPositions(name);
