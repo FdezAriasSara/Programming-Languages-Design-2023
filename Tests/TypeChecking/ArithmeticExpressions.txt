@@ -1,0 +1,44 @@
+
+
+struct Persona {
+	edad:int;
+	meses:[12] int;
+};
+h(a:int, b:int):int {
+	if(a > 10) {
+		return a;
+	}
+	return b;
+}
+var juan:Persona;
+var anton:Persona;
+
+main() {
+	var i:int;
+	var f:float;
+	var v:[10]int;
+
+
+	print f / 2.5;
+
+	print juan + anton;	// Deben ser tipos simples
+
+	//print juan.meses + anton.meses[1];	// Deben ser tipos simples
+
+  //  print 3 + anton.meses[1];
+
+  //  print (juan.meses[2] - anton.meses[1]) + i/f;
+ //   print h(20,39) / (i/f);
+
+    i=main() + 2; //Main es tipo void por tanto no hay nada que sumar.
+
+//	print 3 + juan.meses[3];
+	print 2.5 * 2;		// Deben ser del mismo tipo
+	print i - 2;
+
+
+	print <int>(2.5) + i;
+
+
+
+}

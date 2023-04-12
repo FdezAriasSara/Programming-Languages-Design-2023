@@ -9,7 +9,6 @@ package semantic;
 import ast.*;
 import main.*;
 import visitor.*;
-import ast.*;
 import ast.definition.*;
 import ast.expression.*;
 import ast.type.*;
@@ -37,22 +36,15 @@ public class TypeChecking extends DefaultVisitor {
 
     //	class Variable { String name;  Type type; }
     public Object visit(Variable node, Object param) {
-
-        // super.visit(node, param);
-
-        if (node.getType() != null)
-            node.getType().accept(this, param);
-
+        super.visit(node, param);
+        node.setType(node.getDefinition().getType());
         return null;
     }
 
     //	class VarDefinition { Type type;  String name; }
     public Object visit(VarDefinition node, Object param) {
 
-        // super.visit(node, param);
-
-        if (node.getType() != null)
-            node.getType().accept(this, param);
+         super.visit(node, param);
 
         return null;
     }
@@ -60,14 +52,19 @@ public class TypeChecking extends DefaultVisitor {
     //	class FunctionDefinition { String name;  List<Variable> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
     public Object visit(FunctionDefinition node, Object param) {
 
-        // super.visit(node, param);
 
-        if (node.getParameters() != null)
-            for (Variable child : node.getParameters())
+        if (node.getParameters() != null) {
+            for (Variable child : node.getParameters()) {
                 child.accept(this, param);
+                predicado(hasSimpleType(child.getType()),"Los parámetros deben ser de tipo simple.",node);
+            }
+        }
 
-        if (node.getReturnType() != null)
+
+        if (node.getReturnType() != null) {
             node.getReturnType().accept(this, param);
+            predicado(hasSimpleType(node.getReturnType()),"El tipo de retorno debe ser de tipo simple.",node);
+        }
 
         if (node.getLocalDefs() != null)
             for (VarDefinition child : node.getLocalDefs())
@@ -75,7 +72,7 @@ public class TypeChecking extends DefaultVisitor {
 
         if (node.getStatements() != null)
             for (Statement child : node.getStatements())
-                child.accept(this, param);
+                child.accept(this, node);
 
         return null;
     }
@@ -83,68 +80,27 @@ public class TypeChecking extends DefaultVisitor {
     //	class StructDefinition { String name;  List<StructField> fields; }
     public Object visit(StructDefinition node, Object param) {
 
-        // super.visit(node, param);
 
         if (node.getFields() != null)
             for (StructField child : node.getFields())
-                child.accept(this, param);
+                child.accept(this, node);
 
         return null;
     }
 
     //	class StructField { String name;  Type type; }
     public Object visit(StructField node, Object param) {
+         super.visit(node, param);
 
-        // super.visit(node, param);
+        return node.getType();
 
-        if (node.getType() != null)
-            node.getType().accept(this, param);
-
-        return null;
-    }
-
-    //	class VoidType {  }
-    public Object visit(VoidType node, Object param) {
-        return null;
-    }
-
-    //	class IntType {  }
-    public Object visit(IntType node, Object param) {
-        return null;
-    }
-
-    //	class FloatType {  }
-    public Object visit(FloatType node, Object param) {
-        return null;
-    }
-
-    //	class CharType {  }
-    public Object visit(CharType node, Object param) {
-        return null;
-    }
-
-    //	class ArrayType { String dimension;  Type type; }
-    public Object visit(ArrayType node, Object param) {
-
-          super.visit(node, param);
-
-
-        return null;
-    }
-
-    //	class StructType { String name; }
-    public Object visit(StructType node, Object param) {
-       super.visit(node, param);
-        return null;
     }
 
     //	class Print { Expression expression;  String variant; }
     public Object visit(Print node, Object param) {
 
-        // super.visit(node, param);
-
-        if (node.getExpression() != null)
-            node.getExpression().accept(this, param);
+         super.visit(node, param);
+        predicado(hasSimpleType(node.getExpression().getType()),node+" no es de tipo simple.",node);
 
         return null;
     }
@@ -152,10 +108,9 @@ public class TypeChecking extends DefaultVisitor {
     //	class Read { Expression expression; }
     public Object visit(Read node, Object param) {
 
-        // super.visit(node, param);
-
-        if (node.getExpression() != null)
-            node.getExpression().accept(this, param);
+         super.visit(node, param);
+        predicado(hasSimpleType(node.getExpression().getType()),node+" no es de tipo simple.",node);
+        predicado(node.getExpression().getLvalue(),node+" no es de modificable.",node);
 
         return null;
     }
@@ -163,47 +118,28 @@ public class TypeChecking extends DefaultVisitor {
     //	class IfStatement { Expression condition;  List<Statement> body;  List<Statement> elseBody; }
     public Object visit(IfStatement node, Object param) {
 
-        // super.visit(node, param);
-
-        if (node.getCondition() != null)
-            node.getCondition().accept(this, param);
-
-        if (node.getBody() != null)
-            for (Statement child : node.getBody())
-                child.accept(this, param);
-
-        if (node.getElseBody() != null)
-            for (Statement child : node.getElseBody())
-                child.accept(this, param);
-
+       super.visit(node, param);
+        predicado(node.getCondition().getType() instanceof IntType, "La condición debe ser de tipo entero." ,node);
         return null;
     }
 
     //	class While { Expression condition;  List<Statement> body; }
     public Object visit(While node, Object param) {
 
-        // super.visit(node, param);
-
-        if (node.getCondition() != null)
-            node.getCondition().accept(this, param);
-
-        if (node.getBody() != null)
-            for (Statement child : node.getBody())
-                child.accept(this, param);
-
+          super.visit(node, param);
+        predicado(node.getCondition().getType() instanceof IntType, "La condición debe ser de tipo entero." ,node);
         return null;
     }
 
     //	class Assignment { Expression left;  Expression right; }
     public Object visit(Assignment node, Object param) {
 
-        // super.visit(node, param);
+         super.visit(node, param);
+        predicado(node.getLeft().getLvalue(),node+" no es de modificable.",node);
+        predicado(hasSimpleType(node.getLeft().getType()),node+" no es de tipo simple.",node);
+        predicado(node.getLeft().getType().equals(node.getRight().getType())," El valor a asignar debe ser del mismo tipo que la variable.",node);
 
-        if (node.getLeft() != null)
-            node.getLeft().accept(this, param);
 
-        if (node.getRight() != null)
-            node.getRight().accept(this, param);
 
         return null;
     }
@@ -211,51 +147,61 @@ public class TypeChecking extends DefaultVisitor {
     //	class Invocation { String name;  List<Variable> parameters; }
     public Object visit(Invocation node, Object param) {
 
-        // super.visit(node, param);
-
-        if (node.getParameters() != null)
-            for (Variable child : node.getParameters())
-                child.accept(this, param);
-
+         super.visit(node, param);
+        predicado(node.getParameters().size() == node.getDefinition().getParameters().size(),"El número de argumentos recibidos("+node.getDefinition().getParameters().size()+") no coincide con el esperado ("+node.getDefinition().getParameters().size()+")", node);
+        predicado( checkArguments(node.getDefinition().getParameters(),node.getParameters()),"El tipo de los parámetros de la invoación no fueron los esperados.", node);
+        predicado(!(node.getDefinition().getReturnType() instanceof VoidType),"La función des de tipo void",node);
+        node.setType(node.getDefinition().getReturnType());
         return null;
     }
+
+
 
     //	class Return { Expression expression; }
     public Object visit(Return node, Object param) {
 
-        // super.visit(node, param);
+          super.visit(node, param);
+        node.setFunctionDefinition((FunctionDefinition) param); // We recieve the definition node as a parameter.
+        Type expected=node.getFunctionDefinition().getReturnType(),recieved;
 
-        if (node.getExpression() != null)
-            node.getExpression().accept(this, param);
+        if(node.getExpression() == null){
+            predicado(expected instanceof VoidType,"El return  debe tener una expresión de tipo "+ expected+". ",node);
+        }else {
+            recieved=node.getExpression().getType();
+
+            if(!(expected instanceof VoidType)){
+                predicado(false,"El return no debe tener expresión en funciones void.",node);
+            }else {
+                predicado(expected.equals(recieved), "El tipo de retorno  " + recieved + "  no fue el esperado  " + expected + " .", node);
+            }
+        }
+
 
         return null;
     }
 
     //	class ArithmeticExpression { Expression left;  String operator;  Expression right; }
     public Object visit(ArithmeticExpression node, Object param) {
-
-        // super.visit(node, param);
-
-        if (node.getLeft() != null)
-            node.getLeft().accept(this, param);
-
-        if (node.getRight() != null)
-            node.getRight().accept(this, param);
-
+        super.visit(node, param);
+        predicado(node.getLeft().getType().equals(node.getRight().getType()),"Las expresiones deben ser del mismo tipo en operaciones aritméticas.",node);
+        predicado(!(node.getLeft().getType() instanceof VoidType),"No se pueden realizar operaciones aritméticas con expresiones de tipo void.",node);
+        node.setType(node.getLeft().getType());
         return null;
     }
 
     //	class Comparison { Expression left;  String operator;  Expression right; }
     public Object visit(Comparison node, Object param) {
 
-        // super.visit(node, param);
+        super.visit(node, param);
+        if(node.getRight().getType().equals(node.getLeft().getType())){
+            predicado(node.getLeft().getType() instanceof IntType,"Las expresiones a comparar deben ser de tipo int. "+node+" no es de tipo entero.",node);
+        }else{ //In case the types are not equal , for sure one of them is not in type. (I  do this to avoid printing two errors for the same mistake)
+          AST notInt=node.getLeft().getType() instanceof IntType ? node.getLeft().getType() : node.getRight().getType();
+          predicado(false,"Las expresiones a comparar deben ser de tipo int . "+notInt+" no es de tipo entero.",node);
+        }
 
-        if (node.getLeft() != null)
-            node.getLeft().accept(this, param);
 
-        if (node.getRight() != null)
-            node.getRight().accept(this, param);
-
+        node.setType(node.getLeft().getType());
         return null;
     }
 
@@ -287,8 +233,6 @@ public class TypeChecking extends DefaultVisitor {
          predicado(node.getExpression().getType() instanceof IntType,"El operador Not solo puede usarse con expresiones de tipo  IntType .",node);
          node.setType(node.getExpression().getType());
 
-
-
         return null;
     }
 
@@ -307,31 +251,25 @@ public class TypeChecking extends DefaultVisitor {
     //	class ArrayAccess { Expression array;  Expression position; }
     public Object visit(ArrayAccess node, Object param) {
 
-        // super.visit(node, param);
-
-        if (node.getArray() != null)
-            node.getArray().accept(this, param);
-
-        if (node.getPosition() != null)
-            node.getPosition().accept(this, param);
-
+        super.visit(node, param);
+        predicado(node.getArray().getType() instanceof ArrayType,"El elemento accedido  debe ser de tipo array",node);
+        predicado(node.getPosition().getType() instanceof IntType,"El índice de un acceso a array debe ser de tipo entero",node);
+        node.setType(node.getArray().getType());
         return null;
     }
 
     //	class StructFieldAccess { Expression struct;  String field; }
     public Object visit(StructFieldAccess node, Object param) {
 
-        // super.visit(node, param);
-
-        if (node.getStruct() != null)
-            node.getStruct().accept(this, param);
+        super.visit(node, param);
+        predicado(node.getStruct().getType() instanceof  StructType, node+" no es de tipo struct",node);
+        node.setType(node.getStruct().getType());
 
         return null;
     }
 
     //	class VariableReference { String name; }
     public Object visit(VariableReference node, Object param) {
-        super.visit(node,param);
         node.setType(node.getDefinition().getType());
         return null;
     }
@@ -390,4 +328,17 @@ public class TypeChecking extends DefaultVisitor {
        return true;
     }
     private ErrorManager errorManager;
+    private boolean checkArguments(List<Variable> parameters, List<Variable> parametersGot) {
+        Variable currentExpected,currentRecieved;
+        for (int i = 0; i < parameters.size(); i++) {
+            currentExpected=parameters.get(i);
+            currentRecieved=parametersGot.get(i);
+
+            if(!currentExpected.getType().equals(currentRecieved.getType())){
+                return false;
+            }
+
+        }
+        return true;
+    }
 }

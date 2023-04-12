@@ -11,6 +11,8 @@ import ast.type.*;
 
 import visitor.*;
 
+import java.sql.Struct;
+
 //	StructField -> name:String  type:type
 
 public class StructField extends AbstractAST  {
@@ -58,4 +60,5 @@ public class StructField extends AbstractAST  {
 	public String toString() {
        return "{name:" + getName() + ", type:" + getType() + "}";
    }
+
 }

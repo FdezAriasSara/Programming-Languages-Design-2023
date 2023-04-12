@@ -21,66 +21,8 @@
 
 <body><pre>
 [ASTPrinter] -------------------------------- line:col  line:col
+raiz == null
 
-<span class="dots"></span>Program &rarr;                                                   <span class="pos">1:8  20:18   </span><span class="sourceText">struct </span><span class="posText">Persona {</span><span class="sourceText"> ... </span><span class="posText">print <float>(2.5</span><span class="sourceText">);		// Deben ser distintos tipos</span>
-<span class="dots">.  </span>definitions  <span class="type">List&lt;Definition&gt;</span> = 
-<span class="dots">.  .  </span>StructDefinition &rarr;                                    <span class="pos">1:8  3:10    </span><span class="sourceText">struct </span><span class="posText">Persona {</span><span class="sourceText"> ... </span><span class="posText">meses:[12</span><span class="sourceText">] int;</span>
-<span class="dots">.  .  |  </span>"<span class="value">Persona</span>"  
-<span class="dots">.  .  |  </span>fields  <span class="type">List&lt;StructField&gt;</span> = 
-<span class="dots">.  .  |  .  </span>StructField &rarr;                                   <span class="pos">2:2  2:5     </span><span class="sourceText"></span><span class="posText">edad</span><span class="sourceText">:int;</span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">edad</span>"  
-<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  .  </span>StructField &rarr;                                   <span class="pos">3:2  3:10    </span><span class="sourceText"></span><span class="posText">meses:[12</span><span class="sourceText">] int;</span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">meses</span>"  
-<span class="dots">.  .  |  .  |  </span>ArrayType &rarr;                                  <span class="pos">3:9  3:10    </span><span class="sourceText">meses:[</span><span class="posText">12</span><span class="sourceText">] int;</span>
-<span class="dots">.  .  |  .  |  .  </span>"<span class="value">12</span>"  
-<span class="dots">.  .  |  .  |  .  </span><span class="value">IntType</span> &rarr;                                 <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">6:5  6:16    </span><span class="sourceText">var </span><span class="posText">juan:Persona</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  </span>"Persona"  <span class="type">StructType.name</span>                         <span class="pos">6:10  6:16   </span><span class="sourceText">var juan:</span><span class="posText">Persona</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  </span>"<span class="value">juan</span>"  
-<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">7:5  7:17    </span><span class="sourceText">var </span><span class="posText">anton:Persona</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  </span>"Persona"  <span class="type">StructType.name</span>                         <span class="pos">7:11  7:17   </span><span class="sourceText">var anton:</span><span class="posText">Persona</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  </span>"<span class="value">anton</span>"  
-<span class="dots">.  .  </span>FunctionDefinition &rarr;                                  <span class="pos">10:1  20:18  </span><span class="sourceText"></span><span class="posText">main() {</span><span class="sourceText"> ... </span><span class="posText">print <float>(2.5</span><span class="sourceText">);		// Deben ser distintos tipos</span>
-<span class="dots">.  .  |  </span>"<span class="value">main</span>"  
-<span class="dots">.  .  |  </span>parameters  <span class="type">List&lt;Variable&gt;</span> = 
-<span class="dots">.  .  |  </span><span class="value">VoidType</span> &rarr;                                         <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  </span>localDefs  <span class="type">List&lt;VarDefinition&gt;</span> = 
-<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">11:6  11:6   </span><span class="sourceText">var </span><span class="posText">i</span><span class="sourceText">:int;</span>
-<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">i</span>"  
-<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">12:6  12:6   </span><span class="sourceText">var </span><span class="posText">f</span><span class="sourceText">:float;</span>
-<span class="dots">.  .  |  .  |  </span><span class="value">FloatType</span> &rarr;                                  <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">f</span>"  
-<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">13:6  13:10  </span><span class="sourceText">var </span><span class="posText">v:[10</span><span class="sourceText">]int;</span>
-<span class="dots">.  .  |  .  |  </span>ArrayType &rarr;                                  <span class="pos">13:9  13:10  </span><span class="sourceText">var v:[</span><span class="posText">10</span><span class="sourceText">]int;</span>
-<span class="dots">.  .  |  .  |  .  </span>"<span class="value">10</span>"  
-<span class="dots">.  .  |  .  |  .  </span><span class="value">IntType</span> &rarr;                                 <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">v</span>"  
-<span class="dots">.  .  |  </span>statements  <span class="type">List&lt;Statement&gt;</span> = 
-<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">17:2  17:21  </span><span class="sourceText"></span><span class="posText">print <int>(2.5) + i</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  .  |  </span>ArithmeticExpression &rarr;                       <span class="pos">17:14  17:21 </span><span class="sourceText">print <int>(</span><span class="posText">2.5) + i</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  .  |  .  </span>Cast &rarr;                                    <span class="pos">17:14  17:16 </span><span class="sourceText">print <int>(</span><span class="posText">2.5</span><span class="sourceText">) + i;</span>
-<span class="dots">.  .  |  .  |  .  |  </span><span class="value">IntType</span> &rarr;                              <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  .  |  .  |  </span>"2.5"  <span class="type">LiteralFloat.value</span>              <span class="pos">17:14  17:16 </span><span class="sourceText">print <int>(</span><span class="posText">2.5</span><span class="sourceText">) + i;</span>
-<span class="dots">.  .  |  .  |  .  </span>"<span class="value">+</span>"  
-<span class="dots">.  .  |  .  |  .  </span>"i"  <span class="type">VariableReference.name</span>               <span class="pos">17:21  17:21 </span><span class="sourceText">print <int>(2.5) + </span><span class="posText">i</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
-<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">18:2  18:20  </span><span class="sourceText"></span><span class="posText">print <Persona>(2.5</span><span class="sourceText">);	// Tipos simples</span>
-<span class="dots">.  .  |  .  |  </span>Cast &rarr;                                       <span class="pos">18:9  18:20  </span><span class="sourceText">print <</span><span class="posText">Persona>(2.5</span><span class="sourceText">);	// Tipos simples</span>
-<span class="dots">.  .  |  .  |  .  </span>"Persona"  <span class="type">StructType.name</span>                <span class="pos">18:9  18:15  </span><span class="sourceText">print <</span><span class="posText">Persona</span><span class="sourceText">>(2.5);	// Tipos simples</span>
-<span class="dots">.  .  |  .  |  .  </span>"2.5"  <span class="type">LiteralFloat.value</span>                 <span class="pos">18:18  18:20 </span><span class="sourceText">print <Persona>(</span><span class="posText">2.5</span><span class="sourceText">);	// Tipos simples</span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
-<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">19:2  19:17  </span><span class="sourceText"></span><span class="posText">print <int>(juan</span><span class="sourceText">);		// Expresiones de tipos simples</span>
-<span class="dots">.  .  |  .  |  </span>Cast &rarr;                                       <span class="pos">19:14  19:17 </span><span class="sourceText">print <int>(</span><span class="posText">juan</span><span class="sourceText">);		// Expresiones de tipos simples</span>
-<span class="dots">.  .  |  .  |  .  </span><span class="value">IntType</span> &rarr;                                 <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  .  |  .  </span>"juan"  <span class="type">VariableReference.name</span>            <span class="pos">19:14  19:17 </span><span class="sourceText">print <int>(</span><span class="posText">juan</span><span class="sourceText">);		// Expresiones de tipos simples</span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
-<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">20:2  20:18  </span><span class="sourceText"></span><span class="posText">print <float>(2.5</span><span class="sourceText">);		// Deben ser distintos tipos</span>
-<span class="dots">.  .  |  .  |  </span>Cast &rarr;                                       <span class="pos">20:16  20:18 </span><span class="sourceText">print <float>(</span><span class="posText">2.5</span><span class="sourceText">);		// Deben ser distintos tipos</span>
-<span class="dots">.  .  |  .  |  .  </span><span class="value">FloatType</span> &rarr;                               <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  .  |  .  </span>"2.5"  <span class="type">LiteralFloat.value</span>                 <span class="pos">20:16  20:18 </span><span class="sourceText">print <float>(</span><span class="posText">2.5</span><span class="sourceText">);		// Deben ser distintos tipos</span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
 
 [ASTPrinter] --------------------------------
 </pre>

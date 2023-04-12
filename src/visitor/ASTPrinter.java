@@ -375,22 +375,22 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class ArrayAccess { Expression array;  Expression position; }
+	//	class ArrayAccess.txt { Expression array;  Expression position; }
 	public Object visit(ArrayAccess node, Object param) {
 		int indent = ((Integer)param).intValue();
 
-		printName(indent, "ArrayAccess", node, false);
+		printName(indent, "ArrayAccess.txt", node, false);
 
 		visit(indent + 1, "array", "Expression",node.getArray());
 		visit(indent + 1, "position", "Expression",node.getPosition());
 		return null;
 	}
 
-	//	class StructFieldAccess { Expression struct;  String field; }
+	//	class StructFieldAccess.txt { Expression struct;  String field; }
 	public Object visit(StructFieldAccess node, Object param) {
 		int indent = ((Integer)param).intValue();
 
-		printName(indent, "StructFieldAccess", node, false);
+		printName(indent, "StructFieldAccess.txt", node, false);
 
 		visit(indent + 1, "struct", "Expression",node.getStruct());
 		print(indent + 1, "field", "String", node.getField());

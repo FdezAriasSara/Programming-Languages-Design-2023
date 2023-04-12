@@ -1,0 +1,27 @@
+
+
+struct Persona {
+	edad:int;
+	meses:[12] int;
+};
+noReturnFunction() {	// Los parámetros deben de ser tipos primitivos
+	return  ;	// El return no debe tener expresión en funciones void
+}
+
+var juan:Persona;
+var anton:Persona;
+
+main() {
+	var i:int;
+	var f:float;
+	var v:[10]int;
+
+
+	5 = 6; // Valor de la izquierda no modificable
+	i = f; // Valores de distinto tipo
+	juan = anton; // Valor de la izquierda debe ser simple
+	//extra
+    f=noReturnFunction();//No se puede asignar un valor void(=no son del mismo tipo )
+   juan.meses=noReturnFunction(); //No se puede asignar un valor void (=no son del mismo tipo )
+    i=juan.meses[2];
+}

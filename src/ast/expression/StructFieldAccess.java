@@ -8,7 +8,7 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	StructFieldAccess:expression -> struct:expression  field:String
+//	StructFieldAccess :expression -> struct:expression  field:String
 
 public class StructFieldAccess extends AbstractExpression {
 

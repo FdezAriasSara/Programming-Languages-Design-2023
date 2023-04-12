@@ -17,7 +17,6 @@ public class StructType extends AbstractType {
 	public StructType(String name) {
 		this.name = name;
 	}
-
 	public StructType(Object name) {
 		this.name = (name instanceof Token) ? ((Token)name).getText() : (String) name;
 

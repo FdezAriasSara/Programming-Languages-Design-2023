@@ -1,0 +1,51 @@
+
+struct Persona {
+	edad:int;
+	meses:[12] int;
+};
+
+var juan:Persona;
+var anton:Persona;
+
+h(a:int, b:int):int {
+	if(a > 10) {
+		return a;
+	}
+	return b;
+}
+
+j(a:int, b:float):float {
+	h(2);	// Numero de argumentos incorrecto
+	return b; // Debe haber un valor de retorno
+}
+
+main() {
+	var i:int;
+	var f:float;
+	var v:[10]int;
+    //INVOCACIONES COMO STATEMENT
+	j(12, 12.5);
+	j(12, 12); // Tipo de los parámetros no coincide
+	j(12);		// Número de argumentos no coincide
+	j(12, 12.5, 4); // Número de argumentos no coincide
+
+    //INVOCACIONES COMO EXPRESSION
+	print main();	// No tiene tipo de retorno
+	print j(12, 12.5);
+	print j(12, 12); // Tipo de los parámetros no coincide
+	print j(12);		// Número de argumentos no coincide
+	print j(12, 12.5, 4); // Número de argumentos no coincide
+
+
+
+	print j(12, 12.5) || i;// Deben ser enteros
+	print h(12, 12) || i;
+
+	print !h(12, 12); // Debe ser entero
+
+
+	print <int> ( j(12, 12.5) );
+
+
+
+}

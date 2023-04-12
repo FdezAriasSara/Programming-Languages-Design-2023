@@ -1,0 +1,27 @@
+
+
+struct Persona {
+	edad:int;
+	meses:[12] int;
+};
+
+var juan:Persona;
+var anton:Persona;
+
+
+
+main() {
+	var i:int;
+	var f:float;
+	var v:[10]int;
+
+	read juan;	// Debe ser un tipo simple
+	read 35;	// Debe ser modificable
+	read i;
+
+	print juan; // Debe ser tipo simple
+	print f / 2.5;
+
+
+}
+

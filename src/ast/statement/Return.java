@@ -4,6 +4,7 @@
 
 package ast.statement;
 
+import ast.definition.FunctionDefinition;
 import ast.type.Type;
 import ast.type.VoidType;
 import org.antlr.v4.runtime.*;
@@ -16,7 +17,6 @@ public class Return extends AbstractStatement {
 
 	public Return(Expression expression) {
 		this.expression = expression;
-		setReturnTypeOfExpression(expression);//para evitar nullPointer exception si la sentencia no tiene expresión de retorno.
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
@@ -38,23 +38,6 @@ public class Return extends AbstractStatement {
 		this.expression = expression;
 	}
 
-	/**
-	 * Redefino este método , porque cuando una función es de tipo void, esta no tiene expresión en su sentencia de retorno.
-	 * Esto da lugar , a que , al crear el nodo AST el parámetro pasado al constructor de Return sea null.
-	 * Si intentamos asignar a la sentencia el tipo de la expresión de retorno, en este caso , mediante null.getType()
-	 * obtendremos un error.
-	 *
-	 * @param type
-	 */
-
-	public void setReturnTypeOfExpression(Expression expression) {
-		if(expression!=null){
-			setReturnType(expression.getType());
-		}else{
-			setReturnType(new VoidType());
-		}
-
-	}
 
 	@Override
 	public Object accept(Visitor v, Object param) { 
@@ -66,4 +49,13 @@ public class Return extends AbstractStatement {
 	public String toString() {
        return "{expression:" + getExpression() + "}";
    }
+
+   //type checking
+   private FunctionDefinition functionDefinition;
+    public void setFunctionDefinition(FunctionDefinition param) {
+		this.functionDefinition=param;
+    }
+	public FunctionDefinition getFunctionDefinition(){
+		return this.functionDefinition;
+	}
 }

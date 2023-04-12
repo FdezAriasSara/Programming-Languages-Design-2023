@@ -1,0 +1,52 @@
+
+struct Persona {
+	edad:int;
+	meses:[12] int;
+};
+
+var juan:Persona;
+var anton:Persona;
+
+
+h(a:int, b:int):int {
+	if(a > 10) {
+		return 5.6;	// Tipo de retorno no coincide
+	}
+	return 'a';	// Tipo de retorno no coincide
+}
+
+
+main() {
+	var i:int;
+	var f:float;
+	var v:[10]int;
+    var counter:int;
+
+	if(2.5) { }	// La condicion debe ser de tipo entero
+	if (i) { }
+
+	while(juan) { }	// La condicion debe ser de tipo entero
+
+	counter=12;
+	while( counter>=0) {
+        if(juan.meses[counter]==counter){
+            print juan.meses;//la expresión debe ser de tipo simple (en este caso sería tipo array)
+        }else{
+            print f;
+        }
+	}
+	while (i) {}
+
+
+    //Comparaciones
+	print 2.5 && f;	// Deben ser tipo entero
+	print 2 || i;
+	print !2.5; // Debe ser entero
+
+	print juan > anton;	// Deben ser tipos simples
+	print 2.5 < 2;		// Deben ser del mismo tipo
+	print i == 2;
+
+
+
+}

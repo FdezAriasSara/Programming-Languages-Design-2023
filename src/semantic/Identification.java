@@ -78,7 +78,10 @@ public class Identification extends DefaultVisitor {
         variables.set();  //parameters will belong to local context of the function
         if (node.getParameters() != null)
             for (Variable child : node.getParameters()){
-                variables.put(child.getName(),new VarDefinition(child.getName(),child.getType()));
+                VarDefinition paramDef=new VarDefinition(child.getName(),child.getType());
+                //TODO PREGUNTAR SI ESTA BIEN asignar la definicion aqui?
+                variables.put(child.getName(),paramDef);
+                child.setDefinition(paramDef);
                 child.accept(this,param );
             }
 //todo comprobar que el parámetro no se asigna cuando no toca?
@@ -170,7 +173,7 @@ public class Identification extends DefaultVisitor {
 
 
 
-    //	class ArrayAccess { Expression array;  Expression position; }
+    //	class ArrayAccess  { Expression array;  Expression position; }
     public Object visit(ArrayAccess node, Object param) {
 
         // super.visit(node, param);

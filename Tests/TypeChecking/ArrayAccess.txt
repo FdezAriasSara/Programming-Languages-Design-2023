@@ -1,0 +1,25 @@
+
+struct Persona {
+	edad:int;
+	meses:[12] int;
+};
+
+var juan:Persona;
+var anton:Persona;
+
+
+
+
+main() {
+	var i:int;
+	var f:float;
+	var v:[10]int;
+
+	print juan[5];	// Debe ser tipo array
+	print juan.meses[3];
+	print 2[5];	// Debe ser tipo array
+	print v[5.0];	// Debe ser indice entero
+	print v[i+2];
+
+
+}

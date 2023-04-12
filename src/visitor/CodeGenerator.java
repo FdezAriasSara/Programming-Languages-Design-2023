@@ -335,7 +335,7 @@ public class CodeGenerator extends DefaultVisitor{
         return null;
     }
 
-    //	class ArrayAccess { Expression array;  Expression position; }
+    //	class ArrayAccess.txt { Expression array;  Expression position; }
     public Object visit(ArrayAccess node, Object param) {
 
       super.visit(node, param);
@@ -343,7 +343,7 @@ public class CodeGenerator extends DefaultVisitor{
         return null;
     }
 
-    //	class StructFieldAccess { Expression struct;  String field; }
+    //	class StructFieldAccess.txt { Expression struct;  String field; }
     public Object visit(StructFieldAccess node, Object param) {
 
         super.visit(node, param);
