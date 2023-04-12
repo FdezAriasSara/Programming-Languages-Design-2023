@@ -9,6 +9,13 @@ import visitor.*;
 //	CharType:type -> 
 
 public class CharType extends AbstractType {
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof CharType){
+			return true;
+		}
+		return super.equals(obj);
+	}
 
 	@Override
 	public Object accept(Visitor v, Object param) { 

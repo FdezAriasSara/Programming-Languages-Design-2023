@@ -55,7 +55,7 @@ statement returns [Statement ast]
         | 'while' '('condition=expression')' '{' body+=statement* '}'{$ast=new While($condition.ast, $body);}
         | 'read' expression ';' {$ast=new Read($expression.ast);}
         | variant=('print' |'printsp'|'println' ) expression? ';'{$ast=new Print(($ctx.expression != null ? $expression.ast : new VoidType()),$variant);}
-        | invocation ';'{$ast= $invocation.ast;}
+        | IDENT '('(arguments+=expression (','arguments+=expression)*)?')' ';'{$ast= new InvocationStatement($IDENT,$arguments);}
         | 'return' returnValue  {$ast=new Return($returnValue.ast);}
         ;
 
@@ -64,17 +64,13 @@ returnValue returns [Expression ast]
          | ';' // $ast will automatically be initialized to  `null`, AND context will not raise an exception!
          ; //I use an auxiliar rule to represent ? , since in THIS paritcular case I want NULL AND NOT Void type to be returned.
 
-invocation returns [Invocation ast]
-        :IDENT '('(arguments+=expression (','arguments+=expression)*)?')' {$ast=new Invocation($IDENT, $arguments);}
-        ; //Arguments are passed BY VALUE.
-
 expression returns [Expression ast]
             : IDENT {$ast=new VariableReference($IDENT);} //for example: a=variableName;
             | INT_CONSTANT {$ast=new LiteralInt($INT_CONSTANT);}
             | REAL_CONSTANT{$ast=new LiteralFloat($REAL_CONSTANT);}
             | CHAR_CONSTANT{$ast=new LiteralChar($CHAR_CONSTANT);}
             | '('expression')' {$ast=$expression.ast;}//It has to have a higher priority
-            | left=expression operator=('*'|'/') right=expression {$ast=new ArithmeticExpression($left.ast, $operator, $right.ast);}
+            | left=expression operator=('*'|'/'|'%') right=expression {$ast=new ArithmeticExpression($left.ast, $operator, $right.ast);}
             | left=expression operator=('+'|'-') right=expression {$ast=new ArithmeticExpression($left.ast, $operator, $right.ast);}
             | left=expression operator=('>'|'<'|'>='|'<='|'=='|'!=') right=expression {$ast=new Comparison($left.ast, $operator, $right.ast);}
             | left=expression '&&' right=expression {$ast=new And($left.ast , $right.ast);}
@@ -83,7 +79,7 @@ expression returns [Expression ast]
             | '<'type'>' '('expression')' {$ast=new Cast($type.ast,$expression.ast);}
             | array=expression '['expression']' {$ast=new ArrayAccess($array.ast,$expression.ast);}
             | struct=expression'.' IDENT {$ast=new StructFieldAccess($struct.ast,$IDENT);}//struct field access.
-            | invocation {$ast=$invocation.ast;}//Invocations can appear as sentences or expressions.
+            | IDENT '('(arguments+=expression (','arguments+=expression)*)?')' {$ast=new Invocation($IDENT, $arguments);}//Invocations can appear as sentences or expressions.
 
             ;
 

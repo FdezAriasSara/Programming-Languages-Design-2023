@@ -5,7 +5,6 @@
 package ast.expression;
 import ast. *;
 import ast.definition.FunctionDefinition;
-import ast.statement.*;
 import java.util.*;
 import org.antlr.v4.runtime.*;
 
@@ -13,24 +12,24 @@ import visitor.*;
 
 //	Invocation:statement -> name:String  parameters:variable*
 
-public class Invocation extends AbstractStatement implements Expression{
+public class Invocation extends AbstractExpression{
 
 	public Invocation(String name, List<Variable> parameters) {
 		this.name = name;
 		this.parameters = parameters;
 
-       // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
-       // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(parameters);
+		// Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
+		// Obtiene la linea/columna a partir de las de los hijos.
+		setPositions(parameters);
 	}
 
 	public Invocation(Object name, Object parameters) {
 		this.name = (name instanceof Token) ? ((Token)name).getText() : (String) name;
 		this.parameters = this.<Variable>getAstFromContexts(parameters);
 
-       // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
-       // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(name, parameters);
+		// Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
+		// Obtiene la linea/columna a partir de las de los hijos.
+		setPositions(name, parameters);
 	}
 
 	public String getName() {
@@ -48,7 +47,7 @@ public class Invocation extends AbstractStatement implements Expression{
 	}
 
 	@Override
-	public Object accept(Visitor v, Object param) { 
+	public Object accept(Visitor v, Object param) {
 		return v.visit(this, param);
 	}
 
@@ -56,9 +55,9 @@ public class Invocation extends AbstractStatement implements Expression{
 	private List<Variable> parameters;
 
 	public String toString() {
-       return "{name:" + getName() + ", parameters:" + getParameters() + "}";
-   }
-
+		return "{name:" + getName() + ", parameters:" + getParameters() + "}";
+	}
+	//Análisis semántico
 	//Fase de identificación
 	private FunctionDefinition definition;
 
@@ -72,6 +71,6 @@ public class Invocation extends AbstractStatement implements Expression{
 		return this.definition;
 	}
 
-
+	//Fase de Comprobación de tipos
 
 }

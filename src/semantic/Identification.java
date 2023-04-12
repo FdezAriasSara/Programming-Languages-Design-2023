@@ -133,6 +133,7 @@ public class Identification extends DefaultVisitor {
     }
     //	class Invocation { String name;  List<Variable> parameters; }
     public Object visit(Invocation node, Object param) {
+        super.visit(node, param);
 
         FunctionDefinition definition=functions.get(node.getName());
         if(definition==null){
@@ -143,12 +144,29 @@ public class Identification extends DefaultVisitor {
             //WE LINK the invocation with its definition.
             node.setDefinition(definition);
         }
-        super.visit(node, param);
 
         return null;
     }
 
+    //	class InvocationStatement { String name;  List<Variable> parameters; }
+    public Object visit(InvocationStatement node, Object param) {
+        super.visit(node, param);
+        FunctionDefinition definition=functions.get(node.getName());
+        if(definition==null){
+            //predicate not fulfilled.
+            error("La función no ha sido declarada. ",node.getStart());
+        }
+        //TODO -PREGUNTAR
+        /**
+        else{
+            //WE LINK the invocation with its definition.
+            node.setDefinition(definition);
+        }
+         */
 
+
+        return null;
+    }
 
 
 

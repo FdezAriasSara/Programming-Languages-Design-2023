@@ -276,6 +276,27 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
+	//	class Return { Expression expression; }
+	public Object visit(Return node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "Return", node, false);
+
+		visit(indent + 1, "expression", "Expression",node.getExpression());
+		return null;
+	}
+
+	//	class InvocationStatement { String name;  List<Variable> parameters; }
+	public Object visit(InvocationStatement node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "InvocationStatement", node, false);
+
+		print(indent + 1, "name", "String", node.getName());
+		visit(indent + 1, "parameters", "List<Variable>",node.getParameters());
+		return null;
+	}
+
 	//	class Invocation { String name;  List<Variable> parameters; }
 	public Object visit(Invocation node, Object param) {
 		int indent = ((Integer)param).intValue();
@@ -284,16 +305,6 @@ public class ASTPrinter extends DefaultVisitor {
 
 		print(indent + 1, "name", "String", node.getName());
 		visit(indent + 1, "parameters", "List<Variable>",node.getParameters());
-		return null;
-	}
-
-	//	class Return { Expression expression; }
-	public Object visit(Return node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "Return", node, false);
-
-		visit(indent + 1, "expression", "Expression",node.getExpression());
 		return null;
 	}
 

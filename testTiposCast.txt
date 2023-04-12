@@ -1,0 +1,26 @@
+struct Persona {
+	edad:int;
+	meses:[12] int;
+};
+
+var juan:Persona;
+var anton:Persona;
+
+
+main() {
+	var i:int;
+	var f:float;
+	var v:[10]int;
+
+
+
+	print <int>(2.5) + i;
+	print <Persona>(2.5);	// Tipos simples
+	print <int>(juan);		// Expresiones de tipos simples
+	print <float>(2.5);		// Deben ser distintos tipos
+
+
+
+
+}
+

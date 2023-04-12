@@ -9,7 +9,6 @@ import ast.definition.*;
 import ast.expression.*;
 import ast.type.*;
 import ast.statement.*;
-
 public interface Visitor {
 	public Object visit(Program node, Object param);
 	public Object visit(Variable node, Object param);
@@ -28,8 +27,9 @@ public interface Visitor {
 	public Object visit(IfStatement node, Object param);
 	public Object visit(While node, Object param);
 	public Object visit(Assignment node, Object param);
-	public Object visit(Invocation node, Object param);
 	public Object visit(Return node, Object param);
+	public Object visit(InvocationStatement node, Object param);
+	public Object visit(Invocation node, Object param);
 	public Object visit(ArithmeticExpression node, Object param);
 	public Object visit(Comparison node, Object param);
 	public Object visit(And node, Object param);

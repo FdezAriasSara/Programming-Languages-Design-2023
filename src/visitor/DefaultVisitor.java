@@ -132,16 +132,22 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class Invocation { String name;  List<Variable> parameters; }
-	public Object visit(Invocation node, Object param) {
-		visitChildren(node.getParameters(), param);
-		return null;
-	}
-
 	//	class Return { Expression expression; }
 	public Object visit(Return node, Object param) {
 		if (node.getExpression() != null)
 			node.getExpression().accept(this, param);
+		return null;
+	}
+
+	//	class InvocationStatement { String name;  List<Variable> parameters; }
+	public Object visit(InvocationStatement node, Object param) {
+		visitChildren(node.getParameters(), param);
+		return null;
+	}
+
+	//	class Invocation { String name;  List<Variable> parameters; }
+	public Object visit(Invocation node, Object param) {
+		visitChildren(node.getParameters(), param);
 		return null;
 	}
 

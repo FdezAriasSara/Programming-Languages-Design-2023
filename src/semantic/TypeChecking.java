@@ -18,7 +18,6 @@ import java.util.*;
 
 
 public class TypeChecking extends DefaultVisitor {
-    public IntType intType=new IntType();//singleton for type checking
 
     public TypeChecking(ErrorManager errorManager) {
         this.errorManager = errorManager;
@@ -127,16 +126,15 @@ public class TypeChecking extends DefaultVisitor {
     //	class ArrayType { String dimension;  Type type; }
     public Object visit(ArrayType node, Object param) {
 
-        // super.visit(node, param);
+          super.visit(node, param);
 
-        if (node.getType() != null)
-            node.getType().accept(this, param);
 
         return null;
     }
 
     //	class StructType { String name; }
     public Object visit(StructType node, Object param) {
+       super.visit(node, param);
         return null;
     }
 
@@ -266,7 +264,7 @@ public class TypeChecking extends DefaultVisitor {
 
          super.visit(node, param);
         predicado(node.getLeft().getType()==node.getRight().getType(),"El operador And solo puede usarse con expresiones del mismo tipo .",node);
-        predicado(node.getLeft().getType()==intType, "El operador And solo puede usarse con expresiones de tipo IntType.", node );
+        predicado(node.getLeft().getType() instanceof IntType, "El operador And solo puede usarse con expresiones de tipo IntType.", node );
         node.setType(node.getLeft().getType());
 
         return null;
@@ -277,7 +275,7 @@ public class TypeChecking extends DefaultVisitor {
 
         super.visit(node, param);//so the type of each expression is assigned prior to checking
         predicado(node.getLeft()==node.getRight(), "Las expresiones empleadas en un or deben ser del mismo tipo.", node);
-        predicado(node.getLeft().getType()==intType, "El operador Or solo puede emplearse con expresiones de tipo IntType.",node);
+        predicado(node.getLeft().getType() instanceof  IntType, "El operador Or solo puede emplearse con expresiones de tipo IntType.",node);
 
         return null;
     }
@@ -297,13 +295,11 @@ public class TypeChecking extends DefaultVisitor {
     //	class Cast { Type type;  Expression expression; }
     public Object visit(Cast node, Object param) {
 
-        // super.visit(node, param);
+        super.visit(node, param);
+            Type typeToCast=node.getExpression().getType(), typeToCastTo=node.getType();
+           predicado(!typeToCast.equals( typeToCastTo), "No se admiten conversiones al mismo tipo.",node);
+           predicado(hasSimpleType(typeToCast) && hasSimpleType(typeToCastTo),"Error al intentar convertir "+typeToCast+" a "+typeToCastTo+". Las conversiones solo admiten tipos simples.",node);
 
-        if (node.getType() != null)
-            node.getType().accept(this, param);
-
-        if (node.getExpression() != null)
-            node.getExpression().accept(this, param);
 
         return null;
     }
@@ -335,14 +331,25 @@ public class TypeChecking extends DefaultVisitor {
 
     //	class VariableReference { String name; }
     public Object visit(VariableReference node, Object param) {
+        super.visit(node,param);
+        node.setType(node.getDefinition().getType());
         return null;
     }
 
-
-    // Métodos auxiliares recomendados (opcionales) -------------
-    public boolean sameType(Type first, Type second){
-        return first==second;
+    public Object visit(LiteralFloat node, Object param) {
+        node.setType(new FloatType());
+        return null;
     }
+    public Object visit(LiteralChar node, Object param) {
+        node.setType(new CharType());
+        return null;
+    }
+    public Object visit(LiteralInt node, Object param) {
+        node.setType(new IntType());
+        return null;
+    }
+    // Métodos auxiliares recomendados (opcionales) -------------
+
     /**
      * predicado. Método auxiliar para implementar los predicados. Borrar si no se quiere usar.
      *
@@ -376,6 +383,11 @@ public class TypeChecking extends DefaultVisitor {
     private void predicado(boolean condition, String errorMessage) {
         predicado(condition, errorMessage, (Position) null);
     }
-
+    private boolean hasSimpleType(Type type){
+        if(type instanceof ArrayType || type instanceof StructType){
+            return false;
+        }
+       return true;
+    }
     private ErrorManager errorManager;
 }
