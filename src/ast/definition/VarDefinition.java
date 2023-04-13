@@ -55,4 +55,9 @@ public class VarDefinition extends AbstractDefinition {
 	public String toString() {
        return "{type:" + getType() + ", name:" + getName() + "}";
    }
+
+
+   //Memory Allocation
+	private int dir;
+	private
 }

@@ -21,8 +21,118 @@
 
 <body><pre>
 [ASTPrinter] -------------------------------- line:col  line:col
-raiz == null
 
+<span class="dots"></span>Program &rarr;                                                   <span class="pos">3:8  40:21   </span><span class="sourceText">struct </span><span class="posText">Persona {</span><span class="sourceText"> ... </span><span class="posText">print <int>(2.5) + i</span><span class="sourceText">;</span>
+<span class="dots">.  </span>definitions  <span class="type">List&lt;Definition&gt;</span> = 
+<span class="dots">.  .  </span>StructDefinition &rarr;                                    <span class="pos">3:8  5:10    </span><span class="sourceText">struct </span><span class="posText">Persona {</span><span class="sourceText"> ... </span><span class="posText">meses:[12</span><span class="sourceText">] int;</span>
+<span class="dots">.  .  |  </span>"<span class="value">Persona</span>"  
+<span class="dots">.  .  |  </span>fields  <span class="type">List&lt;StructField&gt;</span> = 
+<span class="dots">.  .  |  .  </span>StructField &rarr;                                   <span class="pos">4:2  4:5     </span><span class="sourceText"></span><span class="posText">edad</span><span class="sourceText">:int;</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">edad</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  </span>StructField &rarr;                                   <span class="pos">5:2  5:10    </span><span class="sourceText"></span><span class="posText">meses:[12</span><span class="sourceText">] int;</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">meses</span>"  
+<span class="dots">.  .  |  .  |  </span>ArrayType &rarr;                                  <span class="pos">5:9  5:10    </span><span class="sourceText">meses:[</span><span class="posText">12</span><span class="sourceText">] int;</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">12</span>"  
+<span class="dots">.  .  |  .  |  .  </span><span class="value">IntType</span> &rarr;                                 <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  </span>FunctionDefinition &rarr;                                  <span class="pos">7:1  11:9    </span><span class="sourceText"></span><span class="posText">h(a:int, b:int):int {</span><span class="sourceText"> ... </span><span class="posText">return b</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  </span>"<span class="value">h</span>"  
+<span class="dots">.  .  |  </span>parameters  <span class="type">List&lt;Variable&gt;</span> = 
+<span class="dots">.  .  |  .  </span>Variable &rarr;                                      <span class="pos">7:3  7:3     </span><span class="sourceText">h(</span><span class="posText">a</span><span class="sourceText">:int, b:int):int {</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">a</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  </span>Variable &rarr;                                      <span class="pos">7:10  7:10   </span><span class="sourceText">h(a:int, </span><span class="posText">b</span><span class="sourceText">:int):int {</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">b</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  </span><span class="value">IntType</span> &rarr;                                          <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  </span>localDefs  <span class="type">List&lt;VarDefinition&gt;</span> = 
+<span class="dots">.  .  |  </span>statements  <span class="type">List&lt;Statement&gt;</span> = 
+<span class="dots">.  .  |  .  </span>IfStatement &rarr;                                   <span class="pos">8:5  9:10    </span><span class="sourceText">if(</span><span class="posText">a > 10) {</span><span class="sourceText"> ... </span><span class="posText">return a</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>Comparison &rarr;                                 <span class="pos">8:5  8:10    </span><span class="sourceText">if(</span><span class="posText">a > 10</span><span class="sourceText">) {</span>
+<span class="dots">.  .  |  .  |  .  </span>"a"  <span class="type">VariableReference.name</span>               <span class="pos">8:5  8:5     </span><span class="sourceText">if(</span><span class="posText">a</span><span class="sourceText"> > 10) {</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">></span>"  
+<span class="dots">.  .  |  .  |  .  </span>"10"  <span class="type">LiteralInt.value</span>                    <span class="pos">8:9  8:10    </span><span class="sourceText">if(a > </span><span class="posText">10</span><span class="sourceText">) {</span>
+<span class="dots">.  .  |  .  |  </span>body  <span class="type">List&lt;Statement&gt;</span> = 
+<span class="dots">.  .  |  .  |  .  </span>Return &rarr;                                  <span class="pos">9:10  9:10   </span><span class="sourceText">return </span><span class="posText">a</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  .  |  </span>"a"  <span class="type">VariableReference.name</span>            <span class="pos">9:10  9:10   </span><span class="sourceText">return </span><span class="posText">a</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>elseBody  <span class="type">List&lt;Statement&gt;</span> = 
+<span class="dots">.  .  |  .  </span>Return &rarr;                                        <span class="pos">11:9  11:9   </span><span class="sourceText">return </span><span class="posText">b</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>"b"  <span class="type">VariableReference.name</span>                  <span class="pos">11:9  11:9   </span><span class="sourceText">return </span><span class="posText">b</span><span class="sourceText">;</span>
+<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">13:5  13:16  </span><span class="sourceText">var </span><span class="posText">juan:Persona</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  </span>"Persona"  <span class="type">StructType.name</span>                         <span class="pos">13:10  13:16 </span><span class="sourceText">var juan:</span><span class="posText">Persona</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  </span>"<span class="value">juan</span>"  
+<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">14:5  14:17  </span><span class="sourceText">var </span><span class="posText">anton:Persona</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  </span>"Persona"  <span class="type">StructType.name</span>                         <span class="pos">14:11  14:17 </span><span class="sourceText">var anton:</span><span class="posText">Persona</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  </span>"<span class="value">anton</span>"  
+<span class="dots">.  .  </span>FunctionDefinition &rarr;                                  <span class="pos">16:1  40:21  </span><span class="sourceText"></span><span class="posText">main() {</span><span class="sourceText"> ... </span><span class="posText">print <int>(2.5) + i</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  </span>"<span class="value">main</span>"  
+<span class="dots">.  .  |  </span>parameters  <span class="type">List&lt;Variable&gt;</span> = 
+<span class="dots">.  .  |  </span><span class="value">VoidType</span> &rarr;                                         <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  </span>localDefs  <span class="type">List&lt;VarDefinition&gt;</span> = 
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">17:6  17:6   </span><span class="sourceText">var </span><span class="posText">i</span><span class="sourceText">:int;</span>
+<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">i</span>"  
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">18:6  18:6   </span><span class="sourceText">var </span><span class="posText">f</span><span class="sourceText">:float;</span>
+<span class="dots">.  .  |  .  |  </span><span class="value">FloatType</span> &rarr;                                  <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">f</span>"  
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">19:6  19:10  </span><span class="sourceText">var </span><span class="posText">v:[10</span><span class="sourceText">]int;</span>
+<span class="dots">.  .  |  .  |  </span>ArrayType &rarr;                                  <span class="pos">19:9  19:10  </span><span class="sourceText">var v:[</span><span class="posText">10</span><span class="sourceText">]int;</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">10</span>"  
+<span class="dots">.  .  |  .  |  .  </span><span class="value">IntType</span> &rarr;                                 <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">v</span>"  
+<span class="dots">.  .  |  </span>statements  <span class="type">List&lt;Statement&gt;</span> = 
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">22:2  22:14  </span><span class="sourceText"></span><span class="posText">print f / 2.5</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>ArithmeticExpression &rarr;                       <span class="pos">22:8  22:14  </span><span class="sourceText">print </span><span class="posText">f / 2.5</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  .  </span>"f"  <span class="type">VariableReference.name</span>               <span class="pos">22:8  22:8   </span><span class="sourceText">print </span><span class="posText">f</span><span class="sourceText"> / 2.5;</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">/</span>"  
+<span class="dots">.  .  |  .  |  .  </span>"2.5"  <span class="type">LiteralFloat.value</span>                 <span class="pos">22:12  22:14 </span><span class="sourceText">print f / </span><span class="posText">2.5</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">24:2  24:19  </span><span class="sourceText"></span><span class="posText">print juan + anton</span><span class="sourceText">;	// Deben ser tipos simples</span>
+<span class="dots">.  .  |  .  |  </span>ArithmeticExpression &rarr;                       <span class="pos">24:8  24:19  </span><span class="sourceText">print </span><span class="posText">juan + anton</span><span class="sourceText">;	// Deben ser tipos simples</span>
+<span class="dots">.  .  |  .  |  .  </span>"juan"  <span class="type">VariableReference.name</span>            <span class="pos">24:8  24:11  </span><span class="sourceText">print </span><span class="posText">juan</span><span class="sourceText"> + anton;	// Deben ser tipos simples</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">+</span>"  
+<span class="dots">.  .  |  .  |  .  </span>"anton"  <span class="type">VariableReference.name</span>           <span class="pos">24:15  24:19 </span><span class="sourceText">print juan + </span><span class="posText">anton</span><span class="sourceText">;	// Deben ser tipos simples</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">26:2  26:33  </span><span class="sourceText"></span><span class="posText">print juan.meses + anton.meses[1</span><span class="sourceText">];	// Deben ser tipos simples</span>
+<span class="dots">.  .  |  .  |  </span>ArithmeticExpression &rarr;                       <span class="pos">26:8  26:33  </span><span class="sourceText">print </span><span class="posText">juan.meses + anton.meses[1</span><span class="sourceText">];	// Deben ser tipos simples</span>
+<span class="dots">.  .  |  .  |  .  </span>StructFieldAccess &rarr;                       <span class="pos">26:8  26:17  </span><span class="sourceText">print </span><span class="posText">juan.meses</span><span class="sourceText"> + anton.meses[1];	// Deben ser tipos simples</span>
+<span class="dots">.  .  |  .  |  .  |  </span>"juan"  <span class="type">VariableReference.name</span>         <span class="pos">26:8  26:11  </span><span class="sourceText">print </span><span class="posText">juan</span><span class="sourceText">.meses + anton.meses[1];	// Deben ser tipos simples</span>
+<span class="dots">.  .  |  .  |  .  |  </span>"<span class="value">meses</span>"  
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">+</span>"  
+<span class="dots">.  .  |  .  |  .  </span>ArrayAccess &rarr;                             <span class="pos">26:21  26:33 </span><span class="sourceText">print juan.meses + </span><span class="posText">anton.meses[1</span><span class="sourceText">];	// Deben ser tipos simples</span>
+<span class="dots">.  .  |  .  |  .  |  </span>StructFieldAccess &rarr;                    <span class="pos">26:21  26:31 </span><span class="sourceText">print juan.meses + </span><span class="posText">anton.meses</span><span class="sourceText">[1];	// Deben ser tipos simples</span>
+<span class="dots">.  .  |  .  |  .  |  .  </span>"anton"  <span class="type">VariableReference.name</span>     <span class="pos">26:21  26:25 </span><span class="sourceText">print juan.meses + </span><span class="posText">anton</span><span class="sourceText">.meses[1];	// Deben ser tipos simples</span>
+<span class="dots">.  .  |  .  |  .  |  .  </span>"<span class="value">meses</span>"  
+<span class="dots">.  .  |  .  |  .  |  </span>"1"  <span class="type">LiteralInt.value</span>                  <span class="pos">26:33  26:33 </span><span class="sourceText">print juan.meses + anton.meses[</span><span class="posText">1</span><span class="sourceText">];	// Deben ser tipos simples</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
+<span class="dots">.  .  |  .  </span>Assignment &rarr;                                    <span class="pos">33:5  33:16  </span><span class="sourceText"></span><span class="posText">i=main() + 2</span><span class="sourceText">; //Main es tipo void por tanto no hay nada que sumar.</span>
+<span class="dots">.  .  |  .  |  </span>"i"  <span class="type">VariableReference.name</span>                  <span class="pos">33:5  33:5   </span><span class="sourceText"></span><span class="posText">i</span><span class="sourceText">=main() + 2; //Main es tipo void por tanto no hay nada que sumar.</span>
+<span class="dots">.  .  |  .  |  </span>ArithmeticExpression &rarr;                       <span class="pos">33:7  33:16  </span><span class="sourceText">i=</span><span class="posText">main() + 2</span><span class="sourceText">; //Main es tipo void por tanto no hay nada que sumar.</span>
+<span class="dots">.  .  |  .  |  .  </span>Invocation &rarr;                              <span class="pos">33:7  33:10  </span><span class="sourceText">i=</span><span class="posText">main</span><span class="sourceText">() + 2; //Main es tipo void por tanto no hay nada que sumar.</span>
+<span class="dots">.  .  |  .  |  .  |  </span>"<span class="value">main</span>"  
+<span class="dots">.  .  |  .  |  .  |  </span>parameters  <span class="type">List&lt;Variable&gt;</span> = 
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">+</span>"  
+<span class="dots">.  .  |  .  |  .  </span>"2"  <span class="type">LiteralInt.value</span>                     <span class="pos">33:16  33:16 </span><span class="sourceText">i=main() + </span><span class="posText">2</span><span class="sourceText">; //Main es tipo void por tanto no hay nada que sumar.</span>
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">36:2  36:14  </span><span class="sourceText"></span><span class="posText">print 2.5 * 2</span><span class="sourceText">;		// Deben ser del mismo tipo</span>
+<span class="dots">.  .  |  .  |  </span>ArithmeticExpression &rarr;                       <span class="pos">36:8  36:14  </span><span class="sourceText">print </span><span class="posText">2.5 * 2</span><span class="sourceText">;		// Deben ser del mismo tipo</span>
+<span class="dots">.  .  |  .  |  .  </span>"2.5"  <span class="type">LiteralFloat.value</span>                 <span class="pos">36:8  36:10  </span><span class="sourceText">print </span><span class="posText">2.5</span><span class="sourceText"> * 2;		// Deben ser del mismo tipo</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">*</span>"  
+<span class="dots">.  .  |  .  |  .  </span>"2"  <span class="type">LiteralInt.value</span>                     <span class="pos">36:14  36:14 </span><span class="sourceText">print 2.5 * </span><span class="posText">2</span><span class="sourceText">;		// Deben ser del mismo tipo</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">37:2  37:12  </span><span class="sourceText"></span><span class="posText">print i - 2</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>ArithmeticExpression &rarr;                       <span class="pos">37:8  37:12  </span><span class="sourceText">print </span><span class="posText">i - 2</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  .  </span>"i"  <span class="type">VariableReference.name</span>               <span class="pos">37:8  37:8   </span><span class="sourceText">print </span><span class="posText">i</span><span class="sourceText"> - 2;</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">-</span>"  
+<span class="dots">.  .  |  .  |  .  </span>"2"  <span class="type">LiteralInt.value</span>                     <span class="pos">37:12  37:12 </span><span class="sourceText">print i - </span><span class="posText">2</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">40:2  40:21  </span><span class="sourceText"></span><span class="posText">print <int>(2.5) + i</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>ArithmeticExpression &rarr;                       <span class="pos">40:14  40:21 </span><span class="sourceText">print <int>(</span><span class="posText">2.5) + i</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  .  </span>Cast &rarr;                                    <span class="pos">40:14  40:16 </span><span class="sourceText">print <int>(</span><span class="posText">2.5</span><span class="sourceText">) + i;</span>
+<span class="dots">.  .  |  .  |  .  |  </span><span class="value">IntType</span> &rarr;                              <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  |  .  |  </span>"2.5"  <span class="type">LiteralFloat.value</span>              <span class="pos">40:14  40:16 </span><span class="sourceText">print <int>(</span><span class="posText">2.5</span><span class="sourceText">) + i;</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">+</span>"  
+<span class="dots">.  .  |  .  |  .  </span>"i"  <span class="type">VariableReference.name</span>               <span class="pos">40:21  40:21 </span><span class="sourceText">print <int>(2.5) + </span><span class="posText">i</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
 
 [ASTPrinter] --------------------------------
 </pre>

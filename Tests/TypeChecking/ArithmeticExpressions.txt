@@ -23,7 +23,7 @@ main() {
 
 	print juan + anton;	// Deben ser tipos simples
 
-	//print juan.meses + anton.meses[1];	// Deben ser tipos simples
+	print juan.meses + anton.meses[1];	// Deben ser tipos simples
 
   //  print 3 + anton.meses[1];
 
