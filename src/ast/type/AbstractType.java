@@ -8,4 +8,11 @@ import ast.AbstractAST;
 
 public abstract class AbstractType extends AbstractAST implements Type {
 
+
+    @Override
+    public int getSize() {
+        return 0;
+    }
+
+
 }

@@ -25,6 +25,7 @@ public class StructType extends AbstractType {
        setPositions(name);
 	}
 
+
 	public String getName() {
 		return name;
 	}

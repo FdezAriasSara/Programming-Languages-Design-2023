@@ -21,6 +21,10 @@ public class IntType extends AbstractType {
 		return v.visit(this, param);
 	}
 
+	@Override
+	public int getSize() {
+		return 2;
+	}
 
 	public String toString() {
        return "{IntType}";

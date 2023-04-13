@@ -18,6 +18,11 @@ public class CharType extends AbstractType {
 	}
 
 	@Override
+	public int getSize() {
+		return 1;
+	}
+
+	@Override
 	public Object accept(Visitor v, Object param) { 
 		return v.visit(this, param);
 	}

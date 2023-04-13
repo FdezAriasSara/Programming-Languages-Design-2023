@@ -22,6 +22,10 @@ public class FloatType extends AbstractType {
 		return v.visit(this, param);
 	}
 
+	@Override
+	public int getSize() {
+		return 4;
+	}
 
 	public String toString() {
        return "{FloatType}";

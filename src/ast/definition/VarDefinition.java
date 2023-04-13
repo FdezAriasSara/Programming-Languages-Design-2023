@@ -59,5 +59,10 @@ public class VarDefinition extends AbstractDefinition {
 
    //Memory Allocation
 	private int dir;
-	private
+	private int getDir(){
+		return this.dir;
+	}
+	public void setDir(int dir){
+		this.dir=dir;
+	}
 }

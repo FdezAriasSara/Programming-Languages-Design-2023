@@ -5,5 +5,5 @@
 package ast.type;
 import ast.*;
 public interface Type extends AST {
-
+    int getSize();
 }

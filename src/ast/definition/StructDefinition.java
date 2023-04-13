@@ -58,4 +58,13 @@ public class StructDefinition extends AbstractDefinition {
 	public String toString() {
        return "{name:" + getName() + ", fields:" + getFields() + "}";
    }
+
+
+   private int dir;
+	public void setDir(int dir) {
+		this.dir=dir;
+	}
+	public int getDir(){
+		return dir;
+	}
 }
