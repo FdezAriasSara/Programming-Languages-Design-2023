@@ -1,0 +1,36 @@
+struct Perro{
+    edad:int;
+    peso:float;
+    vacunas:[12] int;
+
+};
+var consultasVet: [12] int;
+var dineroBanco:float;
+var gastosVeterinariosFebrero: float;
+var gastosTotales: float;
+var trosky: Perro;
+
+dineroEnElBanco(aRetirar:float):float{
+    dineroBanco=dineroBanco-aRetirar;
+
+    return dineroBanco;
+}
+
+main(){
+
+    var bucle: int;
+
+    gastosVeterinariosFebrero= <float>( consultasVet[2]+trosky.vacunas[2]);
+
+    gastosTotales=(3+4)*gastosVeterinariosFebrero;
+
+    while(bucle!=0){
+        if(!(<int>(dineroBanco(gastosTotales))<=0)){
+            gastosTotales=gastosTotales+100;
+        }else{
+            bucle=0;
+        }
+
+    }
+
+}

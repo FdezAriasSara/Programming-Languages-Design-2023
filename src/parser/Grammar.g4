@@ -72,15 +72,14 @@ expression returns [Expression ast]
             | '('expression')' {$ast=$expression.ast;}//It has to have a higher priority
             | struct=expression'.' IDENT {$ast=new StructFieldAccess($struct.ast,$IDENT);}//struct field access.
             | array=expression '['expression']' {$ast=new ArrayAccess($array.ast,$expression.ast);}
+            | '!' expression {$ast=new Not($expression.ast);}
+            | '<'type'>' '('expression')' {$ast=new Cast($type.ast,$expression.ast);}
+            | IDENT '('(arguments+=expression (','arguments+=expression)*)?')' {$ast=new Invocation($IDENT, $arguments);}//Invocations can appear as sentences or expressions.
             | left=expression operator=('*'|'/'|'%') right=expression {$ast=new ArithmeticExpression($left.ast, $operator, $right.ast);}
             | left=expression operator=('+'|'-') right=expression {$ast=new ArithmeticExpression($left.ast, $operator, $right.ast);}
             | left=expression operator=('>'|'<'|'>='|'<='|'=='|'!=') right=expression {$ast=new Comparison($left.ast, $operator, $right.ast);}
             | left=expression '&&' right=expression {$ast=new And($left.ast , $right.ast);}
             | left=expression '||' right=expression {$ast=new Or($left.ast, $right.ast);}
-            | '!' expression {$ast=new Not($expression.ast);}
-            | '<'type'>' '('expression')' {$ast=new Cast($type.ast,$expression.ast);}
-            | IDENT '('(arguments+=expression (','arguments+=expression)*)?')' {$ast=new Invocation($IDENT, $arguments);}//Invocations can appear as sentences or expressions.
-
             ;
 
 

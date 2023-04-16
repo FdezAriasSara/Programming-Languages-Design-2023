@@ -93,7 +93,7 @@ public class MemoryAllocation extends DefaultVisitor {
                 child.accept(this, param);
                sizeInMemory+= child.getType().getSize();
             }
-            node.setDir(node);//we need to reserve space for its fields.
+            //node.setDir(node);//we need to reserve space for its fields.
         }
 
         return null;
