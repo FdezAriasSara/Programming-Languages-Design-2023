@@ -9,6 +9,7 @@ variable->name:string type;
 VarDefinition:definition -> type name:string;
 FunctionDefinition:definition -> name:string parameters:variable* returnType:type localDefs:varDefinition*  statements:statement*;
 StructDefinition:definition ->name:string fields:StructField*;
+
 StructField->name:string type;
 
 VoidType:type->;
@@ -23,18 +24,18 @@ Read:statement -> expression;
 IfStatement:statement -> condition:expression body:statement*  elseBody:statement*;
 While:statement ->condition:expression body:statement*;
 Assignment:statement -> left:expression right:expression;
-Invocation:statement -> name:string parameters:variable*;
 Return:statement -> expression;
+InvocationStatement:statement -> name:string parameters:expression*;
 
+Invocation:expression -> name:string parameters:expression*;
 ArithmeticExpression:expression -> left:expression operator:string right:expression;
 Comparison:expression -> left:expression operator:string right:expression;
 And:expression -> left:expression  right:expression;
 Or:expression -> left:expression  right:expression;
 Not:expression -> expression;
 Cast:expression -> type expression;
-ArrayAccess:expression -> array:expression  position:expression*;
+ArrayAccess:expression -> array:expression  position:expression;
 StructFieldAccess:expression -> struct:expression field:string;
-
 VariableReference:expression -> name:string;
 LiteralInt:expression -> value:string;
 LiteralFloat:expression -> value:string;

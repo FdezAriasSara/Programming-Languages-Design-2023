@@ -139,13 +139,13 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class InvocationStatement { String name;  List<Variable> parameters; }
+	//	class InvocationStatement { String name;  List<Expression> parameters; }
 	public Object visit(InvocationStatement node, Object param) {
 		visitChildren(node.getParameters(), param);
 		return null;
 	}
 
-	//	class Invocation { String name;  List<Variable> parameters; }
+	//	class Invocation { String name;  List<Expression> parameters; }
 	public Object visit(Invocation node, Object param) {
 		visitChildren(node.getParameters(), param);
 		return null;
@@ -212,7 +212,7 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class StructFieldAccess.txt { Expression struct;  String field; }
+	//	class StructFieldAccess { Expression struct;  String field; }
 	public Object visit(StructFieldAccess node, Object param) {
 		if (node.getStruct() != null)
 			node.getStruct().accept(this, param);

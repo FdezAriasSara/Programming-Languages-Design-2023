@@ -10,11 +10,11 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	Invocation:statement -> name:String  parameters:variable*
+//	Invocation:statement -> name:String  parameters:expression*
 
 public class Invocation extends AbstractExpression{
 
-	public Invocation(String name, List<Variable> parameters) {
+	public Invocation(String name, List<Expression> parameters) {
 		this.name = name;
 		this.parameters = parameters;
 
@@ -25,7 +25,7 @@ public class Invocation extends AbstractExpression{
 
 	public Invocation(Object name, Object parameters) {
 		this.name = (name instanceof Token) ? ((Token)name).getText() : (String) name;
-		this.parameters = this.<Variable>getAstFromContexts(parameters);
+		this.parameters = this.<Expression>getAstFromContexts(parameters);
 
 		// Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
 		// Obtiene la linea/columna a partir de las de los hijos.
@@ -39,10 +39,10 @@ public class Invocation extends AbstractExpression{
 		this.name = name;
 	}
 
-	public List<Variable> getParameters() {
+	public List<Expression> getParameters() {
 		return parameters;
 	}
-	public void setParameters(List<Variable> parameters) {
+	public void setParameters(List<Expression> parameters) {
 		this.parameters = parameters;
 	}
 
@@ -52,11 +52,12 @@ public class Invocation extends AbstractExpression{
 	}
 
 	private String name;
-	private List<Variable> parameters;
+	private List<Expression> parameters;
 
 	public String toString() {
 		return "{name:" + getName() + ", parameters:" + getParameters() + "}";
 	}
+
 	//Análisis semántico
 	//Fase de identificación
 	private FunctionDefinition definition;

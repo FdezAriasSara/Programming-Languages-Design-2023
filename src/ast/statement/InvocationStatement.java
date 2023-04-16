@@ -10,26 +10,26 @@ import visitor.*;
 import org.antlr.v4.runtime.*;
 import java.util.List;
 
-//	InvocationStatement:statement -> name:String  parameters:variable*
+//	InvocationStatement:statement -> name:String  parameters:expression*
 
 public class InvocationStatement extends AbstractStatement {
 
-	public InvocationStatement(String name, List<Variable> parameters) {
+	public InvocationStatement(String name, List<Expression> parameters) {
 		this.name = name;
 		this.parameters = parameters;
 
-       // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
-       // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(parameters);
+		// Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
+		// Obtiene la linea/columna a partir de las de los hijos.
+		setPositions(parameters);
 	}
 
 	public InvocationStatement(Object name, Object parameters) {
 		this.name = (name instanceof Token) ? ((Token)name).getText() : (String) name;
-		this.parameters = this.<Variable>getAstFromContexts(parameters);
+		this.parameters = this.<Expression>getAstFromContexts(parameters);
 
-       // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
-       // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(name, parameters);
+		// Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
+		// Obtiene la linea/columna a partir de las de los hijos.
+		setPositions(name, parameters);
 	}
 
 	public String getName() {
@@ -39,22 +39,22 @@ public class InvocationStatement extends AbstractStatement {
 		this.name = name;
 	}
 
-	public List<Variable> getParameters() {
+	public List<Expression> getParameters() {
 		return parameters;
 	}
-	public void setParameters(List<Variable> parameters) {
+	public void setParameters(List<Expression> parameters) {
 		this.parameters = parameters;
 	}
 
 	@Override
-	public Object accept(Visitor v, Object param) { 
+	public Object accept(Visitor v, Object param) {
 		return v.visit(this, param);
 	}
 
 	private String name;
-	private List<Variable> parameters;
+	private List<Expression> parameters;
 
 	public String toString() {
-       return "{name:" + getName() + ", parameters:" + getParameters() + "}";
-   }
+		return "{name:" + getName() + ", parameters:" + getParameters() + "}";
+	}
 }

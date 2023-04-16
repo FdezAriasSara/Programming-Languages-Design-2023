@@ -25,14 +25,18 @@ main() {
 
 	print juan.meses + anton.meses[1];	// Deben ser tipos simples
 
-  //  print 3 + anton.meses[1];
+   print 3 + anton.meses[1];
 
-  //  print (juan.meses[2] - anton.meses[1]) + i/f;
- //   print h(20,39) / (i/f);
+   print (juan.meses[2] - anton.meses[1]) + i/<int>(f);
+   print h(20,39) / (i/f);
 
     i=main() + 2; //Main es tipo void por tanto no hay nada que sumar.
+    i=juan.meses[2] + f;// f es tipo float y meses tiene ints, además de que i es int.
 
-//	print 3 + juan.meses[3];
+    i=juan.meses[2] + <int>(f);
+    f=<float>(  juan.meses[2] + i);
+
+	print 3 + juan.meses[3];
 	print 2.5 * 2;		// Deben ser del mismo tipo
 	print i - 2;
 

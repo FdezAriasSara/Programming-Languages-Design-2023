@@ -227,25 +227,25 @@ public class MemoryAllocation extends DefaultVisitor {
         return null;
     }
 
-    //	class InvocationStatement { String name;  List<Variable> parameters; }
+    //	class InvocationStatement { String name;  List<Expression> parameters; }
     public Object visit(InvocationStatement node, Object param) {
 
         // super.visit(node, param);
 
         if (node.getParameters() != null)
-            for (Variable child : node.getParameters())
+            for (Expression child : node.getParameters())
                 child.accept(this, param);
 
         return null;
     }
 
-    //	class Invocation { String name;  List<Variable> parameters; }
+    //	class Invocation { String name;  List<Expression> parameters; }
     public Object visit(Invocation node, Object param) {
 
         // super.visit(node, param);
 
         if (node.getParameters() != null)
-            for (Variable child : node.getParameters())
+            for (Expression child : node.getParameters())
                 child.accept(this, param);
 
         return null;

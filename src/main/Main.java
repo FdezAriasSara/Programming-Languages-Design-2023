@@ -27,7 +27,7 @@ import codegeneration.*;
  * - Para Generación de Código: 'MemoryAllocation.java' y 'CodeSelection.java'.
  */
 public class Main {
-    public static final String INPUT_FILE = "Tests/AstGeneration/ExpressionPrecedences..txt"; // Fichero de prueba durante el desarrollo
+    public static final String INPUT_FILE = "Tests/TypeChecking/ArrayAccess.txt"; // Fichero de prueba durante el desarrollo
     public static final String OUTPUT_FILE = "output.txt";
 
     public static void main(String[] args) throws Exception {

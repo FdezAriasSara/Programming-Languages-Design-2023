@@ -46,6 +46,7 @@ public class Identification extends DefaultVisitor {
     }
     //	class VariableReference { String name; }
     public Object visit(VariableReference node, Object param) {
+
         VarDefinition definition=searchVarDefinition(node.getName(),node.getStart());
         if(definition!=null) {
             node.setDefinition(definition);
@@ -132,6 +133,7 @@ public class Identification extends DefaultVisitor {
         if(structs.get(node.getName())==null){
             error("La estructura '"+node.getName()+"' no  ha sido definida. ",node.getStart());
         }
+        node.setDefinition(structs.get(node.getName()));
         return null;
     }
     //	class Invocation { String name;  List<Variable> parameters; }

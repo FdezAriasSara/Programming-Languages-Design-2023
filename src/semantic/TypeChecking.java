@@ -13,6 +13,8 @@ import ast.definition.*;
 import ast.expression.*;
 import ast.type.*;
 import ast.statement.*;
+
+import java.sql.Struct;
 import java.util.*;
 
 
@@ -72,7 +74,7 @@ public class TypeChecking extends DefaultVisitor {
 
         if (node.getStatements() != null)
             for (Statement child : node.getStatements())
-                child.accept(this, node);
+                child.accept(this, node);//IMPORTANT-> THE FUNCTION DEF NODE PASSES ITSELF SO ALL STAEMENTS CAN ACCESS IT.
 
         return null;
     }
@@ -90,9 +92,9 @@ public class TypeChecking extends DefaultVisitor {
 
     //	class StructField { String name;  Type type; }
     public Object visit(StructField node, Object param) {
-         super.visit(node, param);
+         super.visit(node, node.getType());
 
-        return node.getType();
+        return null;
 
     }
 
@@ -263,7 +265,12 @@ public class TypeChecking extends DefaultVisitor {
 
         super.visit(node, param);
         predicado(node.getStruct().getType() instanceof  StructType, node+" no es de tipo struct",node);
-        node.setType(node.getStruct().getType());
+        //THE FIELD TYPE WILL COME IN THE PARAMETER OF THE VISIT METHOD.
+        StructType struct= (StructType)(node.getStruct().getType());
+        List<StructField> fields=struct.getDefinition().getFields();
+        StructField field=foundField(fields,node.getField());
+        predicado(field!=null, "No existe el campo "+node.getField(),node);
+        node.setType(field.getType());
 
         return null;
     }
@@ -328,17 +335,27 @@ public class TypeChecking extends DefaultVisitor {
        return true;
     }
     private ErrorManager errorManager;
-    private boolean checkArguments(List<Variable> parameters, List<Variable> parametersGot) {
-        Variable currentExpected,currentRecieved;
+    private boolean checkArguments(List<Variable> parameters, List<Expression> parametersGot) {
+        Variable currentExpected;
+        Expression valueRecieved;
         for (int i = 0; i < parameters.size(); i++) {
             currentExpected=parameters.get(i);
-            currentRecieved=parametersGot.get(i);
+            valueRecieved=parametersGot.get(i);
 
-            if(!currentExpected.getType().equals(currentRecieved.getType())){
+            if(!currentExpected.getType().equals(valueRecieved.getType())){
                 return false;
             }
 
         }
         return true;
+    }
+    private StructField foundField(List<StructField> fields,String fieldToFind){
+        for (StructField field:fields
+        ) {
+            if(field.getName().equals(fieldToFind)){
+                return field;
+            }
+        }
+        return null;
     }
 }
