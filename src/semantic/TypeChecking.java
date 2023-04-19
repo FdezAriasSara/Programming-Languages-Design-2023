@@ -14,7 +14,6 @@ import ast.expression.*;
 import ast.type.*;
 import ast.statement.*;
 
-import java.sql.Struct;
 import java.util.*;
 
 
@@ -24,17 +23,7 @@ public class TypeChecking extends DefaultVisitor {
         this.errorManager = errorManager;
     }
 
-    //	class Program { List<Definition> definitions; }
-    public Object visit(Program node, Object param) {
 
-        // super.visit(node, param);
-
-        if (node.getDefinitions() != null)
-            for (Definition child : node.getDefinitions())
-                child.accept(this, param);
-
-        return null;
-    }
 
     //	class Variable { String name;  Type type; }
     public Object visit(Variable node, Object param) {
@@ -43,13 +32,6 @@ public class TypeChecking extends DefaultVisitor {
         return null;
     }
 
-    //	class VarDefinition { Type type;  String name; }
-    public Object visit(VarDefinition node, Object param) {
-
-         super.visit(node, param);
-
-        return null;
-    }
 
     //	class FunctionDefinition { String name;  List<Variable> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
     public Object visit(FunctionDefinition node, Object param) {
@@ -61,7 +43,6 @@ public class TypeChecking extends DefaultVisitor {
                 predicado(hasSimpleType(child.getType()),"Los parámetros deben ser de tipo simple.",node);
             }
         }
-
 
         if (node.getReturnType() != null) {
             node.getReturnType().accept(this, param);
@@ -79,47 +60,27 @@ public class TypeChecking extends DefaultVisitor {
         return null;
     }
 
-    //	class StructDefinition { String name;  List<StructField> fields; }
-    public Object visit(StructDefinition node, Object param) {
 
 
-        if (node.getFields() != null)
-            for (StructField child : node.getFields())
-                child.accept(this, node);
-
-        return null;
-    }
-
-    //	class StructField { String name;  Type type; }
-    public Object visit(StructField node, Object param) {
-         super.visit(node, node.getType());
-
-        return null;
-
-    }
 
     //	class Print { Expression expression;  String variant; }
     public Object visit(Print node, Object param) {
-
          super.visit(node, param);
         predicado(hasSimpleType(node.getExpression().getType()),node+" no es de tipo simple.",node);
-
         return null;
     }
 
     //	class Read { Expression expression; }
     public Object visit(Read node, Object param) {
-
          super.visit(node, param);
         predicado(hasSimpleType(node.getExpression().getType()),node+" no es de tipo simple.",node);
-        predicado(node.getExpression().getLvalue(),node+" no es de modificable.",node);
+        predicado(node.getExpression().getLvalue(),node+" no es modificable.",node);
 
         return null;
     }
 
     //	class IfStatement { Expression condition;  List<Statement> body;  List<Statement> elseBody; }
     public Object visit(IfStatement node, Object param) {
-
        super.visit(node, param);
         predicado(node.getCondition().getType() instanceof IntType, "La condición debe ser de tipo entero." ,node);
         return null;
@@ -127,7 +88,6 @@ public class TypeChecking extends DefaultVisitor {
 
     //	class While { Expression condition;  List<Statement> body; }
     public Object visit(While node, Object param) {
-
           super.visit(node, param);
         predicado(node.getCondition().getType() instanceof IntType, "La condición debe ser de tipo entero." ,node);
         return null;
@@ -137,12 +97,9 @@ public class TypeChecking extends DefaultVisitor {
     public Object visit(Assignment node, Object param) {
 
          super.visit(node, param);
-        predicado(node.getLeft().getLvalue(),node+" no es de modificable.",node);
+        predicado(node.getLeft().getLvalue(),node+" no es  modificable.",node);
         predicado(hasSimpleType(node.getLeft().getType()),node+" no es de tipo simple.",node);
         predicado(node.getLeft().getType().equals(node.getRight().getType())," El valor a asignar debe ser del mismo tipo que la variable.",node);
-
-
-
         return null;
     }
 
@@ -152,7 +109,7 @@ public class TypeChecking extends DefaultVisitor {
          super.visit(node, param);
         predicado(node.getParameters().size() == node.getDefinition().getParameters().size(),"El número de argumentos recibidos("+node.getDefinition().getParameters().size()+") no coincide con el esperado ("+node.getDefinition().getParameters().size()+")", node);
         predicado( checkArguments(node.getDefinition().getParameters(),node.getParameters()),"El tipo de los parámetros de la invoación no fueron los esperados.", node);
-        predicado(!(node.getDefinition().getReturnType() instanceof VoidType),"La función des de tipo void",node);
+        predicado(!(node.getDefinition().getReturnType() instanceof VoidType),"La función es de tipo void",node);
         node.setType(node.getDefinition().getReturnType());
         return null;
     }
@@ -161,7 +118,6 @@ public class TypeChecking extends DefaultVisitor {
 
     //	class Return { Expression expression; }
     public Object visit(Return node, Object param) {
-
           super.visit(node, param);
         node.setFunctionDefinition((FunctionDefinition) param); // We recieve the definition node as a parameter.
         Type expected=node.getFunctionDefinition().getReturnType(),recieved;
@@ -177,8 +133,6 @@ public class TypeChecking extends DefaultVisitor {
                 predicado(expected.equals(recieved), "El tipo de retorno  " + recieved + "  no fue el esperado  " + expected + " .", node);
             }
         }
-
-
         return null;
     }
 
@@ -201,8 +155,6 @@ public class TypeChecking extends DefaultVisitor {
           AST notInt=node.getLeft().getType() instanceof IntType ? node.getLeft().getType() : node.getRight().getType();
           predicado(false,"Las expresiones a comparar deben ser de tipo int . "+notInt+" no es de tipo entero.",node);
         }
-
-
         node.setType(node.getLeft().getType());
         return null;
     }
@@ -265,9 +217,9 @@ public class TypeChecking extends DefaultVisitor {
 
         super.visit(node, param);
         predicado(node.getStruct().getType() instanceof  StructType, node+" no es de tipo struct",node);
-        //THE FIELD TYPE WILL COME IN THE PARAMETER OF THE VISIT METHOD.
         StructType struct= (StructType)(node.getStruct().getType());
         List<StructField> fields=struct.getDefinition().getFields();
+        //En la fase de identificación, se asigna a los tipos struct la definición del struct en sí.
         StructField field=foundField(fields,node.getField());
         predicado(field!=null, "No existe el campo "+node.getField(),node);
         node.setType(field.getType());
@@ -295,26 +247,6 @@ public class TypeChecking extends DefaultVisitor {
     }
     // Métodos auxiliares recomendados (opcionales) -------------
 
-    /**
-     * predicado. Método auxiliar para implementar los predicados. Borrar si no se quiere usar.
-     *
-     * Ejemplos de uso (suponiendo que existe un método "esPrimitivo(expr)"):
-     *
-     *      1. predicado(esPrimitivo(expr.tipo), "La expresión debe ser de un tipo primitivo", expr.getStart());
-     *      2. predicado(esPrimitivo(expr.tipo), "La expresión debe ser de un tipo primitivo", expr); // Se asume getStart()
-     *      3. predicado(esPrimitivo(expr.tipo), "La expresión debe ser de un tipo primitivo");
-     *
-     * NOTA: El método getStart() (ejemplo 1) indica la linea/columna del fichero fuente donde estaba el nodo
-     * (y así poder dar información más detallada de la posición del error). Si se usa VGen, dicho método
-     * habrá sido generado en todos los nodos del AST.
-     * No es obligatorio llamar a getStart() (ejemplo 2), ya que si se pasa el nodo, se usará por defecto dicha
-     * posición.
-     * Si no se quiere imprimir la posición del fichero, se puede omitir el tercer argumento (ejemplo 3).
-     *
-     * @param condition     Debe cumplirse para que no se produzca un error
-     * @param errorMessage  Se imprime si no se cumple la condición
-     * @param posicionError Fila y columna del fichero donde se ha producido el error.
-     */
 
     private void predicado(boolean condition, String errorMessage, AST node) {
         predicado(condition, errorMessage, node.getStart());
@@ -328,6 +260,7 @@ public class TypeChecking extends DefaultVisitor {
     private void predicado(boolean condition, String errorMessage) {
         predicado(condition, errorMessage, (Position) null);
     }
+    // Métodos auxiliares recomendados (propios) -------------
     private boolean hasSimpleType(Type type){
         if(type instanceof ArrayType || type instanceof StructType){
             return false;
