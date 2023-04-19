@@ -70,4 +70,6 @@ private VarDefinition definition;
 	public VarDefinition getDefinition(){
 		return this.definition;
 	}
+
+
 }

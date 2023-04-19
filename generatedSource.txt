@@ -1,0 +1,20 @@
+var char;
+struct Persona{
+edad int;
+meses [12] int;
+a float;
+}
+var float;
+struct Prueba{
+campo1 int;
+campo2 int;
+}
+var [2]Persona;
+var int;
+//Function definition 
+f(a:{IntType} int,b:{FloatType} float,h:{CharType} char,):{
+var char;
+var int;
+var [2]Persona;
+var float;
+}

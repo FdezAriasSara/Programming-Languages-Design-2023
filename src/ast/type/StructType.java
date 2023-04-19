@@ -4,6 +4,7 @@
 
 package ast.type;
 
+import ast.StructField;
 import ast.definition.Definition;
 import ast.definition.StructDefinition;
 import org.antlr.v4.runtime.*;
@@ -32,7 +33,15 @@ public class StructType extends AbstractType {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	@Override
+	public int getSize() {
+		int totalSize=0;
+		for (StructField field:definition.getFields()
+			 ) {
+			totalSize+=field.getType().getSize();
+		}
+		return totalSize ;
+	}
 	@Override
 	public Object accept(Visitor v, Object param) { 
 		return v.visit(this, param);

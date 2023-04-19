@@ -60,11 +60,11 @@ public class StructDefinition extends AbstractDefinition {
    }
 
 
-   private int dir;
-	public void setDir(int dir) {
-		this.dir=dir;
+   private int direction;
+	public void setDirection(int direction) {
+		this.direction = direction;
 	}
-	public int getDir(){
-		return dir;
+	public int getDirection(){
+		return direction;
 	}
 }

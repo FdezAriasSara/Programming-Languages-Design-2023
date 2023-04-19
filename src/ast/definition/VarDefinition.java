@@ -58,11 +58,11 @@ public class VarDefinition extends AbstractDefinition {
 
 
    //Memory Allocation
-	private int dir;
-	private int getDir(){
-		return this.dir;
+	private int direction;
+	public int getDirection(){
+		return this.direction;
 	}
-	public void setDir(int dir){
-		this.dir=dir;
+	public void setDirection(int direction){
+		this.direction = direction;
 	}
 }

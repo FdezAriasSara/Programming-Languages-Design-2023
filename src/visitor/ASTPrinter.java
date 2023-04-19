@@ -2,16 +2,17 @@
  * @generated VGen (for ANTLR) 1.7.2
  */
 
+
 package visitor;
-
-import java.io.*;
-
 import ast.*;
 import ast.definition.*;
 import ast.expression.*;
 import ast.type.*;
 import ast.statement.*;
 import java.util.*;
+import java.io.*;
+
+
 
 /**
  * ASTPrinter. Utilidad que ayuda a validar un arbol AST:
@@ -116,6 +117,7 @@ public class ASTPrinter extends DefaultVisitor {
 
 		print(indent + 1, "name", "String", node.getName());
 		visit(indent + 1, "type", "Type",node.getType());
+
 		return null;
 	}
 
@@ -127,6 +129,8 @@ public class ASTPrinter extends DefaultVisitor {
 
 		visit(indent + 1, "type", "Type",node.getType());
 		print(indent + 1, "name", "String", node.getName());
+		print(indent + 1, "direction", "int", node.getDirection());
+
 		return null;
 	}
 
@@ -163,6 +167,7 @@ public class ASTPrinter extends DefaultVisitor {
 
 		print(indent + 1, "name", "String", node.getName());
 		visit(indent + 1, "type", "Type",node.getType());
+		print(indent + 1, "direction", "int", node.getDirection());
 		return null;
 	}
 
@@ -286,25 +291,25 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class InvocationStatement { String name;  List<Variable> parameters; }
+	//	class InvocationStatement { String name;  List<Expression> parameters; }
 	public Object visit(InvocationStatement node, Object param) {
 		int indent = ((Integer)param).intValue();
 
 		printName(indent, "InvocationStatement", node, false);
 
 		print(indent + 1, "name", "String", node.getName());
-		visit(indent + 1, "parameters", "List<Variable>",node.getParameters());
+		visit(indent + 1, "parameters", "List<Expression>",node.getParameters());
 		return null;
 	}
 
-	//	class Invocation { String name;  List<Variable> parameters; }
+	//	class Invocation { String name;  List<Expression> parameters; }
 	public Object visit(Invocation node, Object param) {
 		int indent = ((Integer)param).intValue();
 
 		printName(indent, "Invocation", node, false);
 
 		print(indent + 1, "name", "String", node.getName());
-		visit(indent + 1, "parameters", "List<Variable>",node.getParameters());
+		visit(indent + 1, "parameters", "List<Expression>",node.getParameters());
 		return null;
 	}
 
