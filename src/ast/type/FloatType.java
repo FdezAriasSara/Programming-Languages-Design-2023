@@ -27,6 +27,11 @@ public class FloatType extends AbstractType {
 		return 4;
 	}
 
+	@Override
+	public char getSuffix() {
+		return 'f';
+	}
+
 	public String toString() {
        return "{FloatType}";
    }

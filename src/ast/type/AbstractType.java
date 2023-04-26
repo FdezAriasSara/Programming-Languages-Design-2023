@@ -14,5 +14,8 @@ public abstract class AbstractType extends AbstractAST implements Type {
         return 0;
     }
 
-
+    @Override
+    public char getSuffix() {
+        throw new RuntimeException("The compiler tried to access the suffix of a complex type.");
+    }
 }

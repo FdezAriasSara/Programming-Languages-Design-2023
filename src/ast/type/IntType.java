@@ -25,6 +25,11 @@ public class IntType extends AbstractType {
 	public int getSize() {
 		return 2;
 	}
+	@Override
+	public char getSuffix() {
+		return 'i';
+	}
+
 
 	public String toString() {
        return "{IntType}";

@@ -7,7 +7,7 @@ import ast.expression.*;
 
 import java.io.*;
 
-public class CodeGenerator extends DefaultVisitor{
+public class SourcecodeGenerator extends DefaultVisitor{
 
     public static final int LINE = 1;
     private static final String OUTPUT_FILE = "generatedSource.txt";
@@ -20,7 +20,7 @@ public class CodeGenerator extends DefaultVisitor{
     File sourceFile;
 
 
-    public CodeGenerator(File file )  {
+    public SourcecodeGenerator(File file )  {
 
         sourceFile=file;
         try {
