@@ -1,7 +1,7 @@
 /*
-Test 2 para probar la Fase de Generaciï¿½n de Cï¿½digo
+Test 2 para probar la Fase de Generación de Código
 
-COMPROBACION: Si cuando pida un valor se introduce un 2 deberï¿½a salir: 
+COMPROBACION: Si cuando pida un valor se introduce un 2 debería salir: 
 C
 1200
 A
@@ -13,11 +13,11 @@ C
 D
 1300
 
-CONSEJO: No limitarse a comprobar el resultado de la ejecuciï¿½n. Se recomienda ademï¿½s abrir el fichero generado usando el depurador GVM y comprobar sus instrucciones.
+CONSEJO: No limitarse a comprobar el resultado de la ejecución. Se recomienda además abrir el fichero generado usando el depurador GVM y comprobar sus instrucciones.
 
 Para facilitar esta tarea es de gran utilidad que el alumno haya generado directivas '#line' en el fichero de salida.
-Para informaciï¿½n sobre la funciï¿½n de dicha directiva se debe abrir con GVM el siguiente tutorial: 
-Tutorial\3 Uso bï¿½sico del depurador\4 Fusiï¿½n Alto Nivel.txt
+Para información sobre la función de dicha directiva se debe abrir con GVM el siguiente tutorial: 
+Tutorial\3 Uso básico del depurador\4 Fusión Alto Nivel.txt
 
 NOTA: Es posible que el alumno deba adaptar ligeramente la sintaxis de este ejemplo si no coincide
 con la del lenguaje que le corresponde.
@@ -45,8 +45,8 @@ busca(i:int) {
 	if (i < 0 || i >= 4) {
 		return;
 	}
-	println empresa[i].inicial;
-	println empresa[i].sueldo;
+	print empresa[i].inicial;
+	print empresa[i].sueldo;
 }
 
 imprime():int {
@@ -58,8 +58,8 @@ imprime():int {
 		aux.inicial = empresa[i].inicial;
 		aux.sueldo = empresa[i].sueldo;
 		
-		println aux.inicial;
-		println aux.sueldo;
+		print aux.inicial;
+		print aux.sueldo;
 		
 		i = i + 1;
 	}  
