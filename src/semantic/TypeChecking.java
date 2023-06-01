@@ -14,7 +14,6 @@ import ast.expression.*;
 import ast.type.*;
 import ast.statement.*;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 
@@ -224,9 +223,8 @@ public class TypeChecking extends DefaultVisitor {
         predicado(isStructType, node+" no es de tipo struct",node);
         if(isStructType) {
             StructType struct = (StructType) (node.getStruct().getType());
-            List<StructField> fields = struct.getDefinition().getFields();
             //En la fase de identificación, se asigna a los tipos struct la definición del struct en sí.
-            StructField field = foundField(fields, node.getField());
+            StructField field = findField(struct, node.getField());
             boolean foundField=field != null;
             predicado(foundField, "No existe el campo '" + node.getField() + "'.", node);
             if(foundField){
@@ -294,7 +292,8 @@ public class TypeChecking extends DefaultVisitor {
     }
     //TODO- NO SERÍA RESPONSABILIDAD DEL STRUCT?
 
-    private StructField foundField(List<StructField> fields,String fieldToFind){
+    private StructField findField(StructType struct, String fieldToFind){
+        List<StructField> fields = struct.getDefinition().getFields();
         for (StructField field:fields
         ) {
             if(field.getName().equals(fieldToFind)){
