@@ -22,87 +22,64 @@
 <body><pre>
 [ASTPrinter] -------------------------------- line:col  line:col
 
-<span class="dots"></span>Program &rarr;                                                   <span class="pos">15:5  37:6   </span><span class="sourceText">var </span><span class="posText">a:char;	// Dir 0</span><span class="sourceText"> ... </span><span class="posText">var f</span><span class="sourceText">:float; 	// BP-67</span>
+<span class="dots"></span>Program &rarr;                                                   <span class="pos">3:8  19:18   </span><span class="sourceText">struct </span><span class="posText">Persona {</span><span class="sourceText"> ... </span><span class="posText">print juan.nombre</span><span class="sourceText">; // Campo no definido</span>
 <span class="dots">.  </span>definitions  <span class="type">List&lt;Definition&gt;</span> = 
-<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">15:5  15:5   </span><span class="sourceText">var </span><span class="posText">a</span><span class="sourceText">:char;	// Dir 0</span>
-<span class="dots">.  .  |  </span><span class="value">CharType</span> &rarr;                                         <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  </span>"<span class="value">a</span>"  
-<span class="dots">.  .  |  </span><span class="value">0</span>  <span class="type">int</span>
-<span class="dots">.  .  </span>StructDefinition &rarr;                                    <span class="pos">17:8  20:2   </span><span class="sourceText">struct </span><span class="posText">Persona {</span><span class="sourceText"> ... </span><span class="posText">a</span><span class="sourceText">:float;	// Dir 26</span>
+<span class="dots">.  .  </span>StructDefinition &rarr;                                    <span class="pos">3:8  5:10    </span><span class="sourceText">struct </span><span class="posText">Persona {</span><span class="sourceText"> ... </span><span class="posText">meses:[12</span><span class="sourceText">] int;</span>
 <span class="dots">.  .  |  </span>"<span class="value">Persona</span>"  
 <span class="dots">.  .  |  </span>fields  <span class="type">List&lt;StructField&gt;</span> = 
-<span class="dots">.  .  |  .  </span>StructField &rarr;                                   <span class="pos">18:2  18:5   </span><span class="sourceText"></span><span class="posText">edad</span><span class="sourceText">:int;	// Dir 0</span>
+<span class="dots">.  .  |  .  </span>StructField &rarr;                                   <span class="pos">4:2  4:5     </span><span class="sourceText"></span><span class="posText">edad</span><span class="sourceText">:int;</span>
 <span class="dots">.  .  |  .  |  </span>"<span class="value">edad</span>"  
 <span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
 <span class="dots">.  .  |  .  |  </span><span class="value">0</span>  <span class="type">int</span>
-<span class="dots">.  .  |  .  </span>StructField &rarr;                                   <span class="pos">19:2  19:10  </span><span class="sourceText"></span><span class="posText">meses:[12</span><span class="sourceText">] int;	// Dir 2</span>
+<span class="dots">.  .  |  .  </span>StructField &rarr;                                   <span class="pos">5:2  5:10    </span><span class="sourceText"></span><span class="posText">meses:[12</span><span class="sourceText">] int;</span>
 <span class="dots">.  .  |  .  |  </span>"<span class="value">meses</span>"  
-<span class="dots">.  .  |  .  |  </span>ArrayType &rarr;                                  <span class="pos">19:9  19:10  </span><span class="sourceText">meses:[</span><span class="posText">12</span><span class="sourceText">] int;	// Dir 2</span>
+<span class="dots">.  .  |  .  |  </span>ArrayType &rarr;                                  <span class="pos">5:9  5:10    </span><span class="sourceText">meses:[</span><span class="posText">12</span><span class="sourceText">] int;</span>
 <span class="dots">.  .  |  .  |  .  </span>"<span class="value">12</span>"  
 <span class="dots">.  .  |  .  |  .  </span><span class="value">IntType</span> &rarr;                                 <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  .  |  </span><span class="value">2</span>  <span class="type">int</span>
-<span class="dots">.  .  |  .  </span>StructField &rarr;                                   <span class="pos">20:2  20:2   </span><span class="sourceText"></span><span class="posText">a</span><span class="sourceText">:float;	// Dir 26</span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">a</span>"  
-<span class="dots">.  .  |  .  |  </span><span class="value">FloatType</span> &rarr;                                  <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  .  |  </span><span class="value">26</span>  <span class="type">int</span>
-<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">23:5  23:5   </span><span class="sourceText">var </span><span class="posText">b</span><span class="sourceText">:float;	// Dir 1</span>
-<span class="dots">.  .  |  </span><span class="value">FloatType</span> &rarr;                                        <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  </span>"<span class="value">b</span>"  
-<span class="dots">.  .  |  </span><span class="value">1</span>  <span class="type">int</span>
-<span class="dots">.  .  </span>StructDefinition &rarr;                                    <span class="pos">25:8  27:7   </span><span class="sourceText">struct </span><span class="posText">Prueba {</span><span class="sourceText"> ... </span><span class="posText">campo2</span><span class="sourceText">: int; // Dir 2</span>
-<span class="dots">.  .  |  </span>"<span class="value">Prueba</span>"  
-<span class="dots">.  .  |  </span>fields  <span class="type">List&lt;StructField&gt;</span> = 
-<span class="dots">.  .  |  .  </span>StructField &rarr;                                   <span class="pos">26:2  26:7   </span><span class="sourceText"></span><span class="posText">campo1</span><span class="sourceText">: int; // Dir 0</span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">campo1</span>"  
-<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
 <span class="dots">.  .  |  .  |  </span><span class="value">0</span>  <span class="type">int</span>
-<span class="dots">.  .  |  .  </span>StructField &rarr;                                   <span class="pos">27:2  27:7   </span><span class="sourceText"></span><span class="posText">campo2</span><span class="sourceText">: int; // Dir 2</span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">campo2</span>"  
-<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  .  |  </span><span class="value">2</span>  <span class="type">int</span>
-<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">30:5  30:16  </span><span class="sourceText">var </span><span class="posText">c:[2]Persona</span><span class="sourceText">;	// Dir 5</span>
-<span class="dots">.  .  |  </span>ArrayType &rarr;                                        <span class="pos">30:8  30:16  </span><span class="sourceText">var c:[</span><span class="posText">2]Persona</span><span class="sourceText">;	// Dir 5</span>
-<span class="dots">.  .  |  .  </span>"<span class="value">2</span>"  
-<span class="dots">.  .  |  .  </span>"Persona"  <span class="type">StructType.name</span>                      <span class="pos">30:10  30:16 </span><span class="sourceText">var c:[2]</span><span class="posText">Persona</span><span class="sourceText">;	// Dir 5</span>
-<span class="dots">.  .  |  </span>"<span class="value">c</span>"  
-<span class="dots">.  .  |  </span><span class="value">5</span>  <span class="type">int</span>
-<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">31:5  31:5   </span><span class="sourceText">var </span><span class="posText">d</span><span class="sourceText">:int;		// Dir 65</span>
-<span class="dots">.  .  |  </span><span class="value">IntType</span> &rarr;                                          <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  </span>"<span class="value">d</span>"  
-<span class="dots">.  .  |  </span><span class="value">65</span>  <span class="type">int</span>
-<span class="dots">.  .  </span>FunctionDefinition &rarr;                                  <span class="pos">33:1  37:6   </span><span class="sourceText"></span><span class="posText">f(a:int, b:float, h:char) { // a = BP+9, b = BP+5, h = BP+4</span><span class="sourceText"> ... </span><span class="posText">var f</span><span class="sourceText">:float; 	// BP-67</span>
-<span class="dots">.  .  |  </span>"<span class="value">f</span>"  
+<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">8:5  8:16    </span><span class="sourceText">var </span><span class="posText">juan:Persona</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  </span>"Persona"  <span class="type">StructType.name</span>                         <span class="pos">8:10  8:16   </span><span class="sourceText">var juan:</span><span class="posText">Persona</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  </span>"<span class="value">juan</span>"  
+<span class="dots">.  .  |  </span><span class="value">0</span>  <span class="type">int</span>
+<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">9:5  9:17    </span><span class="sourceText">var </span><span class="posText">anton:Persona</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  </span>"Persona"  <span class="type">StructType.name</span>                         <span class="pos">9:11  9:17   </span><span class="sourceText">var anton:</span><span class="posText">Persona</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  </span>"<span class="value">anton</span>"  
+<span class="dots">.  .  |  </span><span class="value">0</span>  <span class="type">int</span>
+<span class="dots">.  .  </span>FunctionDefinition &rarr;                                  <span class="pos">11:1  19:18  </span><span class="sourceText"></span><span class="posText">main() {</span><span class="sourceText"> ... </span><span class="posText">print juan.nombre</span><span class="sourceText">; // Campo no definido</span>
+<span class="dots">.  .  |  </span>"<span class="value">main</span>"  
 <span class="dots">.  .  |  </span>parameters  <span class="type">List&lt;Variable&gt;</span> = 
-<span class="dots">.  .  |  .  </span>Variable &rarr;                                      <span class="pos">33:3  33:3   </span><span class="sourceText">f(</span><span class="posText">a</span><span class="sourceText">:int, b:float, h:char) { // a = BP+9, b = BP+5, h = BP+4</span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">a</span>"  
-<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  .  </span>Variable &rarr;                                      <span class="pos">33:10  33:10 </span><span class="sourceText">f(a:int, </span><span class="posText">b</span><span class="sourceText">:float, h:char) { // a = BP+9, b = BP+5, h = BP+4</span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">b</span>"  
-<span class="dots">.  .  |  .  |  </span><span class="value">FloatType</span> &rarr;                                  <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  .  </span>Variable &rarr;                                      <span class="pos">33:19  33:19 </span><span class="sourceText">f(a:int, b:float, </span><span class="posText">h</span><span class="sourceText">:char) { // a = BP+9, b = BP+5, h = BP+4</span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">h</span>"  
-<span class="dots">.  .  |  .  |  </span><span class="value">CharType</span> &rarr;                                   <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
 <span class="dots">.  .  |  </span><span class="value">VoidType</span> &rarr;                                         <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
 <span class="dots">.  .  |  </span>localDefs  <span class="type">List&lt;VarDefinition&gt;</span> = 
-<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">34:6  34:6   </span><span class="sourceText">var </span><span class="posText">c</span><span class="sourceText">:char;	// BP-1</span>
-<span class="dots">.  .  |  .  |  </span><span class="value">CharType</span> &rarr;                                   <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">c</span>"  
-<span class="dots">.  .  |  .  |  </span><span class="value">1</span>  <span class="type">int</span>
-<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">35:6  35:6   </span><span class="sourceText">var </span><span class="posText">d</span><span class="sourceText">:int;	// BP-3</span>
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">12:6  12:6   </span><span class="sourceText">var </span><span class="posText">i</span><span class="sourceText">:int;</span>
 <span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">d</span>"  
-<span class="dots">.  .  |  .  |  </span><span class="value">3</span>  <span class="type">int</span>
-<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">36:6  36:17  </span><span class="sourceText">var </span><span class="posText">e:[2]Persona</span><span class="sourceText">; // BP-63</span>
-<span class="dots">.  .  |  .  |  </span>ArrayType &rarr;                                  <span class="pos">36:9  36:17  </span><span class="sourceText">var e:[</span><span class="posText">2]Persona</span><span class="sourceText">; // BP-63</span>
-<span class="dots">.  .  |  .  |  .  </span>"<span class="value">2</span>"  
-<span class="dots">.  .  |  .  |  .  </span>"Persona"  <span class="type">StructType.name</span>                <span class="pos">36:11  36:17 </span><span class="sourceText">var e:[2]</span><span class="posText">Persona</span><span class="sourceText">; // BP-63</span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">e</span>"  
-<span class="dots">.  .  |  .  |  </span><span class="value">63</span>  <span class="type">int</span>
-<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">37:6  37:6   </span><span class="sourceText">var </span><span class="posText">f</span><span class="sourceText">:float; 	// BP-67</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">i</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">0</span>  <span class="type">int</span>
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">13:6  13:6   </span><span class="sourceText">var </span><span class="posText">f</span><span class="sourceText">:float;</span>
 <span class="dots">.  .  |  .  |  </span><span class="value">FloatType</span> &rarr;                                  <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
 <span class="dots">.  .  |  .  |  </span>"<span class="value">f</span>"  
-<span class="dots">.  .  |  .  |  </span><span class="value">67</span>  <span class="type">int</span>
+<span class="dots">.  .  |  .  |  </span><span class="value">0</span>  <span class="type">int</span>
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">14:6  14:10  </span><span class="sourceText">var </span><span class="posText">v:[10</span><span class="sourceText">]int;</span>
+<span class="dots">.  .  |  .  |  </span>ArrayType &rarr;                                  <span class="pos">14:9  14:10  </span><span class="sourceText">var v:[</span><span class="posText">10</span><span class="sourceText">]int;</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">10</span>"  
+<span class="dots">.  .  |  .  |  .  </span><span class="value">IntType</span> &rarr;                                 <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">v</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">0</span>  <span class="type">int</span>
 <span class="dots">.  .  |  </span>statements  <span class="type">List&lt;Statement&gt;</span> = 
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">17:2  17:16  </span><span class="sourceText"></span><span class="posText">print juan.edad</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>StructFieldAccess &rarr;                          <span class="pos">17:8  17:16  </span><span class="sourceText">print </span><span class="posText">juan.edad</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  .  </span>"juan"  <span class="type">VariableReference.name</span>            <span class="pos">17:8  17:11  </span><span class="sourceText">print </span><span class="posText">juan</span><span class="sourceText">.edad;</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">edad</span>"  
+<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">18:2  18:13  </span><span class="sourceText"></span><span class="posText">print 5.edad</span><span class="sourceText">;	// Se requiere tipo struct</span>
+<span class="dots">.  .  |  .  |  </span>StructFieldAccess &rarr;                          <span class="pos">18:8  18:13  </span><span class="sourceText">print </span><span class="posText">5.edad</span><span class="sourceText">;	// Se requiere tipo struct</span>
+<span class="dots">.  .  |  .  |  .  </span>"5"  <span class="type">LiteralInt.value</span>                     <span class="pos">18:8  18:8   </span><span class="sourceText">print </span><span class="posText">5</span><span class="sourceText">.edad;	// Se requiere tipo struct</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">edad</span>"  
+<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">19:2  19:18  </span><span class="sourceText"></span><span class="posText">print juan.nombre</span><span class="sourceText">; // Campo no definido</span>
+<span class="dots">.  .  |  .  |  </span>StructFieldAccess &rarr;                          <span class="pos">19:8  19:18  </span><span class="sourceText">print </span><span class="posText">juan.nombre</span><span class="sourceText">; // Campo no definido</span>
+<span class="dots">.  .  |  .  |  .  </span>"juan"  <span class="type">VariableReference.name</span>            <span class="pos">19:8  19:11  </span><span class="sourceText">print </span><span class="posText">juan</span><span class="sourceText">.nombre; // Campo no definido</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">nombre</span>"  
+<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
 
 [ASTPrinter] --------------------------------
 </pre>

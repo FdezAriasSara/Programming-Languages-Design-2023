@@ -1,0 +1,31 @@
+call main
+halt
+doble:
+enter 1
+pusha 0
+loadi
+pushi 2
+muli
+ret 2,0,1
+main:
+enter 0
+loadi
+pushf 1.0
+storef
+loadi
+pushi 2
+storei
+loadi
+pushf 2.0
+lti
+jz elseBody2
+pushi 1
+outi
+elseBody2:
+loadi
+outi
+end3:
+pushi 2
+call doble
+outi
+ret

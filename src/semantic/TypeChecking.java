@@ -14,6 +14,7 @@ import ast.expression.*;
 import ast.type.*;
 import ast.statement.*;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 
@@ -27,8 +28,12 @@ public class TypeChecking extends DefaultVisitor {
 
     //	class Variable { String name;  Type type; }
     public Object visit(Variable node, Object param) {
+        //TODO: EN ESTE CASO QUIZÁS NO HAGA FALTA LLAMAR A SUPER, YA QUE LOS TYPES NO SE RECORREN EN TYPECHECKING
+        //Inherited attributes require pre-order
         super.visit(node, param);
+        //it visits the type node first, since we need its value
         node.setType(node.getDefinition().getType());
+
         return null;
     }
 
@@ -118,7 +123,7 @@ public class TypeChecking extends DefaultVisitor {
 
     //	class Return { Expression expression; }
     public Object visit(Return node, Object param) {
-          super.visit(node, param);
+        super.visit(node, param);//Inherited attributes require PRE-ORDER.
         node.setFunctionDefinition((FunctionDefinition) param); // We recieve the definition node as a parameter.
         Type expected=node.getFunctionDefinition().getReturnType(),recieved;
 
@@ -126,13 +131,13 @@ public class TypeChecking extends DefaultVisitor {
             predicado(expected instanceof VoidType,"El return  debe tener una expresión de tipo "+ expected+". ",node);
         }else {
             recieved=node.getExpression().getType();
-
-            if(!(expected instanceof VoidType)){
+            if(expected instanceof VoidType){
                 predicado(false,"El return no debe tener expresión en funciones void.",node);
             }else {
                 predicado(expected.equals(recieved), "El tipo de retorno  " + recieved + "  no fue el esperado  " + expected + " .", node);
             }
         }
+
         return null;
     }
 
@@ -147,15 +152,13 @@ public class TypeChecking extends DefaultVisitor {
 
     //	class Comparison { Expression left;  String operator;  Expression right; }
     public Object visit(Comparison node, Object param) {
-
         super.visit(node, param);
-        if(node.getRight().getType().equals(node.getLeft().getType())){
-            predicado(node.getLeft().getType() instanceof IntType,"Las expresiones a comparar deben ser de tipo int. "+node+" no es de tipo entero.",node);
-        }else{ //In case the types are not equal , for sure one of them is not in type. (I  do this to avoid printing two errors for the same mistake)
-          AST notInt=node.getLeft().getType() instanceof IntType ? node.getLeft().getType() : node.getRight().getType();
-          predicado(false,"Las expresiones a comparar deben ser de tipo int . "+notInt+" no es de tipo entero.",node);
-        }
-        node.setType(node.getLeft().getType());
+        boolean isInt, isFloat,sameType=node.getRight().getType().equals(node.getLeft().getType());
+        predicado(sameType,"Los elementos a comparar deben tener el mismo tipo.",node);
+        isInt=node.getLeft().getType() instanceof IntType;
+        isFloat=node.getLeft().getType() instanceof FloatType;
+        predicado(!(isInt && isFloat) , "Los operadores de comparación solo pueden aplicarse a Enteros o Reales.", node);
+        node.setType(new IntType());//TODO ? SE PUEDE "HARDCODEAR ASI?
         return null;
     }
 
@@ -208,7 +211,8 @@ public class TypeChecking extends DefaultVisitor {
         super.visit(node, param);
         predicado(node.getArray().getType() instanceof ArrayType,"El elemento accedido  debe ser de tipo array",node);
         predicado(node.getPosition().getType() instanceof IntType,"El índice de un acceso a array debe ser de tipo entero",node);
-        node.setType(node.getArray().getType());
+        ArrayType array=(ArrayType) (node.getArray().getType());
+        node.setType(array.getType());
         return null;
     }
 
@@ -216,14 +220,20 @@ public class TypeChecking extends DefaultVisitor {
     public Object visit(StructFieldAccess node, Object param) {
 
         super.visit(node, param);
-        predicado(node.getStruct().getType() instanceof  StructType, node+" no es de tipo struct",node);
-        StructType struct= (StructType)(node.getStruct().getType());
-        List<StructField> fields=struct.getDefinition().getFields();
-        //En la fase de identificación, se asigna a los tipos struct la definición del struct en sí.
-        StructField field=foundField(fields,node.getField());
-        predicado(field!=null, "No existe el campo "+node.getField(),node);
-        node.setType(field.getType());
+        boolean isStructType=node.getStruct().getType() instanceof  StructType;
+        predicado(isStructType, node+" no es de tipo struct",node);
+        if(isStructType) {
+            StructType struct = (StructType) (node.getStruct().getType());
+            List<StructField> fields = struct.getDefinition().getFields();
+            //En la fase de identificación, se asigna a los tipos struct la definición del struct en sí.
+            StructField field = foundField(fields, node.getField());
+            boolean foundField=field != null;
+            predicado(foundField, "No existe el campo '" + node.getField() + "'.", node);
+            if(foundField){
+                node.setType(field.getType());
+            }
 
+        }
         return null;
     }
 
@@ -282,6 +292,8 @@ public class TypeChecking extends DefaultVisitor {
         }
         return true;
     }
+    //TODO- NO SERÍA RESPONSABILIDAD DEL STRUCT?
+
     private StructField foundField(List<StructField> fields,String fieldToFind){
         for (StructField field:fields
         ) {

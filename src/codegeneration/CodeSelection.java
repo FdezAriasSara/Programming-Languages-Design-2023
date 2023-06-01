@@ -56,8 +56,9 @@ public class CodeSelection extends DefaultVisitor {
 
     //	class FunctionDefinition { String name;  List<Variable> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
     public Object visit(FunctionDefinition node, Object param) {
-
+        out(node.getName()+":");
         out("enter "+node.getParameters().size());
+
         for (Variable child : node.getParameters())
                 child.accept(this, param);
         for (Statement child : node.getStatements())
@@ -98,9 +99,11 @@ public class CodeSelection extends DefaultVisitor {
     public Object visit(IfStatement node, Object param) {
          node.getCondition().accept(this, CodeFunction.VALUE);
          setLabel();
-         out("jz elseBody"+getLabel()+":");
+         out("jz elseBody"+getLabel());
+
         for (Statement child : node.getBody())
             child.accept(this, CodeFunction.EXECUTE);
+        out("elseBody"+getLabel()+":");
         for (Statement child : node.getElseBody())
             child.accept(this, CodeFunction.EXECUTE);
         setLabel();
@@ -118,7 +121,7 @@ public class CodeSelection extends DefaultVisitor {
         out("jez endWhile"+getLabel());
         for (Statement child : node.getBody())
              child.accept(this, CodeFunction.EXECUTE);
-        out("jmp WhileStart"+startLabel+":");
+        out("jmp WhileStart"+startLabel);
         out("endWhile"+getLabel()+":");
 
         return null;
@@ -128,7 +131,7 @@ public class CodeSelection extends DefaultVisitor {
     public Object visit(Assignment node, Object param) {
         node.getLeft().accept(this, CodeFunction.ADDRESS);
         node.getRight().accept(this, CodeFunction.VALUE);
-        out("store ",node.getRight().getType());
+        out("store",node.getRight().getType());
 
         return null;
     }

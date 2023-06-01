@@ -29,7 +29,7 @@ public class Identification extends DefaultVisitor {
 
          variables.set();//Initialize global scope.
          super.visit(node, param);
-        variables.reset();//Teminate scope (is it necessary?
+        variables.reset();//todo:Teminate scope (is it necessary?
         structs.clear(); //Since structs are defined on a global scope
 
         return null;
@@ -41,6 +41,7 @@ public class Identification extends DefaultVisitor {
         VarDefinition definition=searchVarDefinition(node.getName(),node.getStart());
         if(definition!=null) {
             node.setDefinition(definition);
+            node.setGlobal(true);
         }
         return null;
     }
@@ -59,7 +60,7 @@ public class Identification extends DefaultVisitor {
     public Object visit(VarDefinition node, Object param) {
 
         if(variables.getFromTop(node.getName())!=null){
-            error("La variable "+node.getName()+" ya ha sido definida en este contexto.", node.getStart());
+            error("La variable '"+node.getName()+"' ya ha sido definida en este contexto.", node.getStart());
         } else{
             variables.put(node.getName(),node);
         }
@@ -74,7 +75,7 @@ public class Identification extends DefaultVisitor {
             functions.put(node.getName(), node);
         }else{
             //predicate not fulfilled.
-            error("La función ' "+node.getName()+" 'ya ha sido declarada." ,node.getStart());
+            error("La función '"+node.getName()+"' ya ha sido definida." ,node.getStart());
         }
         variables.set();  //parameters will belong to local context of the function
         if (node.getParameters() != null)
@@ -85,7 +86,6 @@ public class Identification extends DefaultVisitor {
                 child.setDefinition(paramDef);
                 child.accept(this,param );
             }
-//todo comprobar que el parámetro no se asigna cuando no toca?
 
         if (node.getReturnType() != null)
             node.getReturnType().accept(this, param);
@@ -143,7 +143,7 @@ public class Identification extends DefaultVisitor {
         FunctionDefinition definition=functions.get(node.getName());
         if(definition==null){
             //predicate not fulfilled.
-            error("La función no ha sido declarada. ",node.getStart());
+            error("La función no ha sido definida. ",node.getStart());
         }
         else{
             //WE LINK the invocation with its definition.
@@ -201,7 +201,7 @@ public class Identification extends DefaultVisitor {
             definition=variables.getFromAny(name);//search in global
             if(definition==null){
                 //arriving here means not finding a definition in any scope.
-                error("La variable "+name+" no ha sido definida.", start);
+                error("La variable '"+name+"' no ha sido definida.", start);
                 return null;
             }
 

@@ -27,7 +27,7 @@ import codegeneration.*;
  * - Para Generación de Código: 'MemoryAllocation.java' y 'CodeSelection.java'.
  */
 public class Main {
-    public static final String INPUT_FILE = "Tests/CodeSelection/Test 2.txt"; // Fichero de prueba durante el desarrollo
+    public static final String INPUT_FILE ="Tests/TypeChecking/StructFieldAccess.txt"; // Fichero de prueba durante el desarrollo
     public static final String OUTPUT_FILE = "output.txt";
 
     public static void main(String[] args) throws Exception {
@@ -69,8 +69,8 @@ public class Main {
         // 3. Fase de Generación de Código
         File sourceFile = new File(sourceName);
         Writer out = new FileWriter(new File(sourceFile.getParent(), OUTPUT_FILE));
-        SourcecodeGenerator cg=new SourcecodeGenerator(new File("generatedSource.txt"));
-        cg.dumpSource(ast);
+    //  SourcecodeGenerator cg=new SourcecodeGenerator(new File("generatedSource.txt"));
+      //  cg.dumpSource(ast);
 
         CodeGeneration generator = new CodeGeneration();
         generator.generate(sourceFile.getName(), ast, out);
