@@ -20,7 +20,7 @@ import visitor.*;
 
 public class ArrayType extends AbstractType {
 
-	public ArrayType(String dimension, Type type) {
+	public ArrayType(int dimension, Type type) {
 		this.dimension = dimension;
 		this.type = type;
 
@@ -30,7 +30,7 @@ public class ArrayType extends AbstractType {
 	}
 
 	public ArrayType(Object dimension, Object type) {
-		this.dimension = (dimension instanceof Token) ? ((Token)dimension).getText() : (String) dimension;
+		this.dimension = (dimension instanceof Token) ?Integer.parseInt(((Token)dimension).getText()) : (Integer) dimension;
 		this.type = (Type) getAST(type);
 
 		// Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
@@ -38,10 +38,10 @@ public class ArrayType extends AbstractType {
 		setPositions(dimension, type);
 	}
 
-	public String getDimension() {
+	public int getDimension() {
 		return dimension;
 	}
-	public void setDimension(String dimension) {
+	public void setDimension(int dimension) {
 		this.dimension = dimension;
 	}
 
@@ -57,7 +57,7 @@ public class ArrayType extends AbstractType {
 		return v.visit(this, param);
 	}
 
-	private String dimension;
+	private int dimension;
 	private Type type;
 
 	public String toString() {
@@ -69,6 +69,6 @@ public class ArrayType extends AbstractType {
 
 	@Override
 	public int getSize() {
-		return  type.getSize()*Integer.parseInt(dimension);
+		return  type.getSize()* dimension;
 	}
 }

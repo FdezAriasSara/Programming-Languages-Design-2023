@@ -65,4 +65,9 @@ public class VarDefinition extends AbstractDefinition {
 	public void setDirection(int direction){
 		this.direction = direction;
 	}
+
+	//Añadido en generación de código
+	private boolean	 isGlobal;
+	public boolean isGlobal(){return this.isGlobal;}
+	public void setGlobal(boolean isGlobal){  this.isGlobal=isGlobal;}
 }

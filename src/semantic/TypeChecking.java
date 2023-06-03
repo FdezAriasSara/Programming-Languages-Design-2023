@@ -23,19 +23,15 @@ public class TypeChecking extends DefaultVisitor {
         this.errorManager = errorManager;
     }
 
-
-
     //	class Variable { String name;  Type type; }
     public Object visit(Variable node, Object param) {
-        //TODO: EN ESTE CASO QUIZÁS NO HAGA FALTA LLAMAR A SUPER, YA QUE LOS TYPES NO SE RECORREN EN TYPECHECKING
-        //Inherited attributes require pre-order
+      //Inherited attributes require pre-order
         super.visit(node, param);
         //it visits the type node first, since we need its value
         node.setType(node.getDefinition().getType());
 
         return null;
     }
-
 
     //	class FunctionDefinition { String name;  List<Variable> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
     public Object visit(FunctionDefinition node, Object param) {
@@ -64,20 +60,17 @@ public class TypeChecking extends DefaultVisitor {
         return null;
     }
 
-
-
-
     //	class Print { Expression expression;  String variant; }
     public Object visit(Print node, Object param) {
          super.visit(node, param);
-        predicado(hasSimpleType(node.getExpression().getType()),node+" no es de tipo simple.",node);
+        predicado(hasSimpleType(node.getExpression().getType()),node.getExpression()+" no es de tipo simple.",node);
         return null;
     }
 
     //	class Read { Expression expression; }
     public Object visit(Read node, Object param) {
          super.visit(node, param);
-        predicado(hasSimpleType(node.getExpression().getType()),node+" no es de tipo simple.",node);
+        predicado(hasSimpleType(node.getExpression().getType()),node.getExpression()+" no es de tipo simple.",node);
         predicado(node.getExpression().getLvalue(),node+" no es modificable.",node);
 
         return null;
@@ -107,12 +100,24 @@ public class TypeChecking extends DefaultVisitor {
         return null;
     }
 
+    //	class InvocationStatement { String name;  List<Variable> parameters; }
+    public Object visit(InvocationStatement node, Object param) {
+        super.visit(node, param);
+        boolean sameSize=node.getParameters().size() == node.getDefinition().getParameters().size();
+        predicado(sameSize,"El número de argumentos recibidos("+node.getDefinition().getParameters().size()+") no coincide con el esperado ("+node.getDefinition().getParameters().size()+")", node);
+        if(sameSize) {
+            predicado(checkArguments(node.getDefinition().getParameters(), node.getParameters()), "El tipo de los parámetros de la invoación no fueron los esperados.", node);
+        }
+        return null;
+    }
     //	class Invocation { String name;  List<Variable> parameters; }
     public Object visit(Invocation node, Object param) {
-
-         super.visit(node, param);
-        predicado(node.getParameters().size() == node.getDefinition().getParameters().size(),"El número de argumentos recibidos("+node.getDefinition().getParameters().size()+") no coincide con el esperado ("+node.getDefinition().getParameters().size()+")", node);
-        predicado( checkArguments(node.getDefinition().getParameters(),node.getParameters()),"El tipo de los parámetros de la invoación no fueron los esperados.", node);
+     super.visit(node, param);
+     boolean sameSize=node.getParameters().size() == node.getDefinition().getParameters().size();
+     predicado(sameSize,"El número de argumentos recibidos("+node.getDefinition().getParameters().size()+") no coincide con el esperado ("+node.getDefinition().getParameters().size()+")", node);
+       if(sameSize) {
+           predicado(checkArguments(node.getDefinition().getParameters(), node.getParameters()), "El tipo de los parámetros de la invoación no fueron los esperados.", node);
+       }
         predicado(!(node.getDefinition().getReturnType() instanceof VoidType),"La función es de tipo void",node);
         node.setType(node.getDefinition().getReturnType());
         return null;
@@ -208,10 +213,13 @@ public class TypeChecking extends DefaultVisitor {
     public Object visit(ArrayAccess node, Object param) {
 
         super.visit(node, param);
-        predicado(node.getArray().getType() instanceof ArrayType,"El elemento accedido  debe ser de tipo array",node);
+        boolean isArrayType=node.getArray().getType() instanceof ArrayType;
+        predicado(isArrayType,"El elemento accedido  debe ser de tipo array",node);
         predicado(node.getPosition().getType() instanceof IntType,"El índice de un acceso a array debe ser de tipo entero",node);
-        ArrayType array=(ArrayType) (node.getArray().getType());
-        node.setType(array.getType());
+        if(isArrayType){
+            ArrayType array=(ArrayType) (node.getArray().getType());
+            node.setType(array.getType());
+        }
         return null;
     }
 
@@ -220,7 +228,7 @@ public class TypeChecking extends DefaultVisitor {
 
         super.visit(node, param);
         boolean isStructType=node.getStruct().getType() instanceof  StructType;
-        predicado(isStructType, node+" no es de tipo struct",node);
+        predicado(isStructType, node.getStruct()+" no es de tipo struct",node);
         if(isStructType) {
             StructType struct = (StructType) (node.getStruct().getType());
             //En la fase de identificación, se asigna a los tipos struct la definición del struct en sí.
@@ -276,12 +284,12 @@ public class TypeChecking extends DefaultVisitor {
        return true;
     }
     private ErrorManager errorManager;
-    private boolean checkArguments(List<Variable> parameters, List<Expression> parametersGot) {
+    private boolean checkArguments(List<Variable> parameters, List<Expression> parametersPassed) {
         Variable currentExpected;
         Expression valueRecieved;
         for (int i = 0; i < parameters.size(); i++) {
             currentExpected=parameters.get(i);
-            valueRecieved=parametersGot.get(i);
+            valueRecieved=parametersPassed.get(i);
 
             if(!currentExpected.getType().equals(valueRecieved.getType())){
                 return false;
@@ -290,7 +298,7 @@ public class TypeChecking extends DefaultVisitor {
         }
         return true;
     }
-    //TODO- NO SERÍA RESPONSABILIDAD DEL STRUCT?
+
 
     private StructField findField(StructType struct, String fieldToFind){
         List<StructField> fields = struct.getDefinition().getFields();

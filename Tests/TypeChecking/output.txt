@@ -1,0 +1,107 @@
+call main
+halt
+potencia:
+enter 2
+pusha 0
+pusha 0
+loadi
+pushi 0
+eqi
+jz elseBody2
+loadi
+pushf 1.0
+storef
+elseBody2:
+loadi
+pushi 0
+lti
+jz elseBody3
+loadi
+pushf 1.0
+loadi
+pushi 0
+loadi
+subi
+call potencia
+divf
+storef
+elseBody3:
+loadi
+loadi
+storef
+WhileStart4:
+loadi
+pushi 1
+gti
+jez endWhile5
+loadi
+loadi
+loadi
+mulf
+storef
+loadi
+loadi
+pushi 1
+subi
+storei
+jmp WhileStart3
+endWhile5:
+end6:
+end7:
+loadi
+ret 4,1,2
+letraHipoteca:
+enter 3
+pusha 0
+pusha 0
+pusha 0
+loadi
+loadi
+pushf 12.0
+divf
+storef
+loadi
+loadi
+mulf
+pushf 100.0
+pushf 1.0
+pushf 1.0
+loadi
+pushf 100.0
+divf
+addf
+pushi 0
+loadi
+subi
+call potencia
+subf
+mulf
+divf
+ret 4,1,3
+calculoHipotecaAlMes:
+enter 0
+loadi
+inf
+store
+loadi
+ini
+store
+loadi
+inf
+store
+loadi
+pushf 200000.0
+storef
+loadi
+pushi 30
+pushi 12
+muli
+storei
+loadi
+pushf 2.04
+storef
+loadi
+loadi
+loadi
+call letraHipoteca
+ret 4,3,0

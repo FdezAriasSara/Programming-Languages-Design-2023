@@ -16,7 +16,7 @@ h(a:int, b:int):int {
 
 j(a:int, b:float):float {
 	h(2);	// Numero de argumentos incorrecto
-	return b; // Debe haber un valor de retorno
+	return b;
 }
 
 main() {
@@ -36,13 +36,15 @@ main() {
 	print j(12);		// Número de argumentos no coincide
 	print j(12, 12.5, 4); // Número de argumentos no coincide
 
-
+    //Operaciones y comparaciones con invocaciones
 
 	print j(12, 12.5) || i;// Deben ser enteros
 	print h(12, 12) || i;
 
 	print !h(12, 12); // Debe ser entero
-
+    i=h(12,12)*1.2;// El tipo de retorno de h es int . 1.2 es un float. Deberían ser del mismo tipo.
+    i=h(12,12)*<int>(1.2);
+    i=h(12,12)*v[0];
 
 	print <int> ( j(12, 12.5) );
 

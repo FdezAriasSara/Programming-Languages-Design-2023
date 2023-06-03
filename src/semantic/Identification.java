@@ -41,7 +41,7 @@ public class Identification extends DefaultVisitor {
         VarDefinition definition=searchVarDefinition(node.getName(),node.getStart());
         if(definition!=null) {
             node.setDefinition(definition);
-            node.setGlobal(true);
+
         }
         return null;
     }
@@ -64,7 +64,8 @@ public class Identification extends DefaultVisitor {
         } else{
             variables.put(node.getName(),node);
         }
-         super.visit(node,param);
+        node.setGlobal(true);
+
 
         return null;
     }
@@ -157,18 +158,13 @@ public class Identification extends DefaultVisitor {
     public Object visit(InvocationStatement node, Object param) {
         super.visit(node, param);
         FunctionDefinition definition=functions.get(node.getName());
-        if(definition==null){
+        if(definition==null) {
             //predicate not fulfilled.
-            error("La función no ha sido declarada. ",node.getStart());
-        }
-        //TODO -PREGUNTAR
-        /**
-        else{
+            error("La función no ha sido definida. ", node.getStart());
+        } else{
             //WE LINK the invocation with its definition.
             node.setDefinition(definition);
         }
-         */
-
 
         return null;
     }
@@ -176,8 +172,8 @@ public class Identification extends DefaultVisitor {
 
 
     //	class ArrayAccess  { Expression array;  Expression position; }
-    public Object visit(ArrayAccess node, Object param) {
-
+   public Object visit(ArrayAccess node, Object param) {
+//TODO-no esta haciendo nada ahora mismo
         // super.visit(node, param);
 
         if (node.getArray() != null)

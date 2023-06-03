@@ -21,7 +21,7 @@ import ast.statement.*;
 
 public class CodeSelection extends DefaultVisitor {
     enum CodeFunction {
-        ADDRESS, EXECUTE, VALUE
+        ADDRESS, EXECUTE, VALUE,DEFINE
     }
     private Map<String, String> instruction=new HashMap<String,String>();
     public CodeSelection(Writer writer, String sourceFile) {
@@ -44,6 +44,18 @@ public class CodeSelection extends DefaultVisitor {
         out("call main");
         out("halt");
         super.visit(node, param);
+        for (Definition def: node.getDefinitions()) {
+            def.accept(this,CodeFunction.DEFINE);
+        }
+        return null;
+    }
+    //	class VarDefinition { Type type;  String name; }
+    public Object visit(VarDefinition node, Object param) {
+        if(node.isGlobal()){
+            out("#GLOBAL "+node.getType()+":"+node.getName());
+        }else{
+            out("'Local "+node.getType()+":"+node.getName());
+        }
         return null;
     }
 
@@ -57,8 +69,11 @@ public class CodeSelection extends DefaultVisitor {
     //	class FunctionDefinition { String name;  List<Variable> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
     public Object visit(FunctionDefinition node, Object param) {
         out(node.getName()+":");
-        out("enter "+node.getParameters().size());
-
+        if(node.getParameters().size()>0){
+            out("enter "+(-node.getParameters().get(node.getParameters().size()-1).getDefinition().getDirection()));
+            //The space to secure will be equal to the offset of the last local variable= sum of all other variable's sizes.
+            //This offset is negative that's why i change it's sign.
+        }
         for (Variable child : node.getParameters())
                 child.accept(this, param);
         for (Statement child : node.getStatements())
@@ -91,7 +106,7 @@ public class CodeSelection extends DefaultVisitor {
     public Object visit(Read node, Object param) {
             node.getExpression().accept(this, CodeFunction.ADDRESS);
             out("in",node.getExpression().getType());
-            out("store");//TODO ? HAY QUE HACER ESTO???
+            out("store",node.getExpression().getType());
         return null;
     }
 
@@ -116,7 +131,7 @@ public class CodeSelection extends DefaultVisitor {
         int startLabel=getLabel();
         setLabel();
         out("WhileStart"+getLabel()+":");
-        node.accept(this,CodeFunction.VALUE);
+        node.getCondition().accept(this,CodeFunction.VALUE);
         setLabel();
         out("jez endWhile"+getLabel());
         for (Statement child : node.getBody())

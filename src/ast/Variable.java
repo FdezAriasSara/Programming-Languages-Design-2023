@@ -70,8 +70,5 @@ private VarDefinition definition;
 	public VarDefinition getDefinition(){
 		return this.definition;
 	}
-	//Añadido en generación de código
-    private boolean	 isGlobal;
-	public boolean isGlobal(){return this.isGlobal;}
-	public void setGlobal(boolean isGlobal){  this.isGlobal=isGlobal;}
+
 }

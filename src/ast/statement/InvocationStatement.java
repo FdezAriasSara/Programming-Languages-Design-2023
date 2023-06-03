@@ -5,6 +5,7 @@
 package ast.statement;
 
 import ast.Variable;
+import ast.definition.FunctionDefinition;
 import ast.expression.*;
 import visitor.*;
 import org.antlr.v4.runtime.*;
@@ -57,4 +58,10 @@ public class InvocationStatement extends AbstractStatement {
 	public String toString() {
 		return "{name:" + getName() + ", parameters:" + getParameters() + "}";
 	}
+
+
+	//Fase de indentificación
+	private FunctionDefinition definition;
+	public FunctionDefinition getDefinition(){return this.definition;}
+	public void setDefinition(FunctionDefinition definition){this.definition=definition;}
 }
