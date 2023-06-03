@@ -68,22 +68,20 @@ public class CodeSelection extends DefaultVisitor {
 
     //	class FunctionDefinition { String name;  List<Variable> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
     public Object visit(FunctionDefinition node, Object param) {
+        out("#LINE "+node.getStart().getLine());
         out(node.getName()+":");
-        if(node.getParameters().size()>0){
-            out("enter "+(-node.getParameters().get(node.getParameters().size()-1).getDefinition().getDirection()));
+        int localDefsSize=node.getLocalDefs().size();
+        if( localDefsSize>0){
+
+            out("enter "+(-node.getLocalDefs().get( localDefsSize-1).getDirection()));
             //The space to secure will be equal to the offset of the last local variable= sum of all other variable's sizes.
             //This offset is negative that's why i change it's sign.
         }
-        for (Variable child : node.getParameters())
-                child.accept(this, param);
         for (Statement child : node.getStatements())
             child.accept(this, CodeFunction.EXECUTE);
-        if(node.getReturnType() instanceof VoidType){
-            out("ret");
-        }else{
-            int retTypeSize=node.getReturnType().getSize(), localDefsSize=node.getLocalDefs().size(),paramsSize=node.getParameters().size();
-            out("ret "+ retTypeSize+","+localDefsSize+","+paramsSize);
-        }
+
+        int retTypeSize=node.getReturnType().getSize(),paramsSize=node.getParameters().size();
+        out("ret "+ retTypeSize+","+localDefsSize+","+paramsSize);
 
         return null;
     }
