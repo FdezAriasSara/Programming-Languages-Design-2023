@@ -59,7 +59,7 @@ public class StructDefinition extends AbstractDefinition {
        return "{name:" + getName() + ", fields:" + getFields() + "}";
    }
 
-
+//Añadido para la sub fase de reserva de memporia de generación de código
    private int direction;
 	public void setDirection(int direction) {
 		this.direction = direction;

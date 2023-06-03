@@ -1,0 +1,33 @@
+//7 errores que habría que detectar esta fase 
+struct Punto {
+	x:int;
+	y:int;
+};
+var b:int;
+
+main() {
+	d = b;//no definida
+	f(8);//no definida
+}
+
+var p:int;
+
+f(p:int) {
+	var p:int;//igual que el parametro
+}
+
+struct Punto {//ya defeninida
+	x:float;
+	y:float;
+};
+
+struct Persona {
+	a: [20]Empresa;//no definido
+};
+
+
+f():float {
+//ya definida
+}
+
+var b:char;//ya definida

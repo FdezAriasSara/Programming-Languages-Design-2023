@@ -65,7 +65,7 @@ public class Identification extends DefaultVisitor {
             variables.put(node.getName(),node);
         }
         node.setGlobal(true);
-
+        super.visit(node, param);//important not to delete. For example if the variable is of type structType, We need to assign the strucType with the definition too.
 
         return null;
     }
@@ -132,9 +132,10 @@ public class Identification extends DefaultVisitor {
     public Object visit(StructType node, Object param) {
 
         if(structs.get(node.getName())==null){
-            error("La estructura '"+node.getName()+"' no  ha sido definida. ",node.getStart());
+            error("La estructura '"+node.getName()+"' no ha sido definida. ",node.getStart());
+        }else {
+            node.setDefinition(structs.get(node.getName()));
         }
-        node.setDefinition(structs.get(node.getName()));
         return null;
     }
     //	class Invocation { String name;  List<Variable> parameters; }
