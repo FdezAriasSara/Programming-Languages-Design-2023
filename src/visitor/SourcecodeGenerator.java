@@ -52,19 +52,7 @@ public class SourcecodeGenerator extends DefaultVisitor{
 
 
 
-    //	class Variable { String name;  Type type; }
-    public Object visit(Variable node, Object param) {
 
-
-
-        if (node.getType() != null){
-            write(node.getName()+":"+node.getType());
-            node.getType().accept(this, param);
-        }
-
-
-        return null;
-    }
 
     //	class VarDefinition { Type type;  String name; }
     public Object visit(VarDefinition node, Object param) {
@@ -77,13 +65,13 @@ public class SourcecodeGenerator extends DefaultVisitor{
         return null;
     }
 
-    //	class FunctionDefinition { String name;  List<Variable> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
+    //	class FunctionDefinition { String name;  List<VarDefinition> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
     public Object visit(FunctionDefinition node, Object param) {
         write("//Function definition \n");
 
         write(node.getName()+"(");
         if (node.getParameters() != null)
-            for (Variable child : node.getParameters()) {
+            for (VarDefinition child : node.getParameters()) {
                 child.accept(this, param);
 
                 write(",");
@@ -237,7 +225,7 @@ public class SourcecodeGenerator extends DefaultVisitor{
         return null;
     }
 
-    //	class Invocation { String name;  List<Variable> parameters; }
+    //	class Invocation { String name;  List<Expression> parameters; }
     public Object visit(Invocation node, Object param) {
         write(node.getName()+"(");
         super.visit(node, param);

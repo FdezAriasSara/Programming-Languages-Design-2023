@@ -24,6 +24,7 @@ public class CodeSelection extends DefaultVisitor {
         ADDRESS, EXECUTE, VALUE,DEFINE
     }
     private Map<String, String> instruction=new HashMap<String,String>();
+    private Map<String, String> variant=new HashMap<String,String>();
     public CodeSelection(Writer writer, String sourceFile) {
         this.writer = new PrintWriter(writer);
         this.sourceFile = sourceFile;
@@ -37,134 +38,169 @@ public class CodeSelection extends DefaultVisitor {
         instruction.put("<=","le");
         instruction.put("<","lt");
         instruction.put("!=","ne");
+        variant.put("ln","\n");
+        variant.put("sp"," ");
+
 
     }
+
     //	class Program { List<Definition> definitions; }
     public Object visit(Program node, Object param) {
         out("call main");
         out("halt");
-        super.visit(node, param);
-        for (Definition def: node.getDefinitions()) {
-            def.accept(this,CodeFunction.DEFINE);
+        for (Definition definition: node.getDefinitions() ) {
+            definition.accept(this,CodeFunction.DEFINE);
         }
         return null;
     }
+
     //	class VarDefinition { Type type;  String name; }
     public Object visit(VarDefinition node, Object param) {
-        if(node.isGlobal()){
-            out("#GLOBAL "+node.getType()+":"+node.getName());
-        }else{
-            out("'Local "+node.getType()+":"+node.getName());
-        }
+        if (node.isGlobal()) {
+            out("#GLOBAL " + node.getName() + ":" + node.getType());
+        } else {
+            out("\t'" + node.getName() + ":" + node.getType());
+        };
         return null;
     }
 
-    //	class Variable { String name;  Type type; }
-    public Object visit(Variable node, Object param) {
-        out("pusha "+node.getDefinition().getDirection());
-        return null;
-    }
-
-
-    //	class FunctionDefinition { String name;  List<Variable> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
+    //	class FunctionDefinition { String name;  List<VarDefinition> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
     public Object visit(FunctionDefinition node, Object param) {
         out("#LINE "+node.getStart().getLine());
         out(node.getName()+":");
-        int localDefsSize=node.getLocalDefs().size();
-        if( localDefsSize>0){
 
-            out("enter "+(-node.getLocalDefs().get( localDefsSize-1).getDirection()));
-            //The space to secure will be equal to the offset of the last local variable= sum of all other variable's sizes.
-            //This offset is negative that's why i change it's sign.
+        if (node.getParameters() != null) {
+            out("'Parameters:");
+            for (VarDefinition child : node.getParameters())
+                child.accept(this, CodeFunction.DEFINE);
         }
-        for (Statement child : node.getStatements())
-            child.accept(this, CodeFunction.EXECUTE);
+        int returnSize=0;//in case it's a void function
+        if (node.getReturnType() != null) {
+            node.getReturnType().accept(this, param);
+            returnSize=node.getReturnType().getSize();
+        }
 
-        int retTypeSize=node.getReturnType().getSize(),paramsSize=node.getParameters().size();
-        out("ret "+ retTypeSize+","+localDefsSize+","+paramsSize);
+        int localDefsSize=node.getLocalDefs().get(node.getLocalDefs().size()-1).getDirection();
+        if (node.getLocalDefs() != null) {
+            out("'Local variables:");
+            for (VarDefinition child : node.getLocalDefs()) {
+                child.accept(this, CodeFunction.DEFINE);
+            }
+            out("enter "+localDefsSize);
+        }
+        if (node.getStatements() != null) {
+            out("'Body");
+            for (Statement child : node.getStatements()) {
+                child.accept(this, CodeFunction.EXECUTE);
+            }
+        }
+        int parametersSize=node.getParameters().get(0).getDirection();
+        if(parametersSize+localDefsSize+returnSize==0){
+            out("RET ");
+        }else{
+            out("RET "+returnSize+","+localDefsSize+","+parametersSize);
+        }
 
+       return null;
+    }
+
+    //	class StructDefinition { String name;  List<StructField> fields; }
+    public Object visit(StructDefinition node, Object param) {
+        out("' Struct "+node.getName());
+        if (node.getFields() != null) {
+            for (StructField child : node.getFields())
+                child.accept(this, CodeFunction.DEFINE);
+        }
         return null;
     }
 
     //	class StructField { String name;  Type type; }
     public Object visit(StructField node, Object param) {
-        out("pushi "+node.getDirection());
+        out("\t' "+node.getName()+" :"+node.getType());
         return null;
     }
 
     //	class Print { Expression expression;  String variant; }
     public Object visit(Print node, Object param) {
-        node.getExpression().accept(this, CodeFunction.VALUE);
-        //We need the value of the expression to print on top of the stack
-        out("out",node.getExpression().getType());
+        if (node.getExpression() != null)
+            node.getExpression().accept(this, CodeFunction.VALUE);
+        out("out"+node.getExpression().getType()+variant.get(node.getVariant()));
         return null;
     }
 
     //	class Read { Expression expression; }
     public Object visit(Read node, Object param) {
+        if (node.getExpression() != null)
             node.getExpression().accept(this, CodeFunction.ADDRESS);
-            out("in",node.getExpression().getType());
-            out("store",node.getExpression().getType());
+        out("in"+node.getExpression().getType());
         return null;
     }
 
     //	class IfStatement { Expression condition;  List<Statement> body;  List<Statement> elseBody; }
     public Object visit(IfStatement node, Object param) {
-         node.getCondition().accept(this, CodeFunction.VALUE);
-         setLabel();
-         out("jz elseBody"+getLabel());
+        if (node.getCondition() != null)
+            node.getCondition().accept(this, CodeFunction.VALUE);
+        out("jz elseBody"+getLabel());
+        if (node.getBody() != null) {
+            for (Statement child : node.getBody())
+                child.accept(this, CodeFunction.EXECUTE);
+        }
+        out("jmp ifEnd"+label);
+        if (node.getElseBody() != null) {
+            out("elseBody" + label+":");
+            for (Statement child : node.getElseBody())
+                child.accept(this, CodeFunction.EXECUTE);
+        }
+        out("ifEnd"+label+":");
 
-        for (Statement child : node.getBody())
-            child.accept(this, CodeFunction.EXECUTE);
-        out("elseBody"+getLabel()+":");
-        for (Statement child : node.getElseBody())
-            child.accept(this, CodeFunction.EXECUTE);
-        setLabel();
-        out("end"+getLabel()+":");
         return null;
     }
 
     //	class While { Expression condition;  List<Statement> body; }
     public Object visit(While node, Object param) {
-        int startLabel=getLabel();
-        setLabel();
-        out("WhileStart"+getLabel()+":");
-        node.getCondition().accept(this,CodeFunction.VALUE);
-        setLabel();
-        out("jez endWhile"+getLabel());
-        for (Statement child : node.getBody())
-             child.accept(this, CodeFunction.EXECUTE);
-        out("jmp WhileStart"+startLabel);
-        out("endWhile"+getLabel()+":");
-
+        // super.visit(node, param);
+       out("whileStart"+getLabel()+":");
+        if (node.getCondition() != null)
+            node.getCondition().accept(this, CodeFunction.VALUE);
+        out("jz whileEnd"+label);
+        if (node.getBody() != null)
+            for (Statement child : node.getBody())
+                child.accept(this, CodeFunction.EXECUTE);
+        out("jmp whileStart"+label);
+        out("whileEnd"+label+":");
         return null;
     }
 
     //	class Assignment { Expression left;  Expression right; }
     public Object visit(Assignment node, Object param) {
-        node.getLeft().accept(this, CodeFunction.ADDRESS);
-        node.getRight().accept(this, CodeFunction.VALUE);
-        out("store",node.getRight().getType());
+        if (node.getLeft() != null)
+            node.getLeft().accept(this, CodeFunction.ADDRESS);
 
+        if (node.getRight() != null)
+            node.getRight().accept(this, CodeFunction.VALUE);
+        out("store"+node.getLeft().getType().getSuffix());
         return null;
     }
 
     //	class Return { Expression expression; }
     public Object visit(Return node, Object param) {
-        node.getExpression().accept(this, CodeFunction.VALUE);
+        if (node.getExpression() != null)
+            node.getExpression().accept(this, CodeFunction.VALUE);
         return null;
     }
 
     //	class InvocationStatement { String name;  List<Expression> parameters; }
     public Object visit(InvocationStatement node, Object param) {
-        for (Expression child : node.getParameters())
-            child.accept(this, CodeFunction.VALUE);
+        if (node.getParameters() != null)
+            for (Expression child : node.getParameters())
+                child.accept(this, CodeFunction.VALUE);
         out("call "+node.getName());
         return null;
     }
 
     //	class Invocation { String name;  List<Expression> parameters; }
     public Object visit(Invocation node, Object param) {
+        if (node.getParameters() != null)
         for (Expression child : node.getParameters())
             child.accept(this, CodeFunction.VALUE);
         out("call "+node.getName());
@@ -173,44 +209,44 @@ public class CodeSelection extends DefaultVisitor {
 
     //	class ArithmeticExpression { Expression left;  String operator;  Expression right; }
     public Object visit(ArithmeticExpression node, Object param) {
+        if (node.getLeft() != null)
             node.getLeft().accept(this, CodeFunction.VALUE);
-            node.getRight().accept(this, CodeFunction.VALUE);
-            //Notice that type errors sould have already been detected prior to this phase.
-            //therefore, we can assume both have the same type and it should be simple.
-            String instruction=this.instruction.get(node.getOperator());
 
-            //Also , the arithExp node was set to the type of the operands in the TypeChecking.
-            out(instruction,node.getType());
+        if (node.getRight() != null)
+            node.getRight().accept(this, CodeFunction.VALUE);
+        out(instruction.get(node.getOperator()));
         return null;
     }
-
-
 
     //	class Comparison { Expression left;  String operator;  Expression right; }
     public Object visit(Comparison node, Object param) {
+        if (node.getLeft() != null)
+            node.getLeft().accept(this, CodeFunction.VALUE);
 
-        node.getLeft().accept(this, CodeFunction.VALUE);
-        node.getRight().accept(this, CodeFunction.VALUE);
-        String instruction=this.instruction.get(node.getOperator());
-        out(instruction,node.getType());
+        if (node.getRight() != null)
+            node.getRight().accept(this, CodeFunction.VALUE);
+        out(instruction.get(node.getOperator()));
         return null;
     }
 
-
     //	class And { Expression left;  Expression right; }
     public Object visit(And node, Object param) {
+        if (node.getLeft() != null)
+            node.getLeft().accept(this, CodeFunction.VALUE);
 
-        node.getLeft().accept(this, CodeFunction.VALUE);
-        node.getRight().accept(this, CodeFunction.VALUE);
+        if (node.getRight() != null)
+            node.getRight().accept(this, CodeFunction.VALUE);
         out("and");
         return null;
     }
 
     //	class Or { Expression left;  Expression right; }
     public Object visit(Or node, Object param) {
+        if (node.getLeft() != null)
+            node.getLeft().accept(this, CodeFunction.VALUE);
 
-        node.getLeft().accept(this, CodeFunction.VALUE);
-        node.getRight().accept(this, CodeFunction.VALUE);
+        if (node.getRight() != null)
+            node.getRight().accept(this, CodeFunction.VALUE);
         out("or");
 
         return null;
@@ -218,26 +254,34 @@ public class CodeSelection extends DefaultVisitor {
 
     //	class Not { Expression expression; }
     public Object visit(Not node, Object param) {
-        node.getExpression().accept(this, CodeFunction.VALUE);
+        if (node.getExpression() != null)
+            node.getExpression().accept(this, CodeFunction.VALUE);
         out("not");
         return null;
     }
 
     //	class Cast { Type type;  Expression expression; }
     public Object visit(Cast node, Object param) {
-        out(node.getType().getSuffix()+"2"+node.getExpression().getType().getSuffix());
+        Type typeToCastTo=node.getType(), typeCasted=node.getExpression().getType();
+        if(typeToCastTo instanceof  FloatType && typeCasted instanceof CharType || typeToCastTo instanceof  CharType && typeCasted instanceof  FloatType){
+            out(typeCasted.getSuffix()+"2i");
+            out("i2"+typeToCastTo.getSuffix());
+        }else{
+            out(typeCasted.getSuffix()+"2"+typeToCastTo.getSuffix());
+        }
         return null;
     }
 
     //	class ArrayAccess { Expression array;  Expression position; }
     public Object visit(ArrayAccess node, Object param) {
 
-        node.getArray().accept(this, CodeFunction.ADDRESS);//We push the address the array is stored at
-        node.getPosition().accept(this,CodeFunction.VALUE);//We push the index
-        //the following will always be applied to ints.
-        out("pushi " +node.getType().getSize() ); //We push the size of the element
-        out("muli" );//we multiply index*sizeOfElements to get the offset of the element within the array
-        out("addi" );//we add the offset to the first directon of the ones reserved for the array, in order to get the exact position
+        // super.visit(node, param);
+
+        if (node.getArray() != null)
+            node.getArray().accept(this, param);
+
+        if (node.getPosition() != null)
+            node.getPosition().accept(this, param);
 
         return null;
     }
@@ -245,38 +289,43 @@ public class CodeSelection extends DefaultVisitor {
     //	class StructFieldAccess { Expression struct;  String field; }
     public Object visit(StructFieldAccess node, Object param) {
 
-            node.getStruct().accept(this, CodeFunction.ADDRESS);
-            node.getStruct();
-            out("addi");
-            out("loadi");
+        // super.visit(node, param);
+
+        if (node.getStruct() != null)
+            node.getStruct().accept(this, param);
 
         return null;
     }
-
     //	class VariableReference { String name; }
     public Object visit(VariableReference node, Object param) {
-        node.getDefinition().accept(this, CodeFunction.ADDRESS);
-        out("loadi");
+        if(!node.getDefinition().isGlobal()){
+            out("pusha "+node.getDefinition().getDirection());
+        }else{
+            out("push BP");
+            out("pushi "+node.getDefinition().getDirection());
+            out("addi");
+        }
         return null;
     }
 
     //	class LiteralInt { String value; }
     public Object visit(LiteralInt node, Object param) {
-        out("pushi "+node.getValue());
+        out("pushi "+node.getValue() );
         return null;
     }
 
     //	class LiteralFloat { String value; }
     public Object visit(LiteralFloat node, Object param) {
-        out("pushf "+node.getValue());
+        out("pushf "+node.getValue() );
         return null;
     }
 
     //	class LiteralChar { String value; }
     public Object visit(LiteralChar node, Object param) {
-        out("pushb "+node.getValue());
+        out("pushb "+node.getValue() );
         return null;
     }
+
 
     // # ----------------------------------------------------------
     // Métodos auxiliares recomendados (opcionales) -------------

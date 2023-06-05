@@ -23,13 +23,6 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class Variable { String name;  Type type; }
-	public Object visit(Variable node, Object param) {
-		if (node.getType() != null)
-			node.getType().accept(this, param);
-		return null;
-	}
-
 	//	class VarDefinition { Type type;  String name; }
 	public Object visit(VarDefinition node, Object param) {
 		if (node.getType() != null)
@@ -37,7 +30,7 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class FunctionDefinition { String name;  List<Variable> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
+	//	class FunctionDefinition { String name;  List<VarDefinition> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
 	public Object visit(FunctionDefinition node, Object param) {
 		visitChildren(node.getParameters(), param);
 		if (node.getReturnType() != null)
@@ -80,7 +73,7 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class ArrayType { String dimension;  Type type; }
+	//	class ArrayType { int dimension;  Type type; }
 	public Object visit(ArrayType node, Object param) {
 		if (node.getType() != null)
 			node.getType().accept(this, param);

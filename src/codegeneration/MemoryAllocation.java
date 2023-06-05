@@ -28,12 +28,12 @@ public class MemoryAllocation extends DefaultVisitor {
         return null;
     }
 
-    //	class FunctionDefinition { String name;  List<Variable> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
+    //	class FunctionDefinition { String name;   List<VarDefinition> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
     public Object visit(FunctionDefinition node, Object param) {
 
 
         if (node.getParameters() != null)
-            for (Variable child : node.getParameters())
+            for (VarDefinition child : node.getParameters())
                 child.accept(this, param);
 
         if (node.getReturnType() != null)

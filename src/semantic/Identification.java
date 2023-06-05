@@ -35,16 +35,7 @@ public class Identification extends DefaultVisitor {
         return null;
     }
 
-    //	class Variable { String name;  Type type; }
-    public Object visit(Variable node, Object param) {
-        super.visit(node, param);
-        VarDefinition definition=searchVarDefinition(node.getName(),node.getStart());
-        if(definition!=null) {
-            node.setDefinition(definition);
 
-        }
-        return null;
-    }
     //	class VariableReference { String name; }
     public Object visit(VariableReference node, Object param) {
 
@@ -70,7 +61,7 @@ public class Identification extends DefaultVisitor {
         return null;
     }
 
-    //	class FunctionDefinition { String name;  List<Variable> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
+    //	class FunctionDefinition { String name;   List<VarDefinition> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
     public Object visit(FunctionDefinition node, Object param) {
         if(functions.get(node.getName())==null){
             functions.put(node.getName(), node);
@@ -80,11 +71,14 @@ public class Identification extends DefaultVisitor {
         }
         variables.set();  //parameters will belong to local context of the function
         if (node.getParameters() != null)
-            for (Variable child : node.getParameters()){
+            for (VarDefinition child : node.getParameters()){
                 VarDefinition paramDef=new VarDefinition(child.getName(),child.getType());
-                //TODO PREGUNTAR SI ESTA BIEN asignar la definicion aqui?
-                variables.put(child.getName(),paramDef);
-                child.setDefinition(paramDef);
+                if(variables.getFromTop(node.getName())==null){
+                    variables.put(child.getName(),paramDef);
+                }else{
+                    //predicate not fulfilled.
+                    error("El parámetro '"+node.getName()+"' ya ha sido definido." ,node.getStart());
+                }
                 child.accept(this,param );
             }
 
@@ -138,14 +132,14 @@ public class Identification extends DefaultVisitor {
         }
         return null;
     }
-    //	class Invocation { String name;  List<Variable> parameters; }
+    //	class Invocation { String name;  List<Expression> parameters; }
     public Object visit(Invocation node, Object param) {
         super.visit(node, param);
 
         FunctionDefinition definition=functions.get(node.getName());
         if(definition==null){
             //predicate not fulfilled.
-            error("La función no ha sido definida. ",node.getStart());
+            error("La función  '"+node.getName()+"' no ha sido definida. ",node.getStart());
         }
         else{
             //WE LINK the invocation with its definition.
@@ -155,13 +149,13 @@ public class Identification extends DefaultVisitor {
         return null;
     }
 
-    //	class InvocationStatement { String name;  List<Variable> parameters; }
+    //	class InvocationStatement { String name;   List<Expression> parameters;   }
     public Object visit(InvocationStatement node, Object param) {
         super.visit(node, param);
         FunctionDefinition definition=functions.get(node.getName());
         if(definition==null) {
             //predicate not fulfilled.
-            error("La función no ha sido definida. ", node.getStart());
+            error("El procedimiento '"+node.getName()+ "' no ha sido definido. ", node.getStart());
         } else{
             //WE LINK the invocation with its definition.
             node.setDefinition(definition);
@@ -189,7 +183,7 @@ public class Identification extends DefaultVisitor {
     /**
      * Auxiliar method to look for variable definitions to link to variable references and to variables.
      * @param name
-     * @param start
+     * @param start,position of the variable in case it's not found, the error message will include it.
      * @return
      */
     private VarDefinition searchVarDefinition(String name,Position start){

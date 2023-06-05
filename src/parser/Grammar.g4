@@ -22,18 +22,16 @@ definition returns [Definition ast]
           ;
 
 
-parameters returns [List<Variable> list=new ArrayList<>(); ]
+parameters returns [List<VarDefinition> list=new ArrayList<>(); ]
            : (params+=parameter (','params+=parameter)*)? {$list =new ArrayList($params);}
            ;
 
-parameter  returns [Variable ast]
-           : IDENT ':' type {$ast=new Variable($IDENT,$type.ast);}
+parameter  returns [VarDefinition ast]
+           : IDENT ':' type {$ast=new VarDefiniton($IDENT,$type.ast);}
             ;
 localDefinition  returns [VarDefinition ast]
         :'var'  IDENT ':' type ';' {$ast=new VarDefinition($IDENT,$type.ast); }
         ;
-
-
 
 structField returns [StructField ast]
         : IDENT ':' type {$ast=new StructField($IDENT,$type.ast);}
@@ -102,10 +100,15 @@ This way , less actions will be used, an the code will be cleaner and easier to 
 
 **Optional Repetition in 0+cs  **
 ->I dont state optionality on the parent rule like:
- definition:  IDENT '(' parameters ?')',
-->  I put ? inside the non-terminal rule instead:
+ definition: ->  I put ? inside the non-terminal rule instead:
+ IDENT '(' parameters ?')',
 parameter:(variable(','variable)*)?;
-That way , actions are easier to use, since I don't have to manage nulls +.
+That way , actions are easier to use, since I don't have to manage nulls +
+
+in June i realized i was using an ast object that was redundant. Variable, for parameters. Now they are  also varDefinitions, since
+the node variable behaved exaclty like the node varDefinition.
+
+.
 ***FUNCTIONS***
 In the body of a function:
  I dont use '{' definition* statement* '}'

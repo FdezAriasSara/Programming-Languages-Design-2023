@@ -1,20 +1,25 @@
 call main
 halt
+#GLOBAL {FloatType}:global
+#LINE 22
 doble:
-enter 1
-pusha 0
+'Local {IntType}:valor
 loadi
 pushi 2
 muli
 ret 2,0,1
+#LINE 26
 main:
-enter 0
+enter -2
+#GLOBAL {FloatType}:global
 loadi
 pushf 1.0
 storef
+#GLOBAL {IntType}:local
 loadi
 pushi 2
 storei
+#GLOBAL {FloatType}:global
 loadi
 pushf 2.0
 lti
@@ -22,10 +27,11 @@ jz elseBody2
 pushi 1
 outi
 elseBody2:
+#GLOBAL {IntType}:local
 loadi
 outi
 end3:
 pushi 2
 call doble
 outi
-ret
+ret 0,1,0

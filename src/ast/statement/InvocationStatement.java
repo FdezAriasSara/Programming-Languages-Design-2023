@@ -4,7 +4,6 @@
 
 package ast.statement;
 
-import ast.Variable;
 import ast.definition.FunctionDefinition;
 import ast.expression.*;
 import visitor.*;

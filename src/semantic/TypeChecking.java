@@ -23,22 +23,13 @@ public class TypeChecking extends DefaultVisitor {
         this.errorManager = errorManager;
     }
 
-    //	class Variable { String name;  Type type; }
-    public Object visit(Variable node, Object param) {
-      //Inherited attributes require pre-order
-        super.visit(node, param);
-        //it visits the type node first, since we need its value
-        node.setType(node.getDefinition().getType());
 
-        return null;
-    }
-
-    //	class FunctionDefinition { String name;  List<Variable> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
+    //	class FunctionDefinition { String name;  List<VarDefinition> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
     public Object visit(FunctionDefinition node, Object param) {
 
 
         if (node.getParameters() != null) {
-            for (Variable child : node.getParameters()) {
+            for (VarDefinition child : node.getParameters()) {
                 child.accept(this, param);
                 predicado(hasSimpleType(child.getType()),"Los parámetros deben ser de tipo simple.",node);
             }
@@ -100,7 +91,7 @@ public class TypeChecking extends DefaultVisitor {
         return null;
     }
 
-    //	class InvocationStatement { String name;  List<Variable> parameters; }
+    //	class InvocationStatement { String name;   List<Expression>  parameters; }
     public Object visit(InvocationStatement node, Object param) {
         super.visit(node, param);
         boolean sameSize=node.getParameters().size() == node.getDefinition().getParameters().size();
@@ -110,7 +101,7 @@ public class TypeChecking extends DefaultVisitor {
         }
         return null;
     }
-    //	class Invocation { String name;  List<Variable> parameters; }
+    //	class Invocation { String name;   List<Expression> parameters; }
     public Object visit(Invocation node, Object param) {
      super.visit(node, param);
      boolean sameSize=node.getParameters().size() == node.getDefinition().getParameters().size();
@@ -284,8 +275,8 @@ public class TypeChecking extends DefaultVisitor {
        return true;
     }
     private ErrorManager errorManager;
-    private boolean checkArguments(List<Variable> parameters, List<Expression> parametersPassed) {
-        Variable currentExpected;
+    private boolean checkArguments(List<VarDefinition> parameters, List<Expression> parametersPassed) {
+        VarDefinition currentExpected;
         Expression valueRecieved;
         for (int i = 0; i < parameters.size(); i++) {
             currentExpected=parameters.get(i);

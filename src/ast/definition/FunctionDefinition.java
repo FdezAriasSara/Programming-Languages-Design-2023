@@ -11,11 +11,11 @@ import ast.type.*;
 import ast.statement.*;
 import visitor.*;
 
-//	FunctionDefinition:definition -> name:String  parameters:variable*  returnType:type  localDefs:VarDefinition*  statements:statement*
+//	FunctionDefinition:definition -> name:String  parameters:varDefinition*  returnType:type  localDefs:VarDefinition*  statements:statement*
 
 public class FunctionDefinition extends AbstractDefinition {
 
-	public FunctionDefinition(String name, List<Variable> parameters, Type returnType, List<VarDefinition> localDefs, List<Statement> statements) {
+	public FunctionDefinition(String name, List<VarDefinition> parameters, Type returnType, List<VarDefinition> localDefs, List<Statement> statements) {
 		this.name = name;
 		this.parameters = parameters;
 		this.returnType = returnType;
@@ -29,7 +29,7 @@ public class FunctionDefinition extends AbstractDefinition {
 
 	public FunctionDefinition(Object name, Object parameters, Object returnType, Object localDefs, Object statements) {
 		this.name = (name instanceof Token) ? ((Token)name).getText() : (String) name;
-		this.parameters = this.<Variable>getAstFromContexts(parameters);
+		this.parameters = this.<VarDefinition>getAstFromContexts(parameters);
 		this.returnType = (Type) getAST(returnType);
 		this.localDefs = this.<VarDefinition>getAstFromContexts(localDefs);
 		this.statements = this.<Statement>getAstFromContexts(statements);
@@ -46,10 +46,10 @@ public class FunctionDefinition extends AbstractDefinition {
 		this.name = name;
 	}
 
-	public List<Variable> getParameters() {
+	public List<VarDefinition> getParameters() {
 		return parameters;
 	}
-	public void setParameters(List<Variable> parameters) {
+	public void setParameters(List<VarDefinition> parameters) {
 		this.parameters = parameters;
 	}
 
@@ -80,7 +80,7 @@ public class FunctionDefinition extends AbstractDefinition {
 	}
 
 	private String name;
-	private List<Variable> parameters;
+	private List<VarDefinition> parameters;
 	private Type returnType;
 	private List<VarDefinition> localDefs;
 	private List<Statement> statements;

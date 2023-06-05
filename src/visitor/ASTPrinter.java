@@ -109,17 +109,7 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class Variable { String name;  Type type; }
-	public Object visit(Variable node, Object param) {
-		int indent = ((Integer)param).intValue();
 
-		printName(indent, "Variable", node, false);
-
-		print(indent + 1, "name", "String", node.getName());
-		visit(indent + 1, "type", "Type",node.getType());
-
-		return null;
-	}
 
 	//	class VarDefinition { Type type;  String name; }
 	public Object visit(VarDefinition node, Object param) {
@@ -134,14 +124,14 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class FunctionDefinition { String name;  List<Variable> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
+	//	class FunctionDefinition { String name;  List<VarDefinition> parameters;  Type returnType;  List<VarDefinition> localDefs;  List<Statement> statements; }
 	public Object visit(FunctionDefinition node, Object param) {
 		int indent = ((Integer)param).intValue();
 
 		printName(indent, "FunctionDefinition", node, false);
 
 		print(indent + 1, "name", "String", node.getName());
-		visit(indent + 1, "parameters", "List<Variable>",node.getParameters());
+		visit(indent + 1, "parameters", "List<VarDefinition>",node.getParameters());
 		visit(indent + 1, "returnType", "Type",node.getReturnType());
 		visit(indent + 1, "localDefs", "List<VarDefinition>",node.getLocalDefs());
 		visit(indent + 1, "statements", "List<Statement>",node.getStatements());

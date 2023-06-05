@@ -9,9 +9,16 @@ import ast.definition.*;
 import ast.expression.*;
 import ast.type.*;
 import ast.statement.*;
+/**
+ * @generated VGen (for ANTLR) 1.7.2
+ */
+
+
+
+
+
 public interface Visitor {
 	public Object visit(Program node, Object param);
-	public Object visit(Variable node, Object param);
 	public Object visit(VarDefinition node, Object param);
 	public Object visit(FunctionDefinition node, Object param);
 	public Object visit(StructDefinition node, Object param);
