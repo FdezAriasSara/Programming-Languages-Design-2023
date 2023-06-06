@@ -1,37 +1,46 @@
 call main
 halt
-#GLOBAL {FloatType}:global
+#GLOBAL global:{FloatType}
 #LINE 22
 doble:
-'Local {IntType}:valor
-loadi
+'Parameters:
+	'valor:{IntType}
+enter 0
+'Body
+push BP
+pushi 4
+addi
 pushi 2
-muli
-ret 2,0,1
+mul
+RET 2,0,4
 #LINE 26
 main:
-enter -2
-#GLOBAL {FloatType}:global
-loadi
+'Parameters:
+	'local:{IntType}
+enter 2
+'Body
+pusha 0
 pushf 1.0
 storef
-#GLOBAL {IntType}:local
-loadi
+push BP
+pushi 2
+addi
 pushi 2
 storei
-#GLOBAL {FloatType}:global
-loadi
+pusha 0
 pushf 2.0
-lti
-jz elseBody2
+lt
+jz elseBody1
 pushi 1
-outi
-elseBody2:
-#GLOBAL {IntType}:local
-loadi
-outi
-end3:
+out{IntType}null
+jmp ifEnd1
+elseBody1:
+push BP
+pushi 2
+addi
+out{IntType}null
+ifEnd1:
 pushi 2
 call doble
-outi
-ret 0,1,0
+out{IntType}null
+RET 0,2,0

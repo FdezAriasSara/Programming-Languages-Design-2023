@@ -55,7 +55,6 @@ public class Identification extends DefaultVisitor {
         } else{
             variables.put(node.getName(),node);
         }
-        node.setGlobal(true);
         super.visit(node, param);//important not to delete. For example if the variable is of type structType, We need to assign the strucType with the definition too.
 
         return null;
@@ -72,6 +71,7 @@ public class Identification extends DefaultVisitor {
         variables.set();  //parameters will belong to local context of the function
         if (node.getParameters() != null)
             for (VarDefinition child : node.getParameters()){
+                child.setGlobal(false);
                 child.accept(this,param );
             }
 
@@ -79,8 +79,11 @@ public class Identification extends DefaultVisitor {
             node.getReturnType().accept(this, param);
 
         if (node.getLocalDefs() != null)
-            for (VarDefinition child : node.getLocalDefs())
+            for (VarDefinition child : node.getLocalDefs()) {
+                child.setGlobal(false);
                 child.accept(this, param);
+
+            }
 
         if (node.getStatements() != null)
             for (Statement child : node.getStatements())

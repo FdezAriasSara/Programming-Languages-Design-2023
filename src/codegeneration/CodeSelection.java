@@ -69,8 +69,11 @@ public class CodeSelection extends DefaultVisitor {
     public Object visit(FunctionDefinition node, Object param) {
         out("#LINE "+node.getStart().getLine());
         out(node.getName()+":");
-
+        int parametersSize=0;
         if (node.getParameters() != null) {
+            if(node.getParameters().size()>0){
+                parametersSize=node.getParameters().get(0).getDirection();
+            }
             out("'Parameters:");
             for (VarDefinition child : node.getParameters())
                 child.accept(this, CodeFunction.DEFINE);
@@ -81,10 +84,15 @@ public class CodeSelection extends DefaultVisitor {
             returnSize=node.getReturnType().getSize();
         }
 
-        int localDefsSize=node.getLocalDefs().get(node.getLocalDefs().size()-1).getDirection();
+        int localDefsSize=0;
         if (node.getLocalDefs() != null) {
-            out("'Local variables:");
+
+            if(node.getLocalDefs().size()>0){
+                localDefsSize=node.getLocalDefs().get(node.getLocalDefs().size()-1).getDirection();
+            }
+
             for (VarDefinition child : node.getLocalDefs()) {
+
                 child.accept(this, CodeFunction.DEFINE);
             }
             out("enter "+localDefsSize);
@@ -95,7 +103,7 @@ public class CodeSelection extends DefaultVisitor {
                 child.accept(this, CodeFunction.EXECUTE);
             }
         }
-        int parametersSize=node.getParameters().get(0).getDirection();
+
         if(parametersSize+localDefsSize+returnSize==0){
             out("RET ");
         }else{
@@ -301,7 +309,7 @@ public class CodeSelection extends DefaultVisitor {
     }
     //	class VariableReference { String name; }
     public Object visit(VariableReference node, Object param) {
-        if(!node.getDefinition().isGlobal()){
+        if(node.getDefinition().isGlobal()){
             out("pusha "+node.getDefinition().getDirection());
         }else{
             out("push BP");

@@ -67,7 +67,7 @@ public class VarDefinition extends AbstractDefinition {
 	}
 
 	//Añadido en generación de código
-	private boolean	 isGlobal;
+	private boolean	 isGlobal=true;
 	public boolean isGlobal(){return this.isGlobal;}
 	public void setGlobal(boolean isGlobal){  this.isGlobal=isGlobal;}
 }
