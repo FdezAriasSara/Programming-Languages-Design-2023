@@ -34,16 +34,16 @@ pushf 2.0
 lt
 jz elseBody1
 pushi 1
-out{IntType}null
+outi
 jmp ifEnd1
 elseBody1:
 push BP
 pushi -2
 addi
 loadi
-out{IntType}null
+outi
 ifEnd1:
 pushi 2
 call doble
-out{IntType}null
+outi
 RET 0,2,0

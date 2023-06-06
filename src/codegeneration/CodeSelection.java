@@ -25,7 +25,7 @@ public class CodeSelection extends DefaultVisitor {
         ADDRESS, EXECUTE, VALUE,DEFINE
     }
     private Map<String, String> instruction=new HashMap<String,String>();
-    private Map<String, String> variant=new HashMap<String,String>();
+    private Map<String,Character> variant=new HashMap<String,Character>();
     public CodeSelection(Writer writer, String sourceFile) {
         this.writer = new PrintWriter(writer);
         this.sourceFile = sourceFile;
@@ -39,8 +39,8 @@ public class CodeSelection extends DefaultVisitor {
         instruction.put("<=","le");
         instruction.put("<","lt");
         instruction.put("!=","ne");
-        variant.put("ln","\n");
-        variant.put("sp"," ");
+        variant.put("println",'\n');
+        variant.put("printsp",' ');
 
 
     }
@@ -133,7 +133,11 @@ public class CodeSelection extends DefaultVisitor {
     public Object visit(Print node, Object param) {
         if (node.getExpression() != null)
             node.getExpression().accept(this, CodeFunction.VALUE);
-        out("out"+node.getExpression().getType()+variant.get(node.getVariant()));
+        out("out"+node.getExpression().getType().getSuffix());
+       if(!node.getVariant().equals("print")){
+           out("pushb "+variant.get(node.getVariant()));
+           out("outb");
+        }
         return null;
     }
 
