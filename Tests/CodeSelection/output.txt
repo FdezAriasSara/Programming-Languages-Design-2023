@@ -10,8 +10,9 @@ enter 0
 push BP
 pushi 4
 addi
+loadi
 pushi 2
-mul
+muli
 RET 2,0,4
 #LINE 26
 main:
@@ -28,6 +29,7 @@ addi
 pushi 2
 storei
 pusha 0
+loadf
 pushf 2.0
 lt
 jz elseBody1
@@ -38,6 +40,7 @@ elseBody1:
 push BP
 pushi 2
 addi
+loadi
 out{IntType}null
 ifEnd1:
 pushi 2

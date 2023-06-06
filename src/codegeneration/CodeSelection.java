@@ -222,7 +222,7 @@ public class CodeSelection extends DefaultVisitor {
 
         if (node.getRight() != null)
             node.getRight().accept(this, CodeFunction.VALUE);
-        out(instruction.get(node.getOperator()));
+        out(instruction.get(node.getOperator())+node.getRight().getType().getSuffix());
         return null;
     }
 
@@ -316,6 +316,10 @@ public class CodeSelection extends DefaultVisitor {
             out("pushi "+node.getDefinition().getDirection());
             out("addi");
         }
+        if(param.equals(CodeFunction.VALUE)){
+            out("load"+node.getType().getSuffix());
+        }
+
         return null;
     }
 
