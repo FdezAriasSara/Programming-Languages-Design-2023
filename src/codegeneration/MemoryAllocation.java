@@ -32,19 +32,24 @@ public class MemoryAllocation extends DefaultVisitor {
     public Object visit(FunctionDefinition node, Object param) {
 
 
-        if (node.getParameters() != null)
-            for (VarDefinition child : node.getParameters())
-                child.accept(this, param);
+        if (node.getParameters() != null) {
+            int lastParam=4;
+            for (VarDefinition child : node.getParameters()) {
+                child.setDirection(lastParam);
+                lastParam+=child.getType().getSize();
 
+            }
+        }
         if (node.getReturnType() != null)
             node.getReturnType().accept(this, param);
 
         if (node.getLocalDefs() != null) {
             int lastLocalVariable=0;
             for (VarDefinition child : node.getLocalDefs()) {
-                 child.accept(this, param);
                  lastLocalVariable+= child.getType().getSize(); //we also need to sum the size of the current variable.
-                 child.setDirection(lastLocalVariable);
+                 child.setDirection(-lastLocalVariable);
+                 //The relative direction will be negative for local defs , since the more localdefs, the closer they will be to the 0 address.
+                //Therefore , they decrease.
 
             }
         }

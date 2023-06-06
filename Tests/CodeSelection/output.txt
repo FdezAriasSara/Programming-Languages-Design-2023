@@ -24,7 +24,7 @@ pusha 0
 pushf 1.0
 storef
 push BP
-pushi 2
+pushi -2
 addi
 pushi 2
 storei
@@ -38,7 +38,7 @@ out{IntType}null
 jmp ifEnd1
 elseBody1:
 push BP
-pushi 2
+pushi -2
 addi
 loadi
 out{IntType}null

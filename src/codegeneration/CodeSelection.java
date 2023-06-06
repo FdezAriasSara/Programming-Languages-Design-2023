@@ -88,7 +88,7 @@ public class CodeSelection extends DefaultVisitor {
         if (node.getLocalDefs() != null) {
 
             if(node.getLocalDefs().size()>0){
-                localDefsSize=node.getLocalDefs().get(node.getLocalDefs().size()-1).getDirection();
+                localDefsSize=-node.getLocalDefs().get(node.getLocalDefs().size()-1).getDirection();
             }
 
             for (VarDefinition child : node.getLocalDefs()) {
