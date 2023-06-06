@@ -27,7 +27,7 @@ parameters returns [List<VarDefinition> list=new ArrayList<>(); ]
            ;
 
 parameter  returns [VarDefinition ast]
-           : IDENT ':' type {$ast=new VarDefiniton($IDENT,$type.ast);}
+           : IDENT ':' type {$ast=new VarDefinition($IDENT,$type.ast);}
             ;
 localDefinition  returns [VarDefinition ast]
         :'var'  IDENT ':' type ';' {$ast=new VarDefinition($IDENT,$type.ast); }

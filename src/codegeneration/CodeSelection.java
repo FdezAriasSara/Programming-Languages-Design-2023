@@ -7,6 +7,7 @@ package codegeneration;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -175,7 +176,6 @@ public class CodeSelection extends DefaultVisitor {
     public Object visit(Assignment node, Object param) {
         if (node.getLeft() != null)
             node.getLeft().accept(this, CodeFunction.ADDRESS);
-
         if (node.getRight() != null)
             node.getRight().accept(this, CodeFunction.VALUE);
         out("store"+node.getLeft().getType().getSuffix());
@@ -274,25 +274,28 @@ public class CodeSelection extends DefaultVisitor {
 
     //	class ArrayAccess { Expression array;  Expression position; }
     public Object visit(ArrayAccess node, Object param) {
-
-        // super.visit(node, param);
-
         if (node.getArray() != null)
-            node.getArray().accept(this, param);
+            node.getArray().accept(this, CodeFunction.ADDRESS);
 
         if (node.getPosition() != null)
-            node.getPosition().accept(this, param);
-
+            node.getPosition().accept(this, CodeFunction.VALUE);
+        out("Load"+node.getArray().getType().getSuffix());
         return null;
     }
 
     //	class StructFieldAccess { Expression struct;  String field; }
     public Object visit(StructFieldAccess node, Object param) {
-
-        // super.visit(node, param);
-
         if (node.getStruct() != null)
-            node.getStruct().accept(this, param);
+            node.getStruct().accept(this, CodeFunction.ADDRESS);
+        StructType struct = (StructType) (node.getStruct());
+        List<StructField> fields=struct.getDefinition().getFields();
+        for (StructField field:fields ) {
+            if(field.getName().equals(node.getField())){
+                field.accept(this, CodeFunction.ADDRESS);
+                out("load"+field.getType().getSuffix());
+                return null;
+            }
+        }
 
         return null;
     }

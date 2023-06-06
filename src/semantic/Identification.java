@@ -72,13 +72,6 @@ public class Identification extends DefaultVisitor {
         variables.set();  //parameters will belong to local context of the function
         if (node.getParameters() != null)
             for (VarDefinition child : node.getParameters()){
-                VarDefinition paramDef=new VarDefinition(child.getName(),child.getType());
-                if(variables.getFromTop(node.getName())==null){
-                    variables.put(child.getName(),paramDef);
-                }else{
-                    //predicate not fulfilled.
-                    error("El parámetro '"+node.getName()+"' ya ha sido definido." ,node.getStart());
-                }
                 child.accept(this,param );
             }
 
@@ -166,19 +159,7 @@ public class Identification extends DefaultVisitor {
 
 
 
-    //	class ArrayAccess  { Expression array;  Expression position; }
-   public Object visit(ArrayAccess node, Object param) {
-//TODO-no esta haciendo nada ahora mismo
-        // super.visit(node, param);
 
-        if (node.getArray() != null)
-            node.getArray().accept(this, param);
-
-        if (node.getPosition() != null)
-            node.getPosition().accept(this, param);
-
-        return null;
-    }
 
     /**
      * Auxiliar method to look for variable definitions to link to variable references and to variables.

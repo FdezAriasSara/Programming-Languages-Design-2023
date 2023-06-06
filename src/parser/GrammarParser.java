@@ -344,7 +344,7 @@ public class GrammarParser extends Parser {
 	}
 
 	public static class ParametersContext extends ParserRuleContext {
-		public List<Variable> list = new ArrayList<>();;
+		public List<VarDefinition> list = new ArrayList<>();;
 		public ParameterContext parameter;
 		public List<ParameterContext> params = new ArrayList<ParameterContext>();
 		public List<ParameterContext> parameter() {
@@ -409,7 +409,7 @@ public class GrammarParser extends Parser {
 	}
 
 	public static class ParameterContext extends ParserRuleContext {
-		public Variable ast;
+		public VarDefinition ast;
 		public Token IDENT;
 		public TypeContext type;
 		public TerminalNode IDENT() { return getToken(GrammarParser.IDENT, 0); }
@@ -434,7 +434,7 @@ public class GrammarParser extends Parser {
 			match(T__2);
 			setState(90);
 			((ParameterContext)_localctx).type = type();
-			((ParameterContext)_localctx).ast = new Variable(((ParameterContext)_localctx).IDENT,((ParameterContext)_localctx).type.ast);
+			((ParameterContext)_localctx).ast = new VarDefinition(((ParameterContext)_localctx).IDENT,((ParameterContext)_localctx).type.ast);
 			}
 		}
 		catch (RecognitionException re) {

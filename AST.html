@@ -22,61 +22,105 @@
 <body><pre>
 [ASTPrinter] -------------------------------- line:col  line:col
 
-<span class="dots"></span>Program &rarr;                                                   <span class="pos">20:5  38:14  </span><span class="sourceText">var </span><span class="posText">global:float;</span><span class="sourceText"> ... </span><span class="posText">print doble(2</span><span class="sourceText">);</span>
+<span class="dots"></span>Program &rarr;                                                   <span class="pos">9:5  41:14   </span><span class="sourceText">var </span><span class="posText">a:int;</span><span class="sourceText"> ... </span><span class="posText">dobleSuma(5.6</span><span class="sourceText">);	// No es error en esta fase aunque no coincidan par�metros </span>
 <span class="dots">.  </span>definitions  <span class="type">List&lt;Definition&gt;</span> = 
-<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">20:5  20:10  </span><span class="sourceText">var </span><span class="posText">global</span><span class="sourceText">:float;</span>
-<span class="dots">.  .  |  </span><span class="value">FloatType</span> &rarr;                                        <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  </span>"<span class="value">global</span>"  
+<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">9:5  9:5     </span><span class="sourceText">var </span><span class="posText">a</span><span class="sourceText">:int;</span>
+<span class="dots">.  .  |  </span><span class="value">IntType</span> &rarr;                                          <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  </span>"<span class="value">a</span>"  
 <span class="dots">.  .  |  </span><span class="value">0</span>  <span class="type">int</span>
-<span class="dots">.  .  </span>FunctionDefinition &rarr;                                  <span class="pos">22:1  23:17  </span><span class="sourceText"></span><span class="posText">doble(valor:int):int {</span><span class="sourceText"> ... </span><span class="posText">return valor * 2</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  </span>"<span class="value">doble</span>"  
-<span class="dots">.  .  |  </span>parameters  <span class="type">List&lt;Variable&gt;</span> = 
-<span class="dots">.  .  |  .  </span>Variable &rarr;                                      <span class="pos">22:7  22:11  </span><span class="sourceText">doble(</span><span class="posText">valor</span><span class="sourceText">:int):int {</span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">valor</span>"  
+<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">11:5  11:5   </span><span class="sourceText">var </span><span class="posText">b</span><span class="sourceText">:char;</span>
+<span class="dots">.  .  |  </span><span class="value">CharType</span> &rarr;                                         <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  </span>"<span class="value">b</span>"  
+<span class="dots">.  .  |  </span><span class="value">0</span>  <span class="type">int</span>
+<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">13:5  13:5   </span><span class="sourceText">var </span><span class="posText">d</span><span class="sourceText">:float;</span>
+<span class="dots">.  .  |  </span><span class="value">FloatType</span> &rarr;                                        <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  </span>"<span class="value">d</span>"  
+<span class="dots">.  .  |  </span><span class="value">0</span>  <span class="type">int</span>
+<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">15:5  15:5   </span><span class="sourceText">var </span><span class="posText">e</span><span class="sourceText">:float;</span>
+<span class="dots">.  .  |  </span><span class="value">FloatType</span> &rarr;                                        <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  </span>"<span class="value">e</span>"  
+<span class="dots">.  .  |  </span><span class="value">0</span>  <span class="type">int</span>
+<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">17:5  17:9   </span><span class="sourceText">var </span><span class="posText">a:[20</span><span class="sourceText">] int;	// Variable global repetida </span>
+<span class="dots">.  .  |  </span>ArrayType &rarr;                                        <span class="pos">17:8  17:9   </span><span class="sourceText">var a:[</span><span class="posText">20</span><span class="sourceText">] int;	// Variable global repetida </span>
+<span class="dots">.  .  |  .  </span><span class="value">20</span>  
+<span class="dots">.  .  |  .  </span><span class="value">IntType</span> &rarr;                                       <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  </span>"<span class="value">a</span>"  
+<span class="dots">.  .  |  </span><span class="value">0</span>  <span class="type">int</span>
+<span class="dots">.  .  </span>FunctionDefinition &rarr;                                  <span class="pos">20:1  31:13  </span><span class="sourceText"></span><span class="posText">dobleSuma(z:int, b:int, z:float): int { // Par�metro 'z' repetido ('b' no colisiona con global)</span><span class="sourceText"> ... </span><span class="posText">print local2</span><span class="sourceText">;	</span>
+<span class="dots">.  .  |  </span>"<span class="value">dobleSuma</span>"  
+<span class="dots">.  .  |  </span>parameters  <span class="type">List&lt;VarDefinition&gt;</span> = 
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">20:11  20:11 </span><span class="sourceText">dobleSuma(</span><span class="posText">z</span><span class="sourceText">:int, b:int, z:float): int { // Par�metro 'z' repetido ('b' no colisiona con global)</span>
 <span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">z</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">0</span>  <span class="type">int</span>
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">20:18  20:18 </span><span class="sourceText">dobleSuma(z:int, </span><span class="posText">b</span><span class="sourceText">:int, z:float): int { // Par�metro 'z' repetido ('b' no colisiona con global)</span>
+<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">b</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">0</span>  <span class="type">int</span>
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">20:25  20:25 </span><span class="sourceText">dobleSuma(z:int, b:int, </span><span class="posText">z</span><span class="sourceText">:float): int { // Par�metro 'z' repetido ('b' no colisiona con global)</span>
+<span class="dots">.  .  |  .  |  </span><span class="value">FloatType</span> &rarr;                                  <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">z</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">0</span>  <span class="type">int</span>
 <span class="dots">.  .  |  </span><span class="value">IntType</span> &rarr;                                          <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
 <span class="dots">.  .  |  </span>localDefs  <span class="type">List&lt;VarDefinition&gt;</span> = 
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">21:6  21:11  </span><span class="sourceText">var </span><span class="posText">local1</span><span class="sourceText">:int;</span>
+<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">local1</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">0</span>  <span class="type">int</span>
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">22:6  22:11  </span><span class="sourceText">var </span><span class="posText">local2</span><span class="sourceText">:int;		</span>
+<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">local2</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">0</span>  <span class="type">int</span>
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">23:6  23:11  </span><span class="sourceText">var </span><span class="posText">local1</span><span class="sourceText">:int;		// Local repetida (con otra local) </span>
+<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">local1</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">0</span>  <span class="type">int</span>
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">24:6  24:6   </span><span class="sourceText">var </span><span class="posText">b</span><span class="sourceText">:float;		// Local repetida (con un par�metro) </span>
+<span class="dots">.  .  |  .  |  </span><span class="value">FloatType</span> &rarr;                                  <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">b</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">0</span>  <span class="type">int</span>
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">25:6  25:6   </span><span class="sourceText">var </span><span class="posText">d</span><span class="sourceText">:int;		// Esta no deb�a dar error, ya que la otra 'd' es global </span>
+<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">d</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">0</span>  <span class="type">int</span>
 <span class="dots">.  .  |  </span>statements  <span class="type">List&lt;Statement&gt;</span> = 
-<span class="dots">.  .  |  .  </span>Return &rarr;                                        <span class="pos">23:9  23:17  </span><span class="sourceText">return </span><span class="posText">valor * 2</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  .  |  </span>ArithmeticExpression &rarr;                       <span class="pos">23:9  23:17  </span><span class="sourceText">return </span><span class="posText">valor * 2</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  .  |  .  </span>"valor"  <span class="type">VariableReference.name</span>           <span class="pos">23:9  23:13  </span><span class="sourceText">return </span><span class="posText">valor</span><span class="sourceText"> * 2;</span>
-<span class="dots">.  .  |  .  |  .  </span>"<span class="value">*</span>"  
-<span class="dots">.  .  |  .  |  .  </span>"2"  <span class="type">LiteralInt.value</span>                     <span class="pos">23:17  23:17 </span><span class="sourceText">return valor * </span><span class="posText">2</span><span class="sourceText">;</span>
-<span class="dots">.  .  </span>FunctionDefinition &rarr;                                  <span class="pos">26:1  38:14  </span><span class="sourceText"></span><span class="posText">main() {</span><span class="sourceText"> ... </span><span class="posText">print doble(2</span><span class="sourceText">);</span>
-<span class="dots">.  .  |  </span>"<span class="value">main</span>"  
-<span class="dots">.  .  |  </span>parameters  <span class="type">List&lt;Variable&gt;</span> = 
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">27:2  27:8   </span><span class="sourceText"></span><span class="posText">print a</span><span class="sourceText">;	</span>
+<span class="dots">.  .  |  .  |  </span>"a"  <span class="type">VariableReference.name</span>                  <span class="pos">27:8  27:8   </span><span class="sourceText">print </span><span class="posText">a</span><span class="sourceText">;	</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">28:2  28:8   </span><span class="sourceText"></span><span class="posText">print d</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>"d"  <span class="type">VariableReference.name</span>                  <span class="pos">28:8  28:8   </span><span class="sourceText">print </span><span class="posText">d</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">29:2  29:8   </span><span class="sourceText"></span><span class="posText">print b</span><span class="sourceText">;	</span>
+<span class="dots">.  .  |  .  |  </span>"b"  <span class="type">VariableReference.name</span>                  <span class="pos">29:8  29:8   </span><span class="sourceText">print </span><span class="posText">b</span><span class="sourceText">;	</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">30:2  30:8   </span><span class="sourceText"></span><span class="posText">print c</span><span class="sourceText">;		// variable no definida </span>
+<span class="dots">.  .  |  .  |  </span>"c"  <span class="type">VariableReference.name</span>                  <span class="pos">30:8  30:8   </span><span class="sourceText">print </span><span class="posText">c</span><span class="sourceText">;		// variable no definida </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">31:2  31:13  </span><span class="sourceText"></span><span class="posText">print local2</span><span class="sourceText">;	</span>
+<span class="dots">.  .  |  .  |  </span>"local2"  <span class="type">VariableReference.name</span>             <span class="pos">31:8  31:13  </span><span class="sourceText">print </span><span class="posText">local2</span><span class="sourceText">;	</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
+<span class="dots">.  .  </span>FunctionDefinition &rarr;                                  <span class="pos">34:1  36:13  </span><span class="sourceText"></span><span class="posText">prueba() {</span><span class="sourceText"> ... </span><span class="posText">print local2</span><span class="sourceText">;	// Error: es local de la funci�n anterior</span>
+<span class="dots">.  .  |  </span>"<span class="value">prueba</span>"  
+<span class="dots">.  .  |  </span>parameters  <span class="type">List&lt;VarDefinition&gt;</span> = 
 <span class="dots">.  .  |  </span><span class="value">VoidType</span> &rarr;                                         <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
 <span class="dots">.  .  |  </span>localDefs  <span class="type">List&lt;VarDefinition&gt;</span> = 
-<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">27:6  27:10  </span><span class="sourceText">var </span><span class="posText">local</span><span class="sourceText">:int;</span>
-<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
-<span class="dots">.  .  |  .  |  </span>"<span class="value">local</span>"  
-<span class="dots">.  .  |  .  |  </span><span class="value">2</span>  <span class="type">int</span>
 <span class="dots">.  .  |  </span>statements  <span class="type">List&lt;Statement&gt;</span> = 
-<span class="dots">.  .  |  .  </span>Assignment &rarr;                                    <span class="pos">29:2  29:13  </span><span class="sourceText"></span><span class="posText">global = 1.0</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  .  |  </span>"global"  <span class="type">VariableReference.name</span>             <span class="pos">29:2  29:7   </span><span class="sourceText"></span><span class="posText">global</span><span class="sourceText"> = 1.0;</span>
-<span class="dots">.  .  |  .  |  </span>"1.0"  <span class="type">LiteralFloat.value</span>                    <span class="pos">29:11  29:13 </span><span class="sourceText">global = </span><span class="posText">1.0</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  .  </span>Assignment &rarr;                                    <span class="pos">30:2  30:10  </span><span class="sourceText"></span><span class="posText">local = 2</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  .  |  </span>"local"  <span class="type">VariableReference.name</span>              <span class="pos">30:2  30:6   </span><span class="sourceText"></span><span class="posText">local</span><span class="sourceText"> = 2;</span>
-<span class="dots">.  .  |  .  |  </span>"2"  <span class="type">LiteralInt.value</span>                        <span class="pos">30:10  30:10 </span><span class="sourceText">local = </span><span class="posText">2</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  .  </span>IfStatement &rarr;                                   <span class="pos">32:6  35:13  </span><span class="sourceText">if (</span><span class="posText">global < 2.0) {</span><span class="sourceText"> ... </span><span class="posText">print local</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  .  |  </span>Comparison &rarr;                                 <span class="pos">32:6  32:17  </span><span class="sourceText">if (</span><span class="posText">global < 2.0</span><span class="sourceText">) {</span>
-<span class="dots">.  .  |  .  |  .  </span>"global"  <span class="type">VariableReference.name</span>          <span class="pos">32:6  32:11  </span><span class="sourceText">if (</span><span class="posText">global</span><span class="sourceText"> < 2.0) {</span>
-<span class="dots">.  .  |  .  |  .  </span>"<span class="value"><</span>"  
-<span class="dots">.  .  |  .  |  .  </span>"2.0"  <span class="type">LiteralFloat.value</span>                 <span class="pos">32:15  32:17 </span><span class="sourceText">if (global < </span><span class="posText">2.0</span><span class="sourceText">) {</span>
-<span class="dots">.  .  |  .  |  </span>body  <span class="type">List&lt;Statement&gt;</span> = 
-<span class="dots">.  .  |  .  |  .  </span>Print &rarr;                                   <span class="pos">33:3  33:9   </span><span class="sourceText"></span><span class="posText">print 1</span><span class="sourceText">;	</span>
-<span class="dots">.  .  |  .  |  .  |  </span>"1"  <span class="type">LiteralInt.value</span>                  <span class="pos">33:9  33:9   </span><span class="sourceText">print </span><span class="posText">1</span><span class="sourceText">;	</span>
-<span class="dots">.  .  |  .  |  .  |  </span>"<span class="value">print</span>"  
-<span class="dots">.  .  |  .  |  </span>elseBody  <span class="type">List&lt;Statement&gt;</span> = 
-<span class="dots">.  .  |  .  |  .  </span>Print &rarr;                                   <span class="pos">35:3  35:13  </span><span class="sourceText"></span><span class="posText">print local</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  .  |  .  |  </span>"local"  <span class="type">VariableReference.name</span>        <span class="pos">35:9  35:13  </span><span class="sourceText">print </span><span class="posText">local</span><span class="sourceText">;</span>
-<span class="dots">.  .  |  .  |  .  |  </span>"<span class="value">print</span>"  
-<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">38:2  38:14  </span><span class="sourceText"></span><span class="posText">print doble(2</span><span class="sourceText">);</span>
-<span class="dots">.  .  |  .  |  </span>Invocation &rarr;                                 <span class="pos">38:8  38:14  </span><span class="sourceText">print </span><span class="posText">doble(2</span><span class="sourceText">);</span>
-<span class="dots">.  .  |  .  |  .  </span>"<span class="value">doble</span>"  
-<span class="dots">.  .  |  .  |  .  </span>parameters  <span class="type">List&lt;Expression&gt;</span> = 
-<span class="dots">.  .  |  .  |  .  |  </span>"2"  <span class="type">LiteralInt.value</span>                  <span class="pos">38:14  38:14 </span><span class="sourceText">print doble(</span><span class="posText">2</span><span class="sourceText">);</span>
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">35:2  35:8   </span><span class="sourceText"></span><span class="posText">print z</span><span class="sourceText">;	// Error: es par�metro de la funci�n anterior</span>
+<span class="dots">.  .  |  .  |  </span>"z"  <span class="type">VariableReference.name</span>                  <span class="pos">35:8  35:8   </span><span class="sourceText">print </span><span class="posText">z</span><span class="sourceText">;	// Error: es par�metro de la funci�n anterior</span>
 <span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">36:2  36:13  </span><span class="sourceText"></span><span class="posText">print local2</span><span class="sourceText">;	// Error: es local de la funci�n anterior</span>
+<span class="dots">.  .  |  .  |  </span>"local2"  <span class="type">VariableReference.name</span>             <span class="pos">36:8  36:13  </span><span class="sourceText">print </span><span class="posText">local2</span><span class="sourceText">;	// Error: es local de la funci�n anterior</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">print</span>"  
+<span class="dots">.  .  </span>FunctionDefinition &rarr;                                  <span class="pos">40:1  41:14  </span><span class="sourceText"></span><span class="posText">main() {</span><span class="sourceText"> ... </span><span class="posText">dobleSuma(5.6</span><span class="sourceText">);	// No es error en esta fase aunque no coincidan par�metros </span>
+<span class="dots">.  .  |  </span>"<span class="value">main</span>"  
+<span class="dots">.  .  |  </span>parameters  <span class="type">List&lt;VarDefinition&gt;</span> = 
+<span class="dots">.  .  |  </span><span class="value">VoidType</span> &rarr;                                         <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  </span>localDefs  <span class="type">List&lt;VarDefinition&gt;</span> = 
+<span class="dots">.  .  |  </span>statements  <span class="type">List&lt;Statement&gt;</span> = 
+<span class="dots">.  .  |  .  </span>InvocationStatement &rarr;                           <span class="pos">41:2  41:14  </span><span class="sourceText"></span><span class="posText">dobleSuma(5.6</span><span class="sourceText">);	// No es error en esta fase aunque no coincidan par�metros </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">dobleSuma</span>"  
+<span class="dots">.  .  |  .  |  </span>parameters  <span class="type">List&lt;Expression&gt;</span> = 
+<span class="dots">.  .  |  .  |  .  </span>"5.6"  <span class="type">LiteralFloat.value</span>                 <span class="pos">41:12  41:14 </span><span class="sourceText">dobleSuma(</span><span class="posText">5.6</span><span class="sourceText">);	// No es error en esta fase aunque no coincidan par�metros </span>
 
 [ASTPrinter] --------------------------------
 </pre>
