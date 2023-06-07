@@ -33,6 +33,6 @@ public class FloatType extends AbstractType {
 	}
 
 	public String toString() {
-       return "{FloatType}";
+       return " Float";
    }
 }

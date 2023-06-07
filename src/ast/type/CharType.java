@@ -33,6 +33,6 @@ public class CharType extends AbstractType {
 
 
 	public String toString() {
-       return "{CharType}";
+       return "char";
    }
 }

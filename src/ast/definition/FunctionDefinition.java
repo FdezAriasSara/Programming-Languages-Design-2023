@@ -88,4 +88,13 @@ public class FunctionDefinition extends AbstractDefinition {
 	public String toString() {
        return "{name:" + getName() + ", parameters:" + getParameters() + ", returnType:" + getReturnType() + ", localDefs:" + getLocalDefs() + ", statements:" + getStatements() + "}";
    }
+
+   //Code Selection
+	public int getParameterSize(){
+		int totalSize=0;
+		for (VarDefinition parameter:parameters) {
+			totalSize+=parameter.getType().getSize();
+		}
+		return totalSize;
+	}
 }

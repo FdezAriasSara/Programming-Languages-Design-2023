@@ -1,11 +1,11 @@
+#SOURCE "Test 1.txt"
 call main
 halt
-#GLOBAL global:{FloatType}
+#GLOBAL global :  Float
 #LINE 22
 doble:
 'Parameters:
-	'valor:{IntType}
-enter 0
+	'valor:int
 'Body
 push BP
 pushi 4
@@ -13,11 +13,11 @@ addi
 loadi
 pushi 2
 muli
-RET 2,0,4
+RET 2,0,2
 #LINE 26
 main:
-'Parameters:
-	'local:{IntType}
+'Local Definitions:
+	'local:int
 enter 2
 'Body
 pusha 0
@@ -31,7 +31,7 @@ storei
 pusha 0
 loadf
 pushf 2.0
-lt
+ltf
 jz elseBody1
 pushi 1
 outi

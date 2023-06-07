@@ -47,6 +47,7 @@ public class CodeSelection extends DefaultVisitor {
 
     //	class Program { List<Definition> definitions; }
     public Object visit(Program node, Object param) {
+        out("#SOURCE \""+sourceFile+"\"");
         out("call main");
         out("halt");
         for (Definition definition: node.getDefinitions() ) {
@@ -58,7 +59,7 @@ public class CodeSelection extends DefaultVisitor {
     //	class VarDefinition { Type type;  String name; }
     public Object visit(VarDefinition node, Object param) {
         if (node.isGlobal()) {
-            out("#GLOBAL " + node.getName() + ":" + node.getType());
+            out("#GLOBAL " + node.getName() +" : "+node.getType() );
         } else {
             out("\t'" + node.getName() + ":" + node.getType());
         };
@@ -69,33 +70,29 @@ public class CodeSelection extends DefaultVisitor {
     public Object visit(FunctionDefinition node, Object param) {
         out("#LINE "+node.getStart().getLine());
         out(node.getName()+":");
-        int parametersSize=0;
+        int parametersSize=node.getParameterSize();
         if (node.getParameters() != null) {
-            if(node.getParameters().size()>0){
-                parametersSize=node.getParameters().get(0).getDirection();
+            if(node.getParameterSize()>0){
+                out("'Parameters:");
+                for (VarDefinition child : node.getParameters())
+                    child.accept(this, CodeFunction.DEFINE);
             }
-            out("'Parameters:");
-            for (VarDefinition child : node.getParameters())
-                child.accept(this, CodeFunction.DEFINE);
         }
         int returnSize=0;//in case it's a void function
         if (node.getReturnType() != null) {
             node.getReturnType().accept(this, param);
             returnSize=node.getReturnType().getSize();
         }
-
         int localDefsSize=0;
         if (node.getLocalDefs() != null) {
-
             if(node.getLocalDefs().size()>0){
                 localDefsSize=-node.getLocalDefs().get(node.getLocalDefs().size()-1).getDirection();
+                out("'Local Definitions:");
+                for (VarDefinition child : node.getLocalDefs()) {
+                    child.accept(this, CodeFunction.DEFINE);
+                }
+                out("enter "+localDefsSize);
             }
-
-            for (VarDefinition child : node.getLocalDefs()) {
-
-                child.accept(this, CodeFunction.DEFINE);
-            }
-            out("enter "+localDefsSize);
         }
         if (node.getStatements() != null) {
             out("'Body");
@@ -237,7 +234,7 @@ public class CodeSelection extends DefaultVisitor {
 
         if (node.getRight() != null)
             node.getRight().accept(this, CodeFunction.VALUE);
-        out(instruction.get(node.getOperator()));
+        out(instruction.get(node.getOperator())+ node.getLeft().getType().getSuffix());
         return null;
     }
 
