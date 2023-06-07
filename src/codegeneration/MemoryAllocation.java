@@ -33,10 +33,12 @@ public class MemoryAllocation extends DefaultVisitor {
 
 
         if (node.getParameters() != null) {
-            int lastParam=4;
-            for (VarDefinition child : node.getParameters()) {
-                child.setDirection(lastParam);
-                lastParam+=child.getType().getSize();
+            int paramOffset=4;
+            VarDefinition currentParam;
+            for (int i=node.getParameters().size()-1; i>=0 ; i--) {
+                currentParam= node.getParameters().get(i);
+                currentParam.setDirection(paramOffset);
+                paramOffset+=currentParam.getType().getSize();
 
             }
         }

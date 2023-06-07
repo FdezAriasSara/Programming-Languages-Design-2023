@@ -29,7 +29,7 @@ struct Prueba {
 
 var c:[2]Persona;	// Dir 5
 var d:int;		// Dir 65
-
+//RECUERDA: El último parámetro es el que queda más cerca de bp (siempre a bp+4)
 f(a:int, b:float, h:char) { // a = BP+9, b = BP+5, h = BP+4
 	var c:char;	// BP-1
 	var d:int;	// BP-3

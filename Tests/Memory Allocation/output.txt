@@ -1,0 +1,28 @@
+#SOURCE "Test Gestion de Memoria.txt"
+call main
+halt
+#GLOBAL a : char
+' Struct Persona
+	' edad :int
+	' meses :{dimension:12, type:int}
+	' a : Float
+#GLOBAL b :  Float
+' Struct Prueba
+	' campo1 :int
+	' campo2 :int
+#GLOBAL c : {dimension:2, type:{name:Persona}}
+#GLOBAL d : int
+#LINE 33
+f:
+'Parameters:
+	'a:int
+	'b: Float
+	'h:char
+'Local Definitions:
+	'c:char
+	'd:int
+	'e:{dimension:2, type:{name:Persona}}
+	'f: Float
+enter 67
+'Body
+RET 0,67,7
