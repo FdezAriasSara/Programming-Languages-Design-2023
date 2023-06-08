@@ -15,7 +15,6 @@ public class ArrayAccess extends AbstractExpression {
 
 	public ArrayAccess(Expression array, Expression position) {
 		this.array = array;
-
 		this.position = position;
 		setLvalue(true);
 

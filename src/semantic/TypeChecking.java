@@ -63,7 +63,6 @@ public class TypeChecking extends DefaultVisitor {
          super.visit(node, param);
         predicado(hasSimpleType(node.getExpression().getType()),node.getExpression()+" no es de tipo simple.",node);
         predicado(node.getExpression().getLvalue(),node+" no es modificable.",node);
-
         return null;
     }
 
@@ -83,8 +82,7 @@ public class TypeChecking extends DefaultVisitor {
 
     //	class Assignment { Expression left;  Expression right; }
     public Object visit(Assignment node, Object param) {
-
-         super.visit(node, param);
+        super.visit(node, param);
         predicado(node.getLeft().getLvalue(),node+" no es  modificable.",node);
         predicado(hasSimpleType(node.getLeft().getType()),node+" no es de tipo simple.",node);
         predicado(node.getLeft().getType().equals(node.getRight().getType())," El valor a asignar debe ser del mismo tipo que la variable.",node);
@@ -152,7 +150,7 @@ public class TypeChecking extends DefaultVisitor {
         predicado(sameType,"Los elementos a comparar deben tener el mismo tipo.",node);
         isInt=node.getLeft().getType() instanceof IntType;
         isFloat=node.getLeft().getType() instanceof FloatType;
-        predicado(!(isInt && isFloat) , "Los operadores de comparación solo pueden aplicarse a Enteros o Reales.", node);
+        predicado((isInt || isFloat) , "Los operadores de comparación solo pueden aplicarse a Enteros o Reales.", node);
         node.setType(new IntType());//TODO ? SE PUEDE "HARDCODEAR ASI?
         return null;
     }
@@ -165,6 +163,7 @@ public class TypeChecking extends DefaultVisitor {
         predicado(node.getLeft().getType() instanceof IntType, "El operador And solo puede usarse con expresiones de tipo IntType.", node );
         node.setType(node.getLeft().getType());
 
+
         return null;
     }
 
@@ -172,9 +171,9 @@ public class TypeChecking extends DefaultVisitor {
     public Object visit(Or node, Object param) {
 
         super.visit(node, param);//so the type of each expression is assigned prior to checking
-        predicado(node.getLeft()==node.getRight(), "Las expresiones empleadas en un or deben ser del mismo tipo.", node);
+        predicado(node.getLeft().getType().equals(node.getRight().getType()), "Las expresiones empleadas en un or deben ser del mismo tipo.", node);
         predicado(node.getLeft().getType() instanceof  IntType, "El operador Or solo puede emplearse con expresiones de tipo IntType.",node);
-
+        node.setType(node.getLeft().getType());
         return null;
     }
 
@@ -190,12 +189,10 @@ public class TypeChecking extends DefaultVisitor {
 
     //	class Cast { Type type;  Expression expression; }
     public Object visit(Cast node, Object param) {
-
         super.visit(node, param);
             Type typeToCast=node.getExpression().getType(), typeToCastTo=node.getType();
            predicado(!typeToCast.equals( typeToCastTo), "No se admiten conversiones al mismo tipo.",node);
            predicado(hasSimpleType(typeToCast) && hasSimpleType(typeToCastTo),"Error al intentar convertir "+typeToCast+" a "+typeToCastTo+". Las conversiones solo admiten tipos simples.",node);
-
 
         return null;
     }
@@ -216,7 +213,6 @@ public class TypeChecking extends DefaultVisitor {
 
     //	class StructFieldAccess { Expression struct;  String field; }
     public Object visit(StructFieldAccess node, Object param) {
-
         super.visit(node, param);
         boolean isStructType=node.getStruct().getType() instanceof  StructType;
         predicado(isStructType, node.getStruct()+" no es de tipo struct",node);
@@ -229,7 +225,6 @@ public class TypeChecking extends DefaultVisitor {
             if(foundField){
                 node.setType(field.getType());
             }
-
         }
         return null;
     }
