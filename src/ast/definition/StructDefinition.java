@@ -7,6 +7,7 @@ package ast.definition;
 import java.util.*;
 
 
+import codegeneration.CodeSelection;
 import org.antlr.v4.runtime.*;
 import ast.*;
 import visitor.*;
@@ -59,6 +60,15 @@ public class StructDefinition extends AbstractDefinition {
        return "{name:" + getName() + ", fields:" + getFields() + "}";
    }
 
+
+    public StructField getField(String name){
+		for (StructField field:fields ) {
+			if(field.getName().equals(name)){
+			 	return field;
+			}
+		}
+		return null;
+	}
 //Añadido para la sub fase de reserva de memporia de generación de código
    private int direction;
 	public void setDirection(int direction) {

@@ -7,14 +7,15 @@ import ast.*;
 import ast.type.Type;
 
 public abstract class AbstractExpression extends AbstractAST implements Expression {
-   private boolean lValue=false;//The great majority of expressions are not modifiable.
-    private Type type;
-     public boolean getLvalue() {
+    private boolean lValue=false;//The most of the expressions are not modifiable.
+    public boolean getLvalue() {
         return this.lValue ;
     }
-   public void setLvalue(boolean lvalue){
+    public void setLvalue(boolean lvalue){
         this.lValue=lvalue;
     }
+
+    private Type type;
     public Type getType(){
          return this.type;
     }

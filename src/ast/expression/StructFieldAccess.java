@@ -25,7 +25,7 @@ public class StructFieldAccess extends AbstractExpression {
 	public StructFieldAccess(Object struct, Object field) {
 		this.struct = (Expression) getAST(struct);
 		this.field = (field instanceof Token) ? ((Token)field).getText() : (String) field;
-
+		setLvalue(true);
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
        setPositions(struct, field);

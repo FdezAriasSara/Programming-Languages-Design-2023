@@ -1,49 +1,249 @@
-#SOURCE "Test 1.txt"
+#SOURCE "Test 2.txt"
 call main
 halt
-#GLOBAL global :  Float
-#LINE 22
-doble:
-'Parameters:
-	'valor:int
+' Struct Persona
+	' inicial :char
+	' sueldo : Float
+#GLOBAL empresa : {dimension:4, type:Struct {name:Persona}}
+#LINE 34
+inicia:
+'Local Definitions:
+	'i:int
+enter 2
 'Body
+#LINE 37
+push BP
+pushi -2
+addi
+pushi 0
+storei
+#LINE 38
+whileStart1:
+push BP
+pushi -2
+addi
+loadi
+pushi 4
+lti
+jz whileEnd1
+#LINE 39
+pusha 0
+push BP
+pushi -2
+addi
+loadi
+pushi 5
+muli
+addi
+pushi 0
+addi
+push BP
+pushi -2
+addi
+loadi
+pushb 'A'
+b2i
+addi
+i2b
+storeb
+#LINE 40
+pusha 0
+push BP
+pushi -2
+addi
+loadi
+pushi 5
+muli
+addi
+pushi 1
+addi
+pushi 1000
+push BP
+pushi -2
+addi
+loadi
+pushi 100
+muli
+addi
+i2f
+storef
+#LINE 41
+push BP
+pushi -2
+addi
+push BP
+pushi -2
+addi
+loadi
+pushi 1
+addi
+storei
+jmp whileStart1
+whileEnd1:
+RET 0,2,0
+#LINE 45
+busca:
+'Parameters:
+	'i:int
+'Body
+#LINE 46
 push BP
 pushi 4
 addi
 loadi
-pushi 2
-muli
-RET 2,0,2
-#LINE 26
-main:
-'Local Definitions:
-	'local:int
-enter 2
-'Body
+pushi 0
+lti
+push BP
+pushi 4
+addi
+loadi
+pushi 4
+gei
+or
+jz elseBody1
+jmp ifEnd1
+elseBody1:
+ifEnd1:
+#LINE 49
 pusha 0
-pushf 1.0
-storef
+push BP
+pushi 4
+addi
+loadi
+pushi 5
+muli
+addi
+pushi 0
+addi
+loadb
+outb
+#LINE 50
+pusha 0
+push BP
+pushi 4
+addi
+loadi
+pushi 5
+muli
+addi
+pushi 1
+addi
+loadf
+outf
+RET 0,0,2
+#LINE 53
+imprime:
+'Local Definitions:
+	'i:int
+	'aux:Struct {name:Persona}
+enter 7
+'Body
+#LINE 57
 push BP
 pushi -2
 addi
-pushi 2
+pushi 0
 storei
-pusha 0
-loadf
-pushf 2.0
-ltf
-jz elseBody1
-pushi 1
-outi
-jmp ifEnd1
-elseBody1:
+#LINE 58
+whileStart1:
 push BP
 pushi -2
 addi
 loadi
-outi
-ifEnd1:
-pushi 2
-call doble
-outi
+pushi 4
+gei
+not
+jz whileEnd1
+#LINE 59
+push BP
+pushi -7
+addi
+pushi 0
+addi
+pusha 0
+push BP
+pushi -2
+addi
+loadi
+pushi 5
+muli
+addi
+pushi 0
+addi
+loadb
+storeb
+#LINE 60
+push BP
+pushi -7
+addi
+pushi 1
+addi
+pusha 0
+push BP
+pushi -2
+addi
+loadi
+pushi 5
+muli
+addi
+pushi 1
+addi
+loadf
+storef
+#LINE 62
+push BP
+pushi -7
+addi
+pushi 0
+addi
+loadb
+outb
+#LINE 63
+push BP
+pushi -7
+addi
+pushi 1
+addi
+loadf
+outf
+#LINE 65
+push BP
+pushi -2
+addi
+push BP
+pushi -2
+addi
+loadi
+pushi 1
+addi
+storei
+jmp whileStart1
+whileEnd1:
+#LINE 67
+push BP
+pushi -2
+addi
+loadi
+RET 2,7,0
+#LINE 70
+main:
+'Local Definitions:
+	'posicion:int
+enter 2
+'Body
+#LINE 73
+call inicia
+#LINE 75
+push BP
+pushi -2
+addi
+inint
+#LINE 76
+push BP
+pushi -2
+addi
+loadi
+call busca
+#LINE 78
+call imprime
 RET 0,2,0

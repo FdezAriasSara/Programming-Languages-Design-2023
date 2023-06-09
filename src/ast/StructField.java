@@ -56,7 +56,7 @@ public class StructField extends AbstractAST  {
 	private Type type;
 
 	public String toString() {
-       return "{name:" + getName() + ", type:" + getType() + "}";
+       return "Struct Field{name:" + getName() + ", type:" + getType() + "}";
    }
    //memory allocation
    private int direction;

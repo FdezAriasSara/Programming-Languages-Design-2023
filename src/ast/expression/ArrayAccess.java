@@ -26,7 +26,7 @@ public class ArrayAccess extends AbstractExpression {
 	public ArrayAccess(Object array, Object position) {
 		this.array = (Expression) getAST(array);
 		this.position = (Expression) getAST(position);
-
+		setLvalue(true);
 		// Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
 		// Obtiene la linea/columna a partir de las de los hijos.
 		setPositions(array, position);

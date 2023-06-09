@@ -97,6 +97,7 @@ public class CodeSelection extends DefaultVisitor {
         if (node.getStatements() != null) {
             out("'Body");
             for (Statement child : node.getStatements()) {
+                if(child.getStart()!=null) {out("#LINE "+child.getStart().getLine());};
                 child.accept(this, CodeFunction.EXECUTE);
             }
         }
@@ -152,14 +153,18 @@ public class CodeSelection extends DefaultVisitor {
             node.getCondition().accept(this, CodeFunction.VALUE);
         out("jz elseBody"+getLabel());
         if (node.getBody() != null) {
-            for (Statement child : node.getBody())
+            for (Statement child : node.getBody()) {
+                if(child.getStart()!=null) {out("#LINE "+child.getStart().getLine());};
                 child.accept(this, CodeFunction.EXECUTE);
+            }
         }
         out("jmp ifEnd"+label);
         if (node.getElseBody() != null) {
             out("elseBody" + label+":");
-            for (Statement child : node.getElseBody())
+            for (Statement child : node.getElseBody()) {
+                if(child.getStart()!=null) {out("#LINE "+child.getStart().getLine());};
                 child.accept(this, CodeFunction.EXECUTE);
+            }
         }
         out("ifEnd"+label+":");
 
@@ -174,8 +179,10 @@ public class CodeSelection extends DefaultVisitor {
             node.getCondition().accept(this, CodeFunction.VALUE);
         out("jz whileEnd"+label);
         if (node.getBody() != null)
-            for (Statement child : node.getBody())
+            for (Statement child : node.getBody()) {
+                if(child.getStart()!=null) {out("#LINE "+child.getStart().getLine());};
                 child.accept(this, CodeFunction.EXECUTE);
+            }
         out("jmp whileStart"+label);
         out("whileEnd"+label+":");
         return null;
@@ -271,6 +278,7 @@ public class CodeSelection extends DefaultVisitor {
 
     //	class Cast { Type type;  Expression expression; }
     public Object visit(Cast node, Object param) {
+        node.getExpression().accept(this,CodeFunction.VALUE);
         Type typeToCastTo=node.getType(), typeCasted=node.getExpression().getType();
         if(typeToCastTo instanceof  FloatType && typeCasted instanceof CharType || typeToCastTo instanceof  CharType && typeCasted instanceof  FloatType){
             out(typeCasted.getSuffix()+"2i");
@@ -283,12 +291,20 @@ public class CodeSelection extends DefaultVisitor {
 
     //	class ArrayAccess { Expression array;  Expression position; }
     public Object visit(ArrayAccess node, Object param) {
+        if(param.equals(CodeFunction.ADDRESS)) {
         if (node.getArray() != null)
             node.getArray().accept(this, CodeFunction.ADDRESS);
 
         if (node.getPosition() != null)
             node.getPosition().accept(this, CodeFunction.VALUE);
-        out("Load"+node.getArray().getType().getSuffix());
+//El AST viene decorado de comprobación de tipos , de tal forma que el tipo del nodo array access es igual al tipo de los elementos que conforman la array.
+            out("pushi "+node.getType().getSize());
+            out("muli");
+            out("addi");
+        }
+        else if(param.equals(CodeFunction.VALUE)) {
+            out("load"+node.getArray().getType().getSuffix());
+        }
         return null;
     }
 
@@ -296,16 +312,17 @@ public class CodeSelection extends DefaultVisitor {
     public Object visit(StructFieldAccess node, Object param) {
         if (node.getStruct() != null)
             node.getStruct().accept(this, CodeFunction.ADDRESS);
-        StructType struct = (StructType) (node.getStruct());
-        List<StructField> fields=struct.getDefinition().getFields();
-        for (StructField field:fields ) {
-            if(field.getName().equals(node.getField())){
-                field.accept(this, CodeFunction.ADDRESS);
-                out("load"+field.getType().getSuffix());
-                return null;
-            }
-        }
 
+        StructType struct = (StructType) (node.getStruct().getType());
+        StructField field= (StructField) (struct.getDefinition().getField(node.getField()));
+
+        out("pushi "+field.getDirection());
+        out("addi");
+
+        if(param.equals(CodeFunction.VALUE)) {
+            //For example, when we use a structFieldAccess as a left expression in an assigment we DO not call it's VALUE.
+            out("load" + field.getType().getSuffix());
+        }
         return null;
     }
     //	class VariableReference { String name; }
