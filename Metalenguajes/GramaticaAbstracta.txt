@@ -1,13 +1,12 @@
-
 CATEGORIES
 expression, definition,statement, type
 
 NODES
 Program -> definitions:definition*;
-variable->name:string type;
+
 
 VarDefinition:definition -> type name:string;
-FunctionDefinition:definition -> name:string parameters:variable* returnType:type localDefs:varDefinition*  statements:statement*;
+FunctionDefinition:definition -> name:string parameters:varDefinition* returnType:type localDefs:varDefinition*  statements:statement*;
 StructDefinition:definition ->name:string fields:StructField*;
 
 StructField->name:string type;

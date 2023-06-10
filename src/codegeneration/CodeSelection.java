@@ -143,27 +143,40 @@ public class CodeSelection extends DefaultVisitor {
     public Object visit(Read node, Object param) {
         if (node.getExpression() != null)
             node.getExpression().accept(this, CodeFunction.ADDRESS);
-        out("in"+node.getExpression().getType());
+        out("in"+node.getExpression().getType().getSuffix());
+        out("store"+node.getExpression().getType().getSuffix() );
         return null;
     }
 
     //	class IfStatement { Expression condition;  List<Statement> body;  List<Statement> elseBody; }
     public Object visit(IfStatement node, Object param) {
+
+        //There's no need to have an ifStart label since there is no recursivity
         if (node.getCondition() != null)
             node.getCondition().accept(this, CodeFunction.VALUE);
-        out("jz elseBody"+getLabel());
+
+        if (node.getElseBody().isEmpty()) {
+            out("jz ifEnd" + getLabel());
+        } else {
+            out("jz elseBody" + getLabel());
+        }
+
         if (node.getBody() != null) {
             for (Statement child : node.getBody()) {
                 if(child.getStart()!=null) {out("#LINE "+child.getStart().getLine());};
                 child.accept(this, CodeFunction.EXECUTE);
             }
         }
-        out("jmp ifEnd"+label);
         if (node.getElseBody() != null) {
-            out("elseBody" + label+":");
-            for (Statement child : node.getElseBody()) {
-                if(child.getStart()!=null) {out("#LINE "+child.getStart().getLine());};
-                child.accept(this, CodeFunction.EXECUTE);
+            if(!node.getElseBody().isEmpty()) {
+                out("jmp ifEnd" + label); //If there's no elseBody, this jump is not necessary
+                out("elseBody" + label + ":");
+                for (Statement child : node.getElseBody()) {
+                    if (child.getStart() != null) {
+                        out("#LINE " + child.getStart().getLine());
+                    }
+                    child.accept(this, CodeFunction.EXECUTE);
+                }
             }
         }
         out("ifEnd"+label+":");

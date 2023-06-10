@@ -100,9 +100,7 @@ loadi
 pushi 4
 gei
 or
-jz elseBody1
-jmp ifEnd1
-elseBody1:
+jz ifEnd1
 ifEnd1:
 #LINE 49
 pusha 0
@@ -237,7 +235,8 @@ call inicia
 push BP
 pushi -2
 addi
-inint
+ini
+storei
 #LINE 76
 push BP
 pushi -2
