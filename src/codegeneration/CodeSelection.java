@@ -25,7 +25,7 @@ public class CodeSelection extends DefaultVisitor {
         ADDRESS, EXECUTE, VALUE,DEFINE
     }
     private Map<String, String> instruction=new HashMap<String,String>();
-    private Map<String,Character> variant=new HashMap<String,Character>();
+    private Map<String, Integer> variant=new HashMap<String, Integer>();
     public CodeSelection(Writer writer, String sourceFile) {
         this.writer = new PrintWriter(writer);
         this.sourceFile = sourceFile;
@@ -39,8 +39,8 @@ public class CodeSelection extends DefaultVisitor {
         instruction.put("<=","le");
         instruction.put("<","lt");
         instruction.put("!=","ne");
-        variant.put("println",'\n');
-        variant.put("printsp",' ');
+        variant.put("println",10);//Asici for \n
+        variant.put("printsp",32);//ascci for whitespace
 
 
     }
@@ -94,30 +94,34 @@ public class CodeSelection extends DefaultVisitor {
                 out("enter "+localDefsSize);
             }
         }
+        boolean hasRetStatement=false;
         if (node.getStatements() != null) {
             out("'Body");
             for (Statement child : node.getStatements()) {
-                if(child.getStart()!=null) {out("#LINE "+child.getStart().getLine());};
+                if(child.getStart()!=null) {out("#LINE "+child.getStart().getLine());}
+                if(child instanceof Return){hasRetStatement=true;}
                 child.accept(this, CodeFunction.EXECUTE);
             }
         }
 
-        if(parametersSize+localDefsSize+returnSize==0){
-            out("RET ");
-        }else{
-            out("RET "+returnSize+","+localDefsSize+","+parametersSize);
+        if(!hasRetStatement) { //In case the function has neither a return type nor a return statement.
+            if (parametersSize + localDefsSize + returnSize == 0) {
+                out("RET ");
+            } else {
+                out("RET " + returnSize + "," + localDefsSize + "," + parametersSize);
+            }
         }
-
        return null;
     }
 
     //	class StructDefinition { String name;  List<StructField> fields; }
     public Object visit(StructDefinition node, Object param) {
-        out("' Struct "+node.getName());
+        out("#TYPE " + node.getName() + ":{");
         if (node.getFields() != null) {
             for (StructField child : node.getFields())
-                child.accept(this, CodeFunction.DEFINE);
+                out("\t" + child.getName() + ":" + child.getType());
         }
+        out("}");
         return null;
     }
 
@@ -150,15 +154,16 @@ public class CodeSelection extends DefaultVisitor {
 
     //	class IfStatement { Expression condition;  List<Statement> body;  List<Statement> elseBody; }
     public Object visit(IfStatement node, Object param) {
-
+        incrementLabel();
+        int currentLabel=getLabel();
         //There's no need to have an ifStart label since there is no recursivity
         if (node.getCondition() != null)
             node.getCondition().accept(this, CodeFunction.VALUE);
 
         if (node.getElseBody().isEmpty()) {
-            out("jz ifEnd" + getLabel());
+            out("jz ifEnd" + currentLabel);
         } else {
-            out("jz elseBody" + getLabel());
+            out("jz elseBody" + currentLabel);
         }
 
         if (node.getBody() != null) {
@@ -169,8 +174,8 @@ public class CodeSelection extends DefaultVisitor {
         }
         if (node.getElseBody() != null) {
             if(!node.getElseBody().isEmpty()) {
-                out("jmp ifEnd" + label); //If there's no elseBody, this jump is not necessary
-                out("elseBody" + label + ":");
+                out("jmp ifEnd" + currentLabel); //If there's no elseBody, this jump is not necessary
+                out("elseBody" + currentLabel+ ":");
                 for (Statement child : node.getElseBody()) {
                     if (child.getStart() != null) {
                         out("#LINE " + child.getStart().getLine());
@@ -179,25 +184,32 @@ public class CodeSelection extends DefaultVisitor {
                 }
             }
         }
-        out("ifEnd"+label+":");
+        out("ifEnd"+currentLabel+":");
 
         return null;
     }
 
     //	class While { Expression condition;  List<Statement> body; }
     public Object visit(While node, Object param) {
+        incrementLabel();
+        int currentLabel=getLabel();
         // super.visit(node, param);
-       out("whileStart"+getLabel()+":");
+       out("whileStart"+currentLabel+" :");
         if (node.getCondition() != null)
             node.getCondition().accept(this, CodeFunction.VALUE);
-        out("jz whileEnd"+label);
-        if (node.getBody() != null)
+        out("jz whileEnd"+currentLabel);
+        if (node.getBody() != null) {
             for (Statement child : node.getBody()) {
-                if(child.getStart()!=null) {out("#LINE "+child.getStart().getLine());};
+                if (child.getStart() != null) {
+                    out("#LINE " + child.getStart().getLine());
+                }
+                ;
                 child.accept(this, CodeFunction.EXECUTE);
             }
-        out("jmp whileStart"+label);
-        out("whileEnd"+label+":");
+        }
+        out("jmp whileStart"+currentLabel);
+        out("whileEnd"+currentLabel+":");
+
         return null;
     }
 
@@ -215,6 +227,15 @@ public class CodeSelection extends DefaultVisitor {
     public Object visit(Return node, Object param) {
         if (node.getExpression() != null)
             node.getExpression().accept(this, CodeFunction.VALUE);
+        FunctionDefinition definition=node.getFunctionDefinition();
+        int localDefsSize=definition.getLocalDefs().size()>0?-definition.getLocalDefs().get(definition.getLocalDefs().size()-1).getDirection():0;;
+        int parametersSize=definition.getParameterSize();
+        int retSize=definition.getReturnType().getSize();
+        if(retSize+localDefsSize+parametersSize==0){
+            out("RET ");}
+        else{
+                out("RET "+retSize+","+localDefsSize+","+parametersSize);
+        }
         return null;
     }
 
@@ -224,6 +245,10 @@ public class CodeSelection extends DefaultVisitor {
             for (Expression child : node.getParameters())
                 child.accept(this, CodeFunction.VALUE);
         out("call "+node.getName());
+        //If the function has a return value , we have to make sure no garbage is left.
+       if( !(node.getDefinition().getReturnType() instanceof VoidType)){
+               out("pop",node.getDefinition().getReturnType());
+           }
         return null;
     }
 
@@ -304,7 +329,7 @@ public class CodeSelection extends DefaultVisitor {
 
     //	class ArrayAccess { Expression array;  Expression position; }
     public Object visit(ArrayAccess node, Object param) {
-        if(param.equals(CodeFunction.ADDRESS)) {
+
         if (node.getArray() != null)
             node.getArray().accept(this, CodeFunction.ADDRESS);
 
@@ -314,9 +339,9 @@ public class CodeSelection extends DefaultVisitor {
             out("pushi "+node.getType().getSize());
             out("muli");
             out("addi");
-        }
-        else if(param.equals(CodeFunction.VALUE)) {
-            out("load"+node.getArray().getType().getSuffix());
+
+     if(param.equals(CodeFunction.VALUE)) {
+            out("load"+node.getType().getSuffix());
         }
         return null;
     }
@@ -354,13 +379,13 @@ public class CodeSelection extends DefaultVisitor {
         return null;
     }
 
-    //	class LiteralInt { String value; }
+    //	class LiteralInt { Int value; }
     public Object visit(LiteralInt node, Object param) {
         out("pushi "+node.getValue() );
         return null;
     }
 
-    //	class LiteralFloat { String value; }
+    //	class LiteralFloat { Double value; }
     public Object visit(LiteralFloat node, Object param) {
         out("pushf "+node.getValue() );
         return null;
@@ -368,7 +393,7 @@ public class CodeSelection extends DefaultVisitor {
 
     //	class LiteralChar { String value; }
     public Object visit(LiteralChar node, Object param) {
-        out("pushb "+node.getValue() );
+        out("pushb "+((int)(node.getValue())));
         return null;
     }
 
@@ -394,11 +419,15 @@ public class CodeSelection extends DefaultVisitor {
             System.out.println("#line no generado. Se ha pasado una Position null. Falta información en el AST");
     }
 
-    private int label=1; //To be used as a suffix.
+    private int label=0; //To be used as a suffix.
     private int getLabel(){
         return this.label;
     }
-    private void setLabel(){
+
+    /**
+     *
+     */
+    private void incrementLabel(){
         this.label+=1;
     }
 

@@ -1,44 +1,43 @@
 /**
  * @generated VGen (for ANTLR) 1.7.2
  */
-
 package ast.expression;
 
 import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	LiteralFloat:expression -> value:String
+//	LiteralFloat:expression -> value:double
 
 public class LiteralFloat extends AbstractExpression {
 
-	public LiteralFloat(String value) {
+	public LiteralFloat(double value) {
 		this.value = value;
 	}
 
 	public LiteralFloat(Object value) {
-		this.value = (value instanceof Token) ? ((Token)value).getText() : (String) value;
+		this.value = (value instanceof Token) ? Double.parseDouble(((Token)value).getText()) : (Double) value;
 
-       // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
-       // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(value);
+		// Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
+		// Obtiene la linea/columna a partir de las de los hijos.
+		setPositions(value);
 	}
 
-	public String getValue() {
+	public double getValue() {
 		return value;
 	}
-	public void setValue(String value) {
+	public void setValue(double value) {
 		this.value = value;
 	}
 
 	@Override
-	public Object accept(Visitor v, Object param) { 
+	public Object accept(Visitor v, Object param) {
 		return v.visit(this, param);
 	}
 
-	private String value;
+	private double value;
 
 	public String toString() {
-       return "{value:" + getValue() + "}";
-   }
+		return  String.valueOf(getValue()) ;
+	}
 }

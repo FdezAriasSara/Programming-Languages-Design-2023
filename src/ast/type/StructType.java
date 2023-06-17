@@ -50,7 +50,7 @@ public class StructType extends AbstractType {
 	private String name;
 
 	public String toString() {
-       return "Struct {name:" + getName() + "}";
+       return   getName() ;
    }
    //Fase de identificación
 	private StructDefinition definition;

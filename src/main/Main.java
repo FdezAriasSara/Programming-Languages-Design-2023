@@ -16,6 +16,7 @@ import parser.*;
 import semantic.*;
 import codegeneration.*;
 
+
 /**
  * Clase que inicia el compilador e invoca a todas sus fases.
  *
@@ -27,13 +28,14 @@ import codegeneration.*;
  * - Para Generación de Código: 'MemoryAllocation.java' y 'CodeSelection.java'.
  */
 public class Main {
-    public static final String INPUT_FILE ="Tests/CodeSelection/Test 2.txt"; // Fichero de prueba durante el desarrollo
+    public static final String INPUT_FILE ="Tests/Memory Allocation/Test Gestion de Memoria.txt"; // Fichero de prueba durante el desarrollo
     public static final String OUTPUT_FILE = "output.txt";
 
     public static void main(String[] args) throws Exception {
         ErrorManager errorManager = new ErrorManager();
 
         AST ast = compile(INPUT_FILE, errorManager); // Sustituir "INPUT_FILE" por args[0] en la versión final
+
         if (errorManager.errorsCount() == 0)
             System.out.println("El programa se ha compilado correctamente.");
 

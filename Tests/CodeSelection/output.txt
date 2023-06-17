@@ -1,210 +1,605 @@
-#SOURCE "Test 2.txt"
+#SOURCE "Test5_pruebaFinal.txt"
 call main
 halt
-' Struct Persona
-	' inicial :char
-	' sueldo : Float
-#GLOBAL empresa : {dimension:4, type:Struct {name:Persona}}
-#LINE 34
-inicia:
-'Local Definitions:
-	'i:int
-enter 2
+#TYPE Pareja:{
+	entero:int
+	caracter:char
+}
+#GLOBAL pareja : Pareja
+#TYPE Empleado:{
+	edad:int
+}
+#TYPE Empresa:{
+	empleados:2 * Empleado
+}
+#GLOBAL acme : 2 * Empresa
+#GLOBAL fibonacci : 8 * 3 * int
+#LINE 22
+p:
 'Body
-#LINE 37
-push BP
-pushi -2
-addi
-pushi 0
-storei
-#LINE 38
-whileStart1:
-push BP
-pushi -2
-addi
-loadi
-pushi 4
-lti
-jz whileEnd1
-#LINE 39
-pusha 0
-push BP
-pushi -2
-addi
-loadi
-pushi 5
-muli
-addi
-pushi 0
-addi
-push BP
-pushi -2
-addi
-loadi
-pushb 'A'
-b2i
-addi
-i2b
-storeb
-#LINE 40
-pusha 0
-push BP
-pushi -2
-addi
-loadi
-pushi 5
-muli
-addi
-pushi 1
-addi
-pushi 1000
-push BP
-pushi -2
-addi
-loadi
-pushi 100
-muli
-addi
-i2f
-storef
-#LINE 41
-push BP
-pushi -2
-addi
-push BP
-pushi -2
-addi
-loadi
-pushi 1
-addi
-storei
-jmp whileStart1
-whileEnd1:
-RET 0,2,0
-#LINE 45
-busca:
+RET 
+#LINE 25
+f:
 'Parameters:
-	'i:int
-'Body
-#LINE 46
-push BP
-pushi 4
-addi
-loadi
-pushi 0
-lti
-push BP
-pushi 4
-addi
-loadi
-pushi 4
-gei
-or
-jz ifEnd1
-ifEnd1:
-#LINE 49
-pusha 0
-push BP
-pushi 4
-addi
-loadi
-pushi 5
-muli
-addi
-pushi 0
-addi
-loadb
-outb
-#LINE 50
-pusha 0
-push BP
-pushi 4
-addi
-loadi
-pushi 5
-muli
-addi
-pushi 1
-addi
-loadf
-outf
-RET 0,0,2
-#LINE 53
-imprime:
+	'paramReal: Float
+	'paramInt:int
 'Local Definitions:
-	'i:int
-	'aux:Struct {name:Persona}
+	'localReal: Float
+	'digito:char
+	'resultado:int
 enter 7
 'Body
-#LINE 57
+#LINE 30
+push BP
+pushi -4
+addi
+push BP
+pushi 6
+addi
+loadf
+pushf 10.0
+mulf
+storef
+#LINE 31
+push BP
+pushi -5
+addi
+pushb 48
+storeb
+#LINE 32
+push BP
+pushi 4
+addi
+loadi
+pushi 256
+lti
+jz elseBody1
+#LINE 33
+push BP
+pushi -5
+addi
+push BP
+pushi 4
+addi
+loadi
+i2b
+storeb
+#LINE 34
+push BP
+pushi -7
+addi
+push BP
+pushi -5
+addi
+loadb
+b2i
+storei
+jmp ifEnd1
+elseBody1:
+#LINE 37
+push BP
+pushi -7
+addi
+push BP
+pushi -4
+addi
+loadf
+f2i
+storei
+ifEnd1:
+#LINE 39
+push BP
+pushi -7
+addi
+loadi
+RET 2,7,6
+#LINE 43
+inicializa:
+'Local Definitions:
+	'i:int
+enter 2
+'Body
+#LINE 46
+pusha 11
+pushi 0
+pushi 6
+muli
+addi
+pushi 0
+pushi 2
+muli
+addi
+pushi 0
+storei
+#LINE 47
+pusha 11
+pushi 0
+pushi 6
+muli
+addi
+pushi 1
+pushi 2
+muli
+addi
+pushi 1
+storei
+#LINE 48
+pusha 11
+pushi 0
+pushi 6
+muli
+addi
+pushi 2
+pushi 2
+muli
+addi
+pushi 1
+storei
+#LINE 49
+push BP
+pushi -2
+addi
+pushi 1
+storei
+#LINE 50
+whileStart2 :
+push BP
+pushi -2
+addi
+loadi
+pushi 8
+lti
+jz whileEnd2
+#LINE 51
+pusha 11
+push BP
+pushi -2
+addi
+loadi
+pushi 6
+muli
+addi
+pushi 0
+pushi 2
+muli
+addi
+pusha 11
+push BP
+pushi -2
+addi
+loadi
+pushi 1
+subi
+pushi 6
+muli
+addi
+pushi 1
+pushi 2
+muli
+addi
+loadi
+storei
+#LINE 52
+pusha 11
+push BP
+pushi -2
+addi
+loadi
+pushi 6
+muli
+addi
+pushi 1
+pushi 2
+muli
+addi
+pusha 11
+push BP
+pushi -2
+addi
+loadi
+pushi 1
+subi
+pushi 6
+muli
+addi
+pushi 2
+pushi 2
+muli
+addi
+loadi
+storei
+#LINE 53
+pusha 11
+push BP
+pushi -2
+addi
+loadi
+pushi 6
+muli
+addi
+pushi 2
+pushi 2
+muli
+addi
+pusha 11
+push BP
+pushi -2
+addi
+loadi
+pushi 6
+muli
+addi
+pushi 0
+pushi 2
+muli
+addi
+loadi
+pusha 11
+push BP
+pushi -2
+addi
+loadi
+pushi 6
+muli
+addi
+pushi 1
+pushi 2
+muli
+addi
+loadi
+addi
+storei
+#LINE 54
+push BP
+pushi -2
+addi
+push BP
+pushi -2
+addi
+loadi
+pushi 1
+addi
+storei
+jmp whileStart2
+whileEnd2:
+RET 0,2,0
+#LINE 60
+main:
+'Local Definitions:
+	'i:int
+	'j:int
+enter 4
+'Body
+#LINE 64
+call p
+#LINE 66
 push BP
 pushi -2
 addi
 pushi 0
 storei
-#LINE 58
-whileStart1:
+#LINE 67
+pusha 0
+pushi 2
+addi
+pushb 48
+storeb
+#LINE 68
+pusha 0
+pushi 0
+addi
+pushb 48
+b2i
+storei
+#LINE 70
+push BP
+pushi -2
+addi
+loadi
+i2f
+pusha 0
+pushi 2
+addi
+loadb
+b2i
+call f
+outi
+pushb 10
+outb
+#LINE 71
+pushf 1.3
+pushi 2
+call f
+popi
+#LINE 73
+call inicializa
+#LINE 74
+push BP
+pushi -2
+addi
+pushi 0
+storei
+#LINE 75
+whileStart3 :
+push BP
+pushi -2
+addi
+loadi
+pushi 8
+lti
+jz whileEnd3
+#LINE 76
+pushb 40
+outb
+#LINE 77
+push BP
+pushi -2
+addi
+loadi
+pushi 1
+addi
+outi
+#LINE 78
+pushb 41
+outb
+#LINE 79
+pushb 32
+outb
+#LINE 80
+pusha 11
+push BP
+pushi -2
+addi
+loadi
+pushi 6
+muli
+addi
+pushi 0
+pushi 2
+muli
+addi
+loadi
+outi
+#LINE 81
+pushb 43
+outb
+#LINE 82
+pusha 11
+push BP
+pushi -2
+addi
+loadi
+pushi 6
+muli
+addi
+pushi 1
+pushi 2
+muli
+addi
+loadi
+outi
+#LINE 83
+pushb 61
+outb
+#LINE 84
+pusha 11
+push BP
+pushi -2
+addi
+loadi
+pushi 6
+muli
+addi
+pushi 2
+pushi 2
+muli
+addi
+loadi
+outi
+#LINE 85
+pushb 92
+outb
+#LINE 86
+push BP
+pushi -2
+addi
+push BP
+pushi -2
+addi
+loadi
+pushi 1
+addi
+storei
+jmp whileStart3
+whileEnd3:
+#LINE 89
+pusha 3
+pushi 1
+pushi 4
+muli
+addi
+pushi 0
+addi
+pushi 1
+pushi 2
+muli
+addi
+pushi 0
+addi
+pushi 56
+storei
+#LINE 90
+pusha 3
+pushi 1
+pushi 4
+muli
+addi
+pushi 0
+addi
+pushi 1
+pushi 2
+muli
+addi
+pushi 0
+addi
+loadi
+outi
+pushb 10
+outb
+#LINE 92
+push BP
+pushi -2
+addi
+pushi 0
+storei
+#LINE 93
+whileStart4 :
+push BP
+pushi -2
+addi
+loadi
+pushi 2
+lti
+jz whileEnd4
+#LINE 94
+push BP
+pushi -4
+addi
+pushi 0
+storei
+#LINE 95
+whileStart5 :
+push BP
+pushi -4
+addi
+loadi
+pushi 2
+lti
+jz whileEnd5
+#LINE 96
+pusha 3
 push BP
 pushi -2
 addi
 loadi
 pushi 4
-gei
-not
-jz whileEnd1
-#LINE 59
-push BP
-pushi -7
-addi
-pushi 0
-addi
-pusha 0
-push BP
-pushi -2
-addi
-loadi
-pushi 5
 muli
 addi
 pushi 0
 addi
-loadb
-storeb
-#LINE 60
 push BP
-pushi -7
+pushi -4
 addi
-pushi 1
+loadi
+pushi 2
+muli
 addi
-pusha 0
+pushi 0
+addi
 push BP
 pushi -2
 addi
 loadi
-pushi 5
-muli
+push BP
+pushi -4
 addi
+loadi
+addi
+storei
+#LINE 97
+push BP
+pushi -4
+addi
+push BP
+pushi -4
+addi
+loadi
 pushi 1
 addi
-loadf
-storef
-#LINE 62
+storei
+jmp whileStart5
+whileEnd5:
+#LINE 99
 push BP
-pushi -7
+pushi -2
+addi
+push BP
+pushi -2
+addi
+loadi
+pushi 1
+addi
+storei
+jmp whileStart4
+whileEnd4:
+#LINE 103
+push BP
+pushi -2
+addi
+pushi 0
+storei
+#LINE 104
+whileStart6 :
+push BP
+pushi -2
+addi
+loadi
+pushi 2
+lti
+jz whileEnd6
+#LINE 105
+push BP
+pushi -4
+addi
+pushi 0
+storei
+#LINE 106
+whileStart7 :
+push BP
+pushi -4
+addi
+loadi
+pushi 2
+lti
+jz whileEnd7
+#LINE 107
+pusha 3
+push BP
+pushi -2
+addi
+loadi
+pushi 4
+muli
 addi
 pushi 0
 addi
-loadb
+push BP
+pushi -4
+addi
+loadi
+pushi 2
+muli
+addi
+pushi 0
+addi
+loadi
+outi
+pushb 32
 outb
-#LINE 63
+#LINE 108
 push BP
-pushi -7
+pushi -4
 addi
+push BP
+pushi -4
+addi
+loadi
 pushi 1
 addi
-loadf
-outf
-#LINE 65
+storei
+jmp whileStart7
+whileEnd7:
+#LINE 110
 push BP
 pushi -2
 addi
@@ -215,34 +610,6 @@ loadi
 pushi 1
 addi
 storei
-jmp whileStart1
-whileEnd1:
-#LINE 67
-push BP
-pushi -2
-addi
-loadi
-RET 2,7,0
-#LINE 70
-main:
-'Local Definitions:
-	'posicion:int
-enter 2
-'Body
-#LINE 73
-call inicia
-#LINE 75
-push BP
-pushi -2
-addi
-ini
-storei
-#LINE 76
-push BP
-pushi -2
-addi
-loadi
-call busca
-#LINE 78
-call imprime
-RET 0,2,0
+jmp whileStart6
+whileEnd6:
+RET 0,4,0

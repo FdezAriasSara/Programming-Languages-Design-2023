@@ -76,7 +76,7 @@ expression returns [Expression ast]
             | left=expression operator=('*'|'/'|'%') right=expression {$ast=new ArithmeticExpression($left.ast, $operator, $right.ast);}
             | left=expression operator=('+'|'-') right=expression {$ast=new ArithmeticExpression($left.ast, $operator, $right.ast);}
             | left=expression operator=('>'|'<'|'>='|'<='|'=='|'!=') right=expression {$ast=new Comparison($left.ast, $operator, $right.ast);}
-            | left=expression '&&' right=expression {$ast=new And($left.ast , $right.ast);}
+            | left=expression '&&' right=expression {$ast=new And($left.ast , $right.ast);}//And has more precedence than or.
             | left=expression '||' right=expression {$ast=new Or($left.ast, $right.ast);}
             ;
 

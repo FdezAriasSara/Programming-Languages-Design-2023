@@ -345,21 +345,21 @@ public class SourcecodeGenerator extends DefaultVisitor{
         return null;
     }
 
-    //	class LiteralInt { String value; }
+    //	class LiteralInt { int value; }
     public Object visit(LiteralInt node, Object param) {
-        write(node.getValue());
+        write(String.valueOf(node.getValue()));
         return null;
     }
 
-    //	class LiteralFloat { String value; }
+    //	class LiteralFloat { double value; }
     public Object visit(LiteralFloat node, Object param) {
-        write(node.getValue());
+        write(String.valueOf(node.getValue()));
         return null;
     }
 
-    //	class LiteralChar { String value; }
+    //	class LiteralChar { char value; }
     public Object visit(LiteralChar node, Object param) {
-        write(node.getValue());
+        write(String.valueOf(node.getValue()));
         return null;
     }
 }

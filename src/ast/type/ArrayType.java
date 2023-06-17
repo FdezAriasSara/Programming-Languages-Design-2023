@@ -61,7 +61,7 @@ public class ArrayType extends AbstractType {
 	private Type type;
 
 	public String toString() {
-		return "{dimension:" + getDimension() + ", type:" + getType() + "}";
+		return "" + getDimension() + " * " + getType() ;
 	}
 
 

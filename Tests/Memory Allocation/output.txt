@@ -2,15 +2,17 @@
 call main
 halt
 #GLOBAL a : char
-' Struct Persona
-	' edad :int
-	' meses :{dimension:12, type:int}
-	' a : Float
+#TYPE Persona:{
+	edad:int
+	meses:12 * int
+	a: Float
+}
 #GLOBAL b :  Float
-' Struct Prueba
-	' campo1 :int
-	' campo2 :int
-#GLOBAL c : {dimension:2, type:{name:Persona}}
+#TYPE Prueba:{
+	campo1:int
+	campo2:int
+}
+#GLOBAL c : 2 * Persona
 #GLOBAL d : int
 #LINE 33
 f:
@@ -21,8 +23,17 @@ f:
 'Local Definitions:
 	'c:char
 	'd:int
-	'e:{dimension:2, type:{name:Persona}}
+	'e:2 * Persona
 	'f: Float
 enter 67
 'Body
 RET 0,67,7
+#LINE 40
+main:
+'Body
+#LINE 41
+pushi 1
+pushf 3.3
+pushb 118
+call f
+RET 
