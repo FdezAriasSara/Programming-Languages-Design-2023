@@ -1,7 +1,7 @@
-#SOURCE "GenericNoErrorTest.txt"
+#SOURCE "Test 4.txt"
 call main
 halt
-#LINE 1
+#LINE 17
 potencia:
 'Parameters:
 	'base: Float
@@ -10,7 +10,7 @@ potencia:
 	'total: Float
 enter 4
 'Body
-#LINE 4
+#LINE 20
 push BP
 pushi 4
 addi
@@ -18,7 +18,7 @@ loadi
 pushi 0
 eqi
 jz elseBody1
-#LINE 5
+#LINE 21
 push BP
 pushi -4
 addi
@@ -26,7 +26,7 @@ pushf 1.0
 storef
 jmp ifEnd1
 elseBody1:
-#LINE 7
+#LINE 23
 push BP
 pushi 4
 addi
@@ -34,7 +34,7 @@ loadi
 pushi 0
 lti
 jz elseBody2
-#LINE 8
+#LINE 24
 push BP
 pushi -4
 addi
@@ -54,7 +54,7 @@ divf
 storef
 jmp ifEnd2
 elseBody2:
-#LINE 10
+#LINE 26
 push BP
 pushi -4
 addi
@@ -63,7 +63,7 @@ pushi 6
 addi
 loadf
 storef
-#LINE 11
+#LINE 27
 whileStart3 :
 push BP
 pushi 4
@@ -72,7 +72,7 @@ loadi
 pushi 1
 gti
 jz whileEnd3
-#LINE 12
+#LINE 28
 push BP
 pushi -4
 addi
@@ -86,7 +86,7 @@ addi
 loadf
 mulf
 storef
-#LINE 13
+#LINE 29
 push BP
 pushi 4
 addi
@@ -101,13 +101,13 @@ jmp whileStart3
 whileEnd3:
 ifEnd2:
 ifEnd1:
-#LINE 17
+#LINE 33
 push BP
 pushi -4
 addi
 loadf
 RET 4,4,6
-#LINE 21
+#LINE 37
 letraHipoteca:
 'Parameters:
 	'capital: Float
@@ -117,7 +117,7 @@ letraHipoteca:
 	'mensual: Float
 enter 4
 'Body
-#LINE 24
+#LINE 40
 push BP
 pushi -4
 addi
@@ -128,7 +128,7 @@ loadf
 pushf 12.0
 divf
 storef
-#LINE 25
+#LINE 41
 push BP
 pushi 10
 addi
@@ -159,39 +159,21 @@ subf
 mulf
 divf
 RET 4,4,10
-#LINE 29
-calculoHipotecaAlMes:
+#LINE 45
+main:
 'Local Definitions:
 	'precioVivienda: Float
 	'mesesHipoteca:int
 	'interes: Float
 enter 10
 'Body
-#LINE 34
-push BP
-pushi -4
-addi
-inf
-storef
-#LINE 35
-push BP
-pushi -6
-addi
-ini
-storei
-#LINE 36
-push BP
-pushi -10
-addi
-inf
-storef
-#LINE 38
+#LINE 55
 push BP
 pushi -4
 addi
 pushf 200000.0
 storef
-#LINE 39
+#LINE 56
 push BP
 pushi -6
 addi
@@ -199,13 +181,13 @@ pushi 30
 pushi 12
 muli
 storei
-#LINE 40
+#LINE 57
 push BP
 pushi -10
 addi
 pushf 2.04
 storef
-#LINE 43
+#LINE 59
 push BP
 pushi -4
 addi
@@ -219,4 +201,5 @@ pushi -10
 addi
 loadf
 call letraHipoteca
-RET 4,10,0
+outf
+RET 0,10,0

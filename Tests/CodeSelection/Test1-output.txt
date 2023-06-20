@@ -1,0 +1,62 @@
+#SOURCE "Test 1.txt"
+call main
+halt
+#GLOBAL global :  Float
+#LINE 22
+doble:
+'Parameters:
+	'valor:int
+'Body
+#LINE 23
+push BP
+pushi 4
+addi
+loadi
+pushi 2
+muli
+RET 2,0,2
+#LINE 26
+main:
+'Local Definitions:
+	'local:int
+enter 2
+'Body
+#LINE 29
+pusha 0
+pushf 1.0
+storef
+#LINE 30
+push BP
+pushi -2
+addi
+pushi 2
+storei
+#LINE 32
+pusha 0
+loadf
+pushf 2.0
+ltf
+jz elseBody1
+#LINE 33
+pushi 1
+outi
+pushb 10
+outb
+jmp ifEnd1
+elseBody1:
+#LINE 35
+push BP
+pushi -2
+addi
+loadi
+outi
+pushb 10
+outb
+ifEnd1:
+#LINE 38
+pushi 2
+call doble
+outi
+pushb 10
+outb
+RET 0,2,0

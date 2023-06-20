@@ -17,7 +17,7 @@ public class Return extends AbstractStatement {
 
 	public Return(Expression expression) {
 		this.expression = expression;
-
+		setReturnStatement(true);
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
        setPositions(expression);
@@ -25,7 +25,7 @@ public class Return extends AbstractStatement {
 
 	public Return(Object expression) {
 		this.expression = (Expression) getAST(expression);
-
+		setReturnStatement(true);
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
        setPositions(expression);
@@ -50,7 +50,7 @@ public class Return extends AbstractStatement {
        return "{expression:" + getExpression() + "}";
    }
 
-   //type checking
+   //Semantic Analysis
    private FunctionDefinition functionDefinition;
     public void setFunctionDefinition(FunctionDefinition param) {
 		this.functionDefinition=param;

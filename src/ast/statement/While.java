@@ -16,7 +16,7 @@ public class While extends AbstractStatement {
 	public While(Expression condition, List<Statement> body) {
 		this.condition = condition;
 		this.body = body;
-
+		setReturnStatement(this.body.stream().anyMatch(stmt-> stmt.hasReturnStatement()));
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
        setPositions(condition, body);
@@ -29,6 +29,7 @@ public class While extends AbstractStatement {
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
        setPositions(condition, body);
+		setReturnStatement(this.body.stream().anyMatch(stmt-> stmt.hasReturnStatement()));
 	}
 
 	public Expression getCondition() {

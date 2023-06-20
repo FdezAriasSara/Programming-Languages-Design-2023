@@ -1,0 +1,280 @@
+#SOURCE "Test 3.txt"
+call main
+halt
+#TYPE Piloto:{
+	inicial:char
+	crono:3 *  Float
+}
+#GLOBAL F1 : 3 * Piloto
+#LINE 27
+inicia:
+'Parameters:
+	'i:int
+	'inicial:char
+	'q1: Float
+	'q2: Float
+	'q3: Float
+'Body
+#LINE 28
+pusha 0
+push BP
+pushi 17
+addi
+loadi
+pushi 13
+muli
+addi
+pushi 0
+addi
+push BP
+pushi 16
+addi
+loadb
+storeb
+#LINE 29
+pusha 0
+push BP
+pushi 17
+addi
+loadi
+pushi 13
+muli
+addi
+pushi 1
+addi
+pushi 0
+pushi 4
+muli
+addi
+push BP
+pushi 12
+addi
+loadf
+storef
+#LINE 30
+pusha 0
+push BP
+pushi 17
+addi
+loadi
+pushi 13
+muli
+addi
+pushi 1
+addi
+pushi 1
+pushi 4
+muli
+addi
+push BP
+pushi 8
+addi
+loadf
+storef
+#LINE 31
+pusha 0
+push BP
+pushi 17
+addi
+loadi
+pushi 13
+muli
+addi
+pushi 1
+addi
+pushi 2
+pushi 4
+muli
+addi
+push BP
+pushi 4
+addi
+loadf
+storef
+RET 0,0,15
+#LINE 34
+imprimeElMejor:
+'Local Definitions:
+	'mejorPiloto:int
+	'menorCrono: Float
+	'ultimaCrono: Float
+	'i:int
+enter 12
+'Body
+#LINE 40
+push BP
+pushi -6
+addi
+pushf 1000.0
+storef
+#LINE 41
+push BP
+pushi -12
+addi
+pushi 0
+storei
+#LINE 42
+whileStart1 :
+push BP
+pushi -12
+addi
+loadi
+pushi 3
+lti
+jz whileEnd1
+#LINE 43
+push BP
+pushi -10
+addi
+pusha 0
+push BP
+pushi -12
+addi
+loadi
+pushi 13
+muli
+addi
+pushi 1
+addi
+pushi 2
+pushi 4
+muli
+addi
+loadf
+storef
+#LINE 44
+push BP
+pushi -10
+addi
+loadf
+push BP
+pushi -6
+addi
+loadf
+ltf
+jz ifEnd2
+#LINE 45
+push BP
+pushi -6
+addi
+push BP
+pushi -10
+addi
+loadf
+storef
+#LINE 46
+push BP
+pushi -2
+addi
+push BP
+pushi -12
+addi
+loadi
+storei
+ifEnd2:
+#LINE 48
+push BP
+pushi -12
+addi
+push BP
+pushi -12
+addi
+loadi
+pushi 1
+addi
+storei
+jmp whileStart1
+whileEnd1:
+#LINE 51
+pusha 0
+push BP
+pushi -2
+addi
+loadi
+pushi 13
+muli
+addi
+pushi 0
+addi
+loadb
+outb
+pushb 10
+outb
+#LINE 52
+push BP
+pushi -12
+addi
+pushi 0
+storei
+#LINE 53
+whileStart3 :
+push BP
+pushi -12
+addi
+loadi
+pushi 3
+lti
+jz whileEnd3
+#LINE 54
+pusha 0
+push BP
+pushi -2
+addi
+loadi
+pushi 13
+muli
+addi
+pushi 1
+addi
+push BP
+pushi -12
+addi
+loadi
+pushi 4
+muli
+addi
+loadf
+outf
+pushb 10
+outb
+#LINE 55
+push BP
+pushi -12
+addi
+push BP
+pushi -12
+addi
+loadi
+pushi 1
+addi
+storei
+jmp whileStart3
+whileEnd3:
+RET 0,12,0
+#LINE 59
+main:
+'Body
+#LINE 60
+pushi 0
+pushb 65
+pushf 1.5
+pushf 1.49
+pushf 1.48
+call inicia
+#LINE 61
+pushi 1
+pushb 72
+pushf 1.52
+pushf 1.51
+pushf 1.5
+call inicia
+#LINE 62
+pushi 2
+pushb 86
+pushf 1.54
+pushf 1.52
+pushf 1.51
+call inicia
+#LINE 64
+call imprimeElMejor
+RET 

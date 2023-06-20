@@ -23,6 +23,9 @@ g():Persona {	// Error: Retorno de tipo no simple
 f(a:[10] int) {	// Los parámetros deben de ser tipos primitivos
 	return 25;	// El return no debe tener expresión en funciones void
 }
+funcionVoid(){
+    return;
+}
 
 h(a:int, b:int):int {
 	if(a > 10) {

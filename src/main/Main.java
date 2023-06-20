@@ -28,14 +28,13 @@ import codegeneration.*;
  * - Para Generación de Código: 'MemoryAllocation.java' y 'CodeSelection.java'.
  */
 public class Main {
-    public static final String INPUT_FILE ="Tests/Memory Allocation/Test Gestion de Memoria.txt"; // Fichero de prueba durante el desarrollo
-    public static final String OUTPUT_FILE = "output.txt";
+    public static final String INPUT_FILE ="Tests/CodeSelection/TestReturnStatements.txt"; // Fichero de prueba durante el desarrollo
+    public static final String OUTPUT_FILE = "Test6-output.txt";
 
     public static void main(String[] args) throws Exception {
         ErrorManager errorManager = new ErrorManager();
-
         AST ast = compile(INPUT_FILE, errorManager); // Sustituir "INPUT_FILE" por args[0] en la versión final
-
+       // AST ast = compile(args[0], errorManager);
         if (errorManager.errorsCount() == 0)
             System.out.println("El programa se ha compilado correctamente.");
 

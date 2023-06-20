@@ -28,7 +28,7 @@ main() {
    print 3 + anton.meses[1];
 
    print (juan.meses[2] - anton.meses[1]) + i/<int>(f);
-   print h(20,39) / (i/f);
+   print h(20,39) / (i/f);//La expresiones deben ser del mismo tipo en operaciones aritméticas
 
     i=main() + 2; //Main es tipo void por tanto no hay nada que sumar.
     i=juan.meses[2] + f;// f es tipo float y meses tiene ints, además de que i es int.

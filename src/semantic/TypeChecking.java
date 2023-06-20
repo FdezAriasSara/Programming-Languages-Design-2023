@@ -46,9 +46,12 @@ public class TypeChecking extends DefaultVisitor {
                 child.accept(this, param);
 
         if (node.getStatements() != null)
+
             for (Statement child : node.getStatements())
                 child.accept(this, node);//IMPORTANT-> THE FUNCTION DEF NODE PASSES ITSELF SO ALL STAEMENTS CAN ACCESS IT.
 
+
+        node.setReturnStatement(node.getStatements().stream().anyMatch(stmt-> stmt.hasReturnStatement()));
         return null;
     }
 
@@ -71,6 +74,9 @@ public class TypeChecking extends DefaultVisitor {
     public Object visit(IfStatement node, Object param) {
        super.visit(node, param);
         predicado(node.getCondition().getType() instanceof IntType, "La condición debe ser de tipo entero." ,node);
+        if(!node.getElseBody().isEmpty()){//It will only be true if theres both an if and an else branch, and both have return statemetn.s
+            node.setReturnStatement(node.getBody().stream().anyMatch(stmt -> stmt.hasReturnStatement()) && node.getElseBody().stream().anyMatch(stmt -> stmt.hasReturnStatement()));
+        }
         return null;
     }
 
@@ -78,6 +84,7 @@ public class TypeChecking extends DefaultVisitor {
     public Object visit(While node, Object param) {
           super.visit(node, param);
         predicado(node.getCondition().getType() instanceof IntType, "La condición debe ser de tipo entero." ,node);
+        node.setReturnStatement(node.getBody().stream().anyMatch(stmt -> stmt.hasReturnStatement()));
         return null;
     }
 
@@ -94,7 +101,7 @@ public class TypeChecking extends DefaultVisitor {
     public Object visit(InvocationStatement node, Object param) {
         super.visit(node, param);
         boolean sameSize=node.getParameters().size() == node.getDefinition().getParameters().size();
-        predicado(sameSize,"El número de argumentos recibidos("+node.getDefinition().getParameters().size()+") no coincide con el esperado ("+node.getDefinition().getParameters().size()+")", node);
+        predicado(sameSize,"El número de argumentos recibidos ("+node.getParameters().size()+") no coincide con el esperado ("+node.getDefinition().getParameters().size()+")", node);
         if(sameSize) {
             predicado(checkArguments(node.getDefinition().getParameters(), node.getParameters()), "El tipo de los parámetros de la invoación no fueron los esperados.", node);
         }
@@ -153,7 +160,7 @@ public class TypeChecking extends DefaultVisitor {
         isInt=node.getLeft().getType() instanceof IntType;
         isFloat=node.getLeft().getType() instanceof FloatType;
         predicado((isInt || isFloat) , "Los operadores de comparación solo pueden aplicarse a Enteros o Reales.", node);
-        node.setType(new IntType());//TODO ? SE PUEDE "HARDCODEAR ASI?
+        node.setType(new IntType());
         return null;
     }
 
@@ -161,7 +168,7 @@ public class TypeChecking extends DefaultVisitor {
     public Object visit(And node, Object param) {
 
          super.visit(node, param);
-        predicado(node.getLeft().getType()==node.getRight().getType(),"El operador And solo puede usarse con expresiones del mismo tipo .",node);
+        predicado(node.getLeft().getType().equals(node.getRight().getType()),"El operador And solo puede usarse con expresiones del mismo tipo .",node);
         predicado(node.getLeft().getType() instanceof IntType, "El operador And solo puede usarse con expresiones de tipo IntType.", node );
         node.setType(node.getLeft().getType());
 

@@ -14,13 +14,15 @@ import visitor.*;
 //	FunctionDefinition:definition -> name:String  parameters:varDefinition*  returnType:type  localDefs:VarDefinition*  statements:statement*
 
 public class FunctionDefinition extends AbstractDefinition {
-
+	private boolean hasReturnStatement=false;
 	public FunctionDefinition(String name, List<VarDefinition> parameters, Type returnType, List<VarDefinition> localDefs, List<Statement> statements) {
 		this.name = name;
 		this.parameters = parameters;
 		this.returnType = returnType;
 		this.localDefs = localDefs;
 		this.statements = statements;
+		setReturnStatement(statements.stream().anyMatch(stmt->stmt.hasReturnStatement()));
+
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
@@ -33,7 +35,7 @@ public class FunctionDefinition extends AbstractDefinition {
 		this.returnType = (Type) getAST(returnType);
 		this.localDefs = this.<VarDefinition>getAstFromContexts(localDefs);
 		this.statements = this.<Statement>getAstFromContexts(statements);
-
+		setReturnStatement(this.statements.stream().anyMatch(stmt->stmt.hasReturnStatement()));
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
        setPositions(name, parameters, returnType, localDefs, statements);
@@ -45,6 +47,11 @@ public class FunctionDefinition extends AbstractDefinition {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public boolean hasReturnStatement() {
+		return hasReturnStatement;
+	}
+	public void setReturnStatement(boolean hasReturn) {this.hasReturnStatement=hasReturn;}
 
 	public List<VarDefinition> getParameters() {
 		return parameters;
@@ -89,6 +96,7 @@ public class FunctionDefinition extends AbstractDefinition {
        return "{name:" + getName() + ", parameters:" + getParameters() + ", returnType:" + getReturnType() + ", localDefs:" + getLocalDefs() + ", statements:" + getStatements() + "}";
    }
 
+
    //Code Selection
 	public int getParameterSize(){
 		int totalSize=0;
@@ -97,4 +105,6 @@ public class FunctionDefinition extends AbstractDefinition {
 		}
 		return totalSize;
 	}
+
+	//For local variables I simply access the offset of the last one and change it's sign.
 }

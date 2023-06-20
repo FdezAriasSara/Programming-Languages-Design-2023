@@ -33,6 +33,7 @@ public class CodeSelection extends DefaultVisitor {
         instruction.put("-","sub");
         instruction.put("*","mul");
         instruction.put("/","div");
+        instruction.put("%","mod");
         instruction.put(">","gt");
         instruction.put(">=","ge");
         instruction.put("==","eq");
@@ -86,25 +87,26 @@ public class CodeSelection extends DefaultVisitor {
         int localDefsSize=0;
         if (node.getLocalDefs() != null) {
             if(node.getLocalDefs().size()>0){
-                localDefsSize=-node.getLocalDefs().get(node.getLocalDefs().size()-1).getDirection();
+
                 out("'Local Definitions:");
                 for (VarDefinition child : node.getLocalDefs()) {
                     child.accept(this, CodeFunction.DEFINE);
+
                 }
+                localDefsSize=-node.getLocalDefs().get(node.getLocalDefs().size()-1).getDirection();
                 out("enter "+localDefsSize);
             }
         }
-        boolean hasRetStatement=false;
         if (node.getStatements() != null) {
             out("'Body");
             for (Statement child : node.getStatements()) {
                 if(child.getStart()!=null) {out("#LINE "+child.getStart().getLine());}
-                if(child instanceof Return){hasRetStatement=true;}
-                child.accept(this, CodeFunction.EXECUTE);
+              child.accept(this, CodeFunction.EXECUTE);
             }
         }
 
-        if(!hasRetStatement) { //In case the function has neither a return type nor a return statement.
+        if(!node.hasReturnStatement() && node.getReturnType() instanceof  VoidType) {
+            //An implicit return will only be generated when the function is voidType)
             if (parametersSize + localDefsSize + returnSize == 0) {
                 out("RET ");
             } else {

@@ -20,10 +20,12 @@ public class IfStatement extends AbstractStatement {
 		this.body = body;
 		this.elseBody = elseBody;
 
-       // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
+
+	       // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
        setPositions(condition, body, elseBody);
 	}
+
 
 	public IfStatement(Object condition, Object body, Object elseBody) {
 		this.condition = (Expression) getAST(condition);
@@ -68,4 +70,6 @@ public class IfStatement extends AbstractStatement {
 	public String toString() {
        return "{condition:" + getCondition() + ", body:" + getBody() + ", elseBody:" + getElseBody() + "}";
    }
+
+
 }

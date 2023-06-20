@@ -9,5 +9,6 @@ import ast.type.Type;
 
 public interface Statement extends AST {
 
-
+    boolean hasReturnStatement();
+     void setReturnStatement(boolean hasReturn);
 }

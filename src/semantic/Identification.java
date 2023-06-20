@@ -29,7 +29,7 @@ public class Identification extends DefaultVisitor {
 
          variables.set();//Initialize global scope.
          super.visit(node, param);
-        variables.reset();//todo:Teminate scope (is it necessary?
+        variables.reset();
         structs.clear(); //Since structs are defined on a global scope
 
         return null;

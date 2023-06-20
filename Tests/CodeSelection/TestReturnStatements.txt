@@ -1,0 +1,41 @@
+/**
+* Test para comprobar que se genera correctamente el código de las funciones en las que hay varios return statements.
+* así como aquellas funciones que no tienen return statement explícito.
+*
+*/
+
+
+devuelveUnaOpcion(opcion:int):char{
+	var i:int;
+    if(opcion>=0 && opcion<=10){
+        return 'A';//RET 1, 2,2
+    }else{
+    i = opcion;
+    	while (i >= 0 ) {
+
+    		if (i%2==0) {
+    		      return <char>(i+10);//RET 1, 2,2
+    		}
+    		i = i - 1;
+    	}
+        return <char> (i);//RET 1, 2,2
+    }
+//No debería imprimirse un tercer ret ya que ambas ramas del ifelse tienen una sentencia return y por tanto ,
+//body.statements.stream().anyMatch(stmt->stmt.hasReturn) evaluaría a true.
+}
+
+imprimeAlgo() {
+    var input:int;
+    read input;
+    if(input==0) {
+	    print 'w';
+	    return;
+	}
+	print input;
+}
+
+main() {
+    println devuelveUnaOpcion(0); //Imprimirá 'A'
+    println devuelveUnaOpcion(25); //Imprimirá <char>(24+10)= "
+    imprimeAlgo();//Si introducimos 0 debería salir w, si introducimos cualquier otra cosa, el valor de ese input.
+}

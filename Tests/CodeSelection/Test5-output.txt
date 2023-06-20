@@ -397,7 +397,7 @@ addi
 loadi
 outi
 #LINE 85
-pushb 92
+pushb 10
 outb
 #LINE 86
 push BP

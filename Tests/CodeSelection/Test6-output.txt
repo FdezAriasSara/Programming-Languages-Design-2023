@@ -1,0 +1,140 @@
+#SOURCE "Test 6.txt"
+call main
+halt
+#LINE 8
+devuelveUnaOpcion:
+'Parameters:
+	'opcion:int
+'Local Definitions:
+	'i:int
+enter 2
+'Body
+#LINE 10
+push BP
+pushi 4
+addi
+loadi
+pushi 0
+gei
+push BP
+pushi 4
+addi
+loadi
+pushi 10
+lei
+and
+jz elseBody1
+#LINE 11
+pushb 65
+RET 1,2,2
+jmp ifEnd1
+elseBody1:
+#LINE 13
+push BP
+pushi -2
+addi
+push BP
+pushi 4
+addi
+loadi
+storei
+#LINE 14
+whileStart2 :
+push BP
+pushi -2
+addi
+loadi
+pushi 0
+gei
+jz whileEnd2
+#LINE 16
+push BP
+pushi -2
+addi
+loadi
+pushi 2
+modi
+pushi 0
+eqi
+jz ifEnd3
+#LINE 17
+push BP
+pushi -2
+addi
+loadi
+pushi 10
+addi
+i2b
+RET 1,2,2
+ifEnd3:
+#LINE 19
+push BP
+pushi -2
+addi
+push BP
+pushi -2
+addi
+loadi
+pushi 1
+subi
+storei
+jmp whileStart2
+whileEnd2:
+#LINE 21
+push BP
+pushi -2
+addi
+loadi
+i2b
+RET 1,2,2
+ifEnd1:
+#LINE 27
+imprimeAlgo:
+'Local Definitions:
+	'input:int
+enter 2
+'Body
+#LINE 29
+push BP
+pushi -2
+addi
+ini
+storei
+#LINE 30
+push BP
+pushi -2
+addi
+loadi
+pushi 0
+eqi
+jz ifEnd4
+#LINE 31
+pushb 119
+outb
+RET 0,2,0
+ifEnd4:
+#LINE 34
+push BP
+pushi -2
+addi
+loadi
+outi
+RET 0,2,0
+#LINE 37
+main:
+'Body
+#LINE 38
+pushi 0
+call devuelveUnaOpcion
+outb
+pushb 10
+outb
+#LINE 39
+pushi 25
+call devuelveUnaOpcion
+outb
+pushb 10
+outb
+#LINE 40
+call imprimeAlgo
+RET 
